@@ -1,0 +1,7 @@
+com\mycompany\devman\controllers\PasswordRecoveryStage1Controller.class
+com\mycompany\devman\MainApp.class
+com\mycompany\devman\controllers\EmployeePanelController.class
+com\mycompany\devman\controllers\PasswordRecoveryStage2Controller.class
+com\mycompany\devman\controllers\RegisterController.class
+com\mycompany\devman\controllers\LoginController.class
+com\mycompany\devman\controllers\ManagerPanelController.class
