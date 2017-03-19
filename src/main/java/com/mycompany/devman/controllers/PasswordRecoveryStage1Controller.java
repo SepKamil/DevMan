@@ -1,10 +1,5 @@
 package com.mycompany.devman.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +33,11 @@ public class PasswordRecoveryStage1Controller implements Initializable {
         backButton.setDisable(true);
     }    
     
+    /**
+     *  Creates a window used for 2nd stage of password recovery.
+     *  IO Exception may occur if files /fxml/PasswordRecoveryStage2.fxml 
+     *  or /styles/passwordrecoverystage2.css are missing
+     */
     public void onNextButtonClick() throws IOException {
         Stage window = (Stage)nextButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PasswordRecoveryStage2.fxml"));
@@ -53,6 +53,9 @@ public class PasswordRecoveryStage1Controller implements Initializable {
         window.close();
     }
     
+    /**
+     * Closes the Password recovery window
+     */
     public void onCancelButtonClick() {
         close();
     }

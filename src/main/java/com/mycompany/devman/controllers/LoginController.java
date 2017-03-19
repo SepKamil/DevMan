@@ -1,10 +1,5 @@
 package com.mycompany.devman.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,7 +20,9 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
     
     /**
-     * Initializes the controller class.
+     *  Creates a window used for a new developer to register into the system.
+     *  IO Exception may occur if files /fxml/Register.fxml 
+     *  or /styles/register.css are missing
      */
     
     public void onRegisterButtonClick() throws IOException {
@@ -42,6 +39,11 @@ public class LoginController implements Initializable {
         registerWindow.setY(20);
         registerWindow.show();
     }
+    /**
+     *  Creates a window used for logging into the application.
+     *  IO Exception may occur if files /fxml/ManagerPanel.fxml, /styles/managerpanel.css 
+     *  /fxml/EmployeePanel.fxml or /styles/employeepanel.css are missing
+     */
     
     public void onLoginButtonClick() throws IOException {
         Stage managerWindow = new Stage();
@@ -71,6 +73,12 @@ public class LoginController implements Initializable {
         employeeWindow.show();
     }
     
+    /**
+     *  Creates a window used for recovering forgotten passwords.
+     *  IO Exception may occur if files /fxml/PasswordRecoveryStage1.fxml 
+     *  or /styles/passwordrecoverystage1.css are missing
+     */
+    
     public void onRecoveryButtonClick() throws IOException {
         Stage recoveryWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PasswordRecoveryStage1.fxml"));
@@ -86,6 +94,9 @@ public class LoginController implements Initializable {
         recoveryWindow.show();
     }
     
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

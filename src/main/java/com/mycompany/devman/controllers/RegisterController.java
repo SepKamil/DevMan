@@ -1,10 +1,5 @@
 package com.mycompany.devman.controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,7 +25,9 @@ public class RegisterController implements Initializable {
         Stage window = (Stage) registerButton.getScene().getWindow();
         window.close();
     }
-    
+    /**
+     *  Concludes developer registation and closes the password window after the user confirms reading the message
+     */
     public void OnRegisterButtonClick() {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Informacja");
@@ -43,6 +40,9 @@ public class RegisterController implements Initializable {
       });
     }
     
+    /**
+     * Closes the Password recovery window
+     */
     public void onCancelButtonClick() {
         close();
     }
