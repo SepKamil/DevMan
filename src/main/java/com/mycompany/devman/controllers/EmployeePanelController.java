@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
 /**
@@ -24,6 +26,9 @@ public class EmployeePanelController implements Initializable {
     @FXML
     MenuBar menuBar;
 
+    @FXML
+    TabPane tabPanel;
+    
     /**
      * Initializes the controller class.
      */
@@ -62,6 +67,38 @@ public class EmployeePanelController implements Initializable {
     private void close() {
         Stage window = (Stage) menuBar.getScene().getWindow();
         window.close();
+    }
+    
+    public void onTaskManagementButtonClick() {
+        tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Zadania")).get(0));
+    }
+   
+    
+    public void onTeamInfoButtonClick() {
+        tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Zespół")).get(0));
+    }
+    
+    public void onWorkTimeButtonClick() {
+        tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Czas pracy")).get(0));
+    }
+    
+    public void onLeaveRequestsButtonClick() {
+        tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Urlopy")).get(0));
+    }
+    
+    public void onNewWorkTimeButtonClick() throws IOException {
+        Stage newWorkTimeWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/NewWorkTime.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        newWorkTimeWindow.setTitle("DevMan - Logowanie czasu pracy");
+        newWorkTimeWindow.setResizable(false);
+        newWorkTimeWindow.setScene(scene);
+        newWorkTimeWindow.setX(20);
+        newWorkTimeWindow.setY(20);
+        newWorkTimeWindow.show();
     }
     
 }

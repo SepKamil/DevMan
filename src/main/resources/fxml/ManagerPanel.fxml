@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -22,7 +21,7 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <TabPane fx:id="tabPanel" layoutY="63.0" prefHeight="337.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPanel" layoutY="30.0" prefHeight="370.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Przegląd">
                   <content>
@@ -158,11 +157,6 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <ToolBar layoutY="27.0" prefHeight="40.0" prefWidth="600.0">
-               <items>
-                  <Label text="To będzie jakiś pasek z ikonami do najczęściej używanych opcji" />
-               </items>
-            </ToolBar>
          </children>
       </Pane>
    </children>

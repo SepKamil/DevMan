@@ -21,7 +21,7 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <TabPane layoutY="65.0" prefHeight="337.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="tabPanel" layoutY="28.0" prefHeight="374.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Przegląd">
                   <content>
@@ -31,11 +31,11 @@
                               <Label layoutX="8.0" layoutY="75.0" text="Zespół ma do wykonania 20 zadań w ramach tego projektu" />
                               <Label layoutX="8.0" layoutY="136.0" text="Procent ukończenia całego projektu: 30%" />
                               <Label layoutX="8.0" layoutY="169.0" text="Dzisiaj musisz przepracować jeszcze 5 godzin" />
-                              <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" text="Zarządzaj zadaniami" />
-                              <Button layoutX="14.0" layoutY="101.0" mnemonicParsing="false" text="Zobacz informacje o zaspole" />
-                              <Button layoutX="14.0" layoutY="197.0" mnemonicParsing="false" text="Zarządzaj czasem pracy" />
+                              <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#onTaskManagementButtonClick" text="Zarządzaj zadaniami" />
+                              <Button layoutX="14.0" layoutY="101.0" mnemonicParsing="false" onAction="#onTeamInfoButtonClick" text="Zobacz informacje o zaspole" />
+                              <Button layoutX="14.0" layoutY="197.0" mnemonicParsing="false" onAction="#onWorkTimeButtonClick" text="Zarządzaj czasem pracy" />
                               <Label layoutX="14.0" layoutY="237.0" text="Do najbliższego urlopu pozostało: 17 dni" />
-                              <Button layoutX="8.0" layoutY="264.0" mnemonicParsing="false" text="Zobacz wnioski o urlop" />
+                              <Button layoutX="8.0" layoutY="264.0" mnemonicParsing="false" onAction="#onLeaveRequestsButtonClick" text="Zobacz wnioski o urlop" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -52,9 +52,8 @@
                                 </columns>
                               </TableView>
                               <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" text="Nowe" />
-                              <Button layoutX="89.0" layoutY="264.0" mnemonicParsing="false" text="Szczegóły" />
-                              <Button layoutX="187.0" layoutY="264.0" mnemonicParsing="false" text="Edytuj" />
-                              <Button layoutX="257.0" layoutY="264.0" mnemonicParsing="false" text="Usuń" />
+                              <Button layoutX="84.0" layoutY="264.0" mnemonicParsing="false" text="Edytuj" />
+                              <Button layoutX="159.0" layoutY="264.0" mnemonicParsing="false" text="Usuń" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -69,7 +68,7 @@
                                   <TableColumn prefWidth="75.0" text="Czas" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="256.0" mnemonicParsing="false" text="Loguj czas" />
+                              <Button layoutX="14.0" layoutY="256.0" mnemonicParsing="false" onAction="#onNewWorkTimeButtonClick" text="Loguj czas" />
                               <Button layoutX="115.0" layoutY="256.0" mnemonicParsing="false" text="Koryguj czas" />
                            </children></AnchorPane>
                   </content>
@@ -78,15 +77,13 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="14.0" layoutY="14.0" text="Inni członkowie zespołu" />
-                              <TableView layoutY="37.0" prefHeight="220.0" prefWidth="600.0">
+                              <TableView prefHeight="339.0" prefWidth="600.0">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="Imię" />
                                   <TableColumn prefWidth="75.0" text="Nazwisko" />
                                   <TableColumn prefWidth="107.0" text="Adres e-mail" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" text="Szczegóły" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -138,7 +135,6 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <Label layoutX="14.0" layoutY="42.0" text="To będzie jakiś pasek z ikonami do najczęściej używanych opcji" />
          </children>
       </Pane>
    </children>
