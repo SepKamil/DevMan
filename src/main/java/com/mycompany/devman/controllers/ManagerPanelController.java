@@ -125,47 +125,62 @@ public class ManagerPanelController implements Initializable {
     }
     
     public void onEditEmployeeClick() throws IOException {
-        Stage employeeAddWindow = new Stage();
+        Stage employeeEditWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditEmployee.fxml"));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
-        employeeAddWindow.setTitle("DevMan - Weryfikacja pracowników");
-        employeeAddWindow.setResizable(false);
-        employeeAddWindow.setScene(scene);
-        employeeAddWindow.setX(20);
-        employeeAddWindow.setY(20);
-        employeeAddWindow.show();
+        employeeEditWindow.setTitle("DevMan - Weryfikacja pracowników");
+        employeeEditWindow.setResizable(false);
+        employeeEditWindow.setScene(scene);
+        employeeEditWindow.setX(20);
+        employeeEditWindow.setY(20);
+        employeeEditWindow.show();
     }
     
     public void onAddTeamClick() throws IOException {
-        Stage employeeAddWindow = new Stage();
+        Stage teamAddWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditTeam.fxml"));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
-        employeeAddWindow.setTitle("DevMan - Dodawanie nowego zespołu");
-        employeeAddWindow.setResizable(false);
-        employeeAddWindow.setScene(scene);
-        employeeAddWindow.setX(20);
-        employeeAddWindow.setY(20);
-        employeeAddWindow.show();
+        teamAddWindow.setTitle("DevMan - Dodawanie nowego zespołu");
+        teamAddWindow.setResizable(false);
+        teamAddWindow.setScene(scene);
+        teamAddWindow.setX(20);
+        teamAddWindow.setY(20);
+        teamAddWindow.show();
     }
     
     public void onEditTeamClick() throws IOException {
-        Stage employeeAddWindow = new Stage();
+        Stage teamEditWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditTeam.fxml"));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
-        employeeAddWindow.setTitle("DevMan - Edycja zespołu");
-        employeeAddWindow.setResizable(false);
-        employeeAddWindow.setScene(scene);
-        employeeAddWindow.setX(20);
-        employeeAddWindow.setY(20);
-        employeeAddWindow.show();
+        teamEditWindow.setTitle("DevMan - Edycja zespołu");
+        teamEditWindow.setResizable(false);
+        teamEditWindow.setScene(scene);
+        teamEditWindow.setX(20);
+        teamEditWindow.setY(20);
+        teamEditWindow.show();
+    }
+    
+    public void onErrorsButtonClick() throws IOException {
+        Stage errorsWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TimeErrors.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        errorsWindow.setTitle("DevMan - Błędy");
+        errorsWindow.setResizable(false);
+        errorsWindow.setScene(scene);
+        errorsWindow.setX(20);
+        errorsWindow.setY(20);
+        errorsWindow.show();
     }
 }

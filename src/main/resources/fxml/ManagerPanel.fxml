@@ -37,7 +37,7 @@
                               <Label layoutX="340.0" layoutY="50.0" text="Aktualnie jest 12 zespołów" />
                               <Label layoutX="340.0" layoutY="67.0" text="Aktualnie 8 zadań jest w trakcie realizacji" />
                               <Label layoutX="20.0" layoutY="154.0" text="U 3 pracowników są błędy w rozliczeniu czasu pracy" />
-                              <Button layoutX="20.0" layoutY="182.0" mnemonicParsing="false" text="Zobacz błędy" />
+                              <Button layoutX="20.0" layoutY="182.0" mnemonicParsing="false" onAction="#onErrorsButtonClick" text="Zobacz błędy" />
                               <Label layoutX="340.0" layoutY="86.0" text="Akrualnie 13 zadań oczekuje na realizację" />
                               <Button layoutX="349.0" layoutY="116.0" mnemonicParsing="false" onAction="#onTasksInProgressClick" text="Zobacz zadania w trakcie realicacji" />
                               <Button layoutX="350.0" layoutY="182.0" mnemonicParsing="false" onAction="#onProjectsInProgressClick" text="Zobacz projekty w trakcie realizacji" />
