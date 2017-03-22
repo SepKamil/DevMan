@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="288.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.RegisterController">
+<AnchorPane id="AnchorPane" prefHeight="288.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.AddOrEditEmployeeController">
     <stylesheets>
         <URL value="@/styles/register.css" />
     </stylesheets>
@@ -17,7 +17,8 @@
       <Label layoutX="152.0" layoutY="100.0" text="Imię:" />
       <Label layoutX="140.0" layoutY="141.0" text="Nazwisko" />
       <Label layoutX="117.0" layoutY="179.0" text="Adres e-mail:" />
-      <Button layoutX="195.0" layoutY="230.0" mnemonicParsing="false" text="Dodaj" />
-      <Button layoutX="271.0" layoutY="230.0" mnemonicParsing="false" text="Anuluj" />
+      <Button layoutX="195.0" layoutY="230.0" mnemonicParsing="false" onAction="#onAddButtonClick" text="Dodaj" />
+      <Button fx:id="cancel" layoutX="271.0" layoutY="230.0" mnemonicParsing="false" onAction="#onCancelButtonClick" text="Anuluj" />
+      <Label layoutX="195.0" layoutY="43.0" text="Rejestracja pracownika" />
    </children>
 </AnchorPane>
