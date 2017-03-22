@@ -29,9 +29,9 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="20.0" layoutY="14.0" text="Nowi pracownicy oczekujący na akceptację: 2" />
-                              <Button layoutX="20.0" layoutY="41.0" mnemonicParsing="false" text="Zweryfikuj pracowników" />
+                              <Button layoutX="20.0" layoutY="41.0" mnemonicParsing="false" onAction="#onEmployeeVerifyClick" text="Zweryfikuj pracowników" />
                               <Label layoutX="20.0" layoutY="86.0" text="Liczba oczekujących wniosków o urlop: 4" />
-                              <Button layoutX="20.0" layoutY="116.0" mnemonicParsing="false" text="Rozpatruj wnioski o urlop" />
+                              <Button layoutX="20.0" layoutY="116.0" mnemonicParsing="false" onAction="#onLeaveVerifyClick" text="Rozpatruj wnioski o urlop" />
                               <Label layoutX="340.0" layoutY="14.0" text="Aktualnie prowadzonych jest 6 projektów" />
                               <Label layoutX="340.0" layoutY="33.0" text="Aktualnie 3 pracowników przebywa na urlopie" />
                               <Label layoutX="340.0" layoutY="50.0" text="Aktualnie jest 12 zespołów" />
@@ -39,8 +39,8 @@
                               <Label layoutX="20.0" layoutY="154.0" text="U 3 pracowników są błędy w rozliczeniu czasu pracy" />
                               <Button layoutX="20.0" layoutY="182.0" mnemonicParsing="false" text="Zobacz błędy" />
                               <Label layoutX="340.0" layoutY="86.0" text="Akrualnie 13 zadań oczekuje na realizację" />
-                              <Button layoutX="349.0" layoutY="116.0" mnemonicParsing="false" text="Zobacz zadania w trakcie realicacji" />
-                              <Button layoutX="350.0" layoutY="182.0" mnemonicParsing="false" text="Zobacz projekty w trakcie realizacji" />
+                              <Button layoutX="349.0" layoutY="116.0" mnemonicParsing="false" onAction="#onTasksInProgressClick" text="Zobacz zadania w trakcie realicacji" />
+                              <Button layoutX="350.0" layoutY="182.0" mnemonicParsing="false" onAction="#onProjectsInProgressClick" text="Zobacz projekty w trakcie realizacji" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
