@@ -138,4 +138,34 @@ public class ManagerPanelController implements Initializable {
         employeeAddWindow.setY(20);
         employeeAddWindow.show();
     }
+    
+    public void onAddTeamClick() throws IOException {
+        Stage employeeAddWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditTeam.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        employeeAddWindow.setTitle("DevMan - Dodawanie nowego zespołu");
+        employeeAddWindow.setResizable(false);
+        employeeAddWindow.setScene(scene);
+        employeeAddWindow.setX(20);
+        employeeAddWindow.setY(20);
+        employeeAddWindow.show();
+    }
+    
+    public void onEditTeamClick() throws IOException {
+        Stage employeeAddWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditTeam.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        employeeAddWindow.setTitle("DevMan - Edycja zespołu");
+        employeeAddWindow.setResizable(false);
+        employeeAddWindow.setScene(scene);
+        employeeAddWindow.setX(20);
+        employeeAddWindow.setY(20);
+        employeeAddWindow.show();
+    }
 }

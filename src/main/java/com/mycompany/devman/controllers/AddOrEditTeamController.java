@@ -3,7 +3,10 @@ package com.mycompany.devman.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -12,6 +15,9 @@ import javafx.fxml.Initializable;
  */
 public class AddOrEditTeamController implements Initializable {
 
+    @FXML
+    Button cancel;
+    
     /**
      * Initializes the controller class.
      */
@@ -20,4 +26,16 @@ public class AddOrEditTeamController implements Initializable {
         // TODO
     }    
     
+    private void close() {
+        Stage window = (Stage) cancel.getScene().getWindow();
+        window.close();
+    }
+    
+    public void onCancelButtonClick() {
+        close();
+    }
+    
+    public void onAddButtonClick() {
+        close();
+    }
 }

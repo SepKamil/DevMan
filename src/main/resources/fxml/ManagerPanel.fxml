@@ -77,12 +77,11 @@
                                   <TableColumn prefWidth="129.0" text="Ilość pracowników" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" text="Nowy" />
-                              <Button layoutX="71.0" layoutY="269.0" mnemonicParsing="false" text="Edycja" />
+                              <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#onAddTeamClick" text="Nowy" />
+                              <Button layoutX="71.0" layoutY="269.0" mnemonicParsing="false" onAction="#onEditTeamClick" text="Edycja" />
                               <Button layoutX="134.0" layoutY="269.0" mnemonicParsing="false" text="Usuń" />
                               <Button layoutX="191.0" layoutY="269.0" mnemonicParsing="false" text="Przydziel zadania" />
                               <Button layoutX="309.0" layoutY="269.0" mnemonicParsing="false" text="Przydziel pracowników" />
-                              <Button layoutX="456.0" layoutY="269.0" mnemonicParsing="false" text="Zmień projekt" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
