@@ -1,10 +1,9 @@
-package com.mycompany.devman.controllers;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.mycompany.devman.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class TaskAssignController implements Initializable {
+public class NewOrEditTaskController implements Initializable {
 
     @FXML
     Button cancel;

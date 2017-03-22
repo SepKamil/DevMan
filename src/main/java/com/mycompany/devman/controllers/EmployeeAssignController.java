@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class TaskAssignController implements Initializable {
+public class EmployeeAssignController implements Initializable {
 
     @FXML
     Button cancel;

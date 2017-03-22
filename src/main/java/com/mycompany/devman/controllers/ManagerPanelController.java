@@ -183,4 +183,109 @@ public class ManagerPanelController implements Initializable {
         errorsWindow.setY(20);
         errorsWindow.show();
     }
+    
+    public void onTaskAssignButtonClick() throws IOException {
+        Stage taskAssignWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TaskAssign.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        taskAssignWindow.setTitle("DevMan - Przydział zadań");
+        taskAssignWindow.setResizable(false);
+        taskAssignWindow.setScene(scene);
+        taskAssignWindow.setX(20);
+        taskAssignWindow.setY(20);
+        taskAssignWindow.show();
+    }
+    
+    public void onEmployeeAssignClick() throws IOException {
+        Stage employeeAssign = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/EmployeeAssign.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        employeeAssign.setTitle("DevMan - Przydział pracowników");
+        employeeAssign.setResizable(false);
+        employeeAssign.setScene(scene);
+        employeeAssign.setX(20);
+        employeeAssign.setY(20);
+        employeeAssign.show();
+    }
+    
+    public void onTeamsAssignClick() throws IOException {
+        Stage teamsAssign = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TeamsAssign.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        teamsAssign.setTitle("DevMan - Przydział drużyn");
+        teamsAssign.setResizable(false);
+        teamsAssign.setScene(scene);
+        teamsAssign.setX(20);
+        teamsAssign.setY(20);
+        teamsAssign.show();
+    }
+    
+    public void onNewProjectButtonClick() throws IOException {
+        Stage newProject = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditProject.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        newProject.setTitle("DevMan - Dodaj projekt");
+        newProject.setResizable(false);
+        newProject.setScene(scene);
+        newProject.setX(20);
+        newProject.setY(20);
+        newProject.show();
+    }
+    
+    public void onEditProjectButtonClick() throws IOException {
+        Stage editProject = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddOrEditProject.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        editProject.setTitle("DevMan - Edytuj projekt");
+        editProject.setResizable(false);
+        editProject.setScene(scene);
+        editProject.setX(20);
+        editProject.setY(20);
+        editProject.show();
+    }
+    
+    public void onNewTaskButtonClick() throws IOException {
+        Stage newTask = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/NewOrEditTask.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        newTask.setTitle("DevMan - Nowe zadanie");
+        newTask.setResizable(false);
+        newTask.setScene(scene);
+        newTask.setX(20);
+        newTask.setY(20);
+        newTask.show();
+    }
+    
+    public void onEditTaskButtonClick() throws IOException {
+        Stage editTask = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/NewOrEditTask.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        editTask.setTitle("DevMan - Edytuj zadanie");
+        editTask.setResizable(false);
+        editTask.setScene(scene);
+        editTask.setX(20);
+        editTask.setY(20);
+        editTask.show();
+    }
 }

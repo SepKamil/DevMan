@@ -80,8 +80,8 @@
                               <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#onAddTeamClick" text="Nowy" />
                               <Button layoutX="71.0" layoutY="269.0" mnemonicParsing="false" onAction="#onEditTeamClick" text="Edycja" />
                               <Button layoutX="134.0" layoutY="269.0" mnemonicParsing="false" text="Usuń" />
-                              <Button layoutX="191.0" layoutY="269.0" mnemonicParsing="false" text="Przydziel zadania" />
-                              <Button layoutX="309.0" layoutY="269.0" mnemonicParsing="false" text="Przydziel pracowników" />
+                              <Button layoutX="191.0" layoutY="269.0" mnemonicParsing="false" onAction="#onTaskAssignButtonClick" text="Przydziel zadania" />
+                              <Button layoutX="309.0" layoutY="269.0" mnemonicParsing="false" onAction="#onEmployeeAssignClick" text="Przydziel pracowników" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -96,9 +96,9 @@
                                   <TableColumn prefWidth="106.0" text="liczba zespołów" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" text="Nowy" />
-                              <Button layoutX="69.0" layoutY="269.0" mnemonicParsing="false" text="Zmień nazwę" />
-                              <Button layoutX="164.0" layoutY="269.0" mnemonicParsing="false" text="Przypisz zespoły" />
+                              <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#onNewProjectButtonClick" text="Nowy" />
+                              <Button layoutX="79.0" layoutY="269.0" mnemonicParsing="false" onAction="#onEditProjectButtonClick" text="Edytuj" />
+                              <Button layoutX="164.0" layoutY="269.0" mnemonicParsing="false" onAction="#onTeamsAssignClick" text="Przypisz zespoły" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -117,8 +117,8 @@
                                   <TableColumn prefWidth="64.0" text="Czas trwania" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" text="Nowe" />
-                              <Button layoutX="68.0" layoutY="269.0" mnemonicParsing="false" text="Edytuj" />
+                              <Button layoutX="14.0" layoutY="269.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" text="Nowe" />
+                              <Button layoutX="68.0" layoutY="269.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" text="Edytuj" />
                               <Button layoutX="126.0" layoutY="269.0" mnemonicParsing="false" text="Usuń" />
                            </children></AnchorPane>
                   </content>
