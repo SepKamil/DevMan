@@ -45,14 +45,14 @@
                            <children>
                               <TableView prefHeight="252.0" prefWidth="600.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="ID" />
+                                  <TableColumn prefWidth="75.0" text="Nazwa" />
                                   <TableColumn prefWidth="111.0" text="Data rozpoczęcia" />
                                   <TableColumn prefWidth="126.0" text="Data zakończenia" />
                                   <TableColumn prefWidth="116.0" text="Czas pracy" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" text="Nowe" />
-                              <Button layoutX="84.0" layoutY="264.0" mnemonicParsing="false" text="Edytuj" />
+                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" text="Nowe" />
+                              <Button layoutX="84.0" layoutY="264.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" text="Edytuj" />
                               <Button layoutX="159.0" layoutY="264.0" mnemonicParsing="false" text="Usuń" />
                            </children></AnchorPane>
                   </content>
@@ -69,7 +69,7 @@
                                 </columns>
                               </TableView>
                               <Button layoutX="14.0" layoutY="256.0" mnemonicParsing="false" onAction="#onNewWorkTimeButtonClick" text="Loguj czas" />
-                              <Button layoutX="115.0" layoutY="256.0" mnemonicParsing="false" text="Koryguj czas" />
+                              <Button layoutX="115.0" layoutY="256.0" mnemonicParsing="false" onAction="#onWorkTimeEditButtonClick" text="Koryguj czas" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -98,7 +98,7 @@
                                   <TableColumn prefWidth="122.0" text="Ilość dni" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" text="Nowy wniosek" />
+                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" onAction="#onAddLeaveRequestButtonClick" text="Nowy wniosek" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

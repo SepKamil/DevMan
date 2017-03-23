@@ -101,4 +101,64 @@ public class EmployeePanelController implements Initializable {
         newWorkTimeWindow.show();
     }
     
+    public void onWorkTimeEditButtonClick() throws IOException {
+        Stage workTimeEditWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/editWorkTime.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        workTimeEditWindow.setTitle("DevMan - Edycja czasu pracy");
+        workTimeEditWindow.setResizable(false);
+        workTimeEditWindow.setScene(scene);
+        workTimeEditWindow.setX(20);
+        workTimeEditWindow.setY(20);
+        workTimeEditWindow.show();
+    }
+    
+    public void onNewTaskButtonClick() throws IOException {
+        Stage newTaskWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TaskEditOrAdd.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        newTaskWindow.setTitle("DevMan - Dodawanie zadania");
+        newTaskWindow.setResizable(false);
+        newTaskWindow.setScene(scene);
+        newTaskWindow.setX(20);
+        newTaskWindow.setY(20);
+        newTaskWindow.show();
+    }
+    
+    public void onEditTaskButtonClick() throws IOException {
+        Stage editTaskWindow = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/TaskEditOrAdd.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        editTaskWindow.setTitle("DevMan - Edycja zadania");
+        editTaskWindow.setResizable(false);
+        editTaskWindow.setScene(scene);
+        editTaskWindow.setX(20);
+        editTaskWindow.setY(20);
+        editTaskWindow.show();
+    }
+    
+    public void onAddLeaveRequestButtonClick() throws IOException {
+        Stage leaveRequest = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/AddLeaveRequest.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        leaveRequest.setTitle("DevMan - Dodawanie wniosku o urlop");
+        leaveRequest.setResizable(false);
+        leaveRequest.setScene(scene);
+        leaveRequest.setX(20);
+        leaveRequest.setY(20);
+        leaveRequest.show();
+    }
+    
 }
