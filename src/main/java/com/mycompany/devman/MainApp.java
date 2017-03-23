@@ -1,17 +1,52 @@
 package com.mycompany.devman;
 
+import com.mycompany.devman.domain.User;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 
 public class MainApp extends Application {
-
+    
+    private static SessionFactory sessionFactory;
+    private static ValidatorFactory validatorFactory;
+    
+    public static Session getDatabaseSession() {
+        return sessionFactory.openSession();
+    }
+    
+    public static Validator getEntityValidator() {
+        return validatorFactory.getValidator();
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
+        try {
+        sessionFactory = new Configuration().addAnnotatedClass(User.class)
+                    .buildSessionFactory();
+        validatorFactory = Validation.buildDefaultValidatorFactory();
+        }catch(HibernateException e)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd połączenia z bazą danych!");
+            alert.setContentText("Sprawdź, czy konfiguracja bazy danych w pliku hibernate.properties jest prawidłowa!");
+            e.printStackTrace();
+            alert.showAndWait();
+            return;
+        }
+        
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         
         Scene scene = new Scene(root);
@@ -32,6 +67,8 @@ public class MainApp extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        if(sessionFactory != null)
+            sessionFactory.close();
     }
 
 }
