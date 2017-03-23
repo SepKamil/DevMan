@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
     
     public void onLoginButtonClick() throws IOException {
         Stage managerWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/ManagerPanel.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/ManagerPanel.fxml"));
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/managerpanel.css");
@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
         managerWindow.show();
         
         Stage employeeWindow = new Stage();
-        Parent root2 = FXMLLoader.load(getClass().getResource("/fxml/EmployeePanel.fxml"));
+        Parent root2 = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/EmployeePanel.fxml"));
         
         Scene scene2 = new Scene(root2);
         scene2.getStylesheets().add("/styles/employeepanel.css");
