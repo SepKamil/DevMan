@@ -33,31 +33,32 @@ public class User {
     @GeneratedValue
     private Long id;
     
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "Login nie może być nullem")
+    @NotEmpty(message = "Login nie może być pusty!")
     private String login;
     
-    @NotNull
-    @Size(min = 6)
+    @NotNull(message = "Hasło nie może być nullem")
+    @Size(min = 6, message = "hasło musi mieć co najmniej 6 znaków")
     private String password;
     
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @NotNull(message = "Typ konta nie może być nullem")
     private AccountType accountType;
     
-    @NotNull
-    @Size(min = 3)
+    @NotNull(message = "Imię nie może być nullem")
+    @Size(min = 3, message = "Imię musi mieć co najmniej 3 litery")
     private String name;
     
-    @NotNull
-    @Size(min = 3)
+    @NotNull(message = "Nazwisko nie może być nullem")
+    @Size(min = 3, message = "Nazwisko musi mieć co najmniej 3 litery")
     private String lastName;
     
-    @Email 
+    @Email(message = "Adres e-mail musi przynajmniej stwarzać pozory")
+    @NotNull(message = "e-mail nie może być nullem")
     private String email;
     
-    @NotNull
-    @Size(min = 11, max = 11)
+    @NotNull(message = "Pesel nie może być nullem")
+    @Size(min = 11, max = 11, message = "pesel musi mieć 11 znaków")
     private String pesel;
     
     @ManyToOne

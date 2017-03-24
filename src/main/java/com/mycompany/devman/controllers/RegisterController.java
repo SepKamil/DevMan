@@ -24,7 +24,7 @@ import javafx.stage.Stage;
  * @author kuba3
  */
 public class RegisterController implements Initializable {
-
+    
     @FXML
     Button registerButton;
     
@@ -51,7 +51,7 @@ public class RegisterController implements Initializable {
     
     @FXML
     TextField pesel;
-
+    
     private void close() {
         Stage window = (Stage) registerButton.getScene().getWindow();
         window.close();
@@ -68,19 +68,22 @@ public class RegisterController implements Initializable {
         user.setName(name.getText());
         user.setLastName(lastName.getText());
         user.setEmail(email.getText());
-        user.setManager((User)manager.getSelectionModel().getSelectedItem());
+        user.setManager((User) manager.getSelectionModel().getSelectedItem());
         user.setPesel(pesel.getText());
+        user.setAccountType(AccountType.EMPLOYEE);
         try {
+            if(!password.getText().equals(repeatPassword.getText())) {
+                throw new Exception("Hasła się nie zgadzają!");
+            }
             UserRepository.addUserToDatabase(user);
         } catch (Exception ex) {
             Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Błąd");
-        alert.setHeaderText("Rejestracja nieudana");
-        alert.setContentText("Sprawdź prawidłowość danych wpisanych do formularza.");
-        alert.showAndWait();
-        return;
+            alert.setTitle("Błąd");
+            alert.setHeaderText("Rejestracja nieudana");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+            return;
         }
-        
         
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Informacja");
@@ -107,11 +110,12 @@ public class RegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         if (UserRepository.findManagers().isEmpty()) {
             User user = new User();
-            user.setLogin("test");
-            user.setPassword("test");
-            user.setName("test");
-            user.setLastName("test");
-            user.setPesel("123456789");
+            user.setLogin("admin");
+            user.setPassword("devman2017");
+            user.setName("Jan");
+            user.setLastName("Kowalski");
+            user.setPesel("11111111111");
+            user.setEmail("admin@devman.pl");
             user.setAccountType(AccountType.MANAGER);
             try {
                 UserRepository.addUserToDatabase(user);
@@ -122,7 +126,7 @@ public class RegisterController implements Initializable {
         
         UserRepository.findManagers().forEach(manager.getItems()::add);
         
-        
+        manager.getSelectionModel().selectFirst();
     }
-
+    
 }

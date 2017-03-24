@@ -7,6 +7,7 @@ package com.mycompany.devman;
 
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.User;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,37 +23,43 @@ import org.hibernate.Transaction;
  */
 public class UserRepository {
 
-    public static void addUserToDatabase(User user) throws Exception {
-            Session session = MainApp.getDatabaseSession();
-            Transaction transaction = session.beginTransaction();
-            /*
-            Validator validator = MainApp.getEntityValidator();
-            Set<ConstraintViolation<User>> users = validator.validate(user, User.class);
-            if(users.size() > 0)
-                throw new Exception();
-            */
-            session.save(user);
-            transaction.commit();
-            session.close();
-        
+    public static User addUserToDatabase(User user) throws Exception {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        Validator validator = MainApp.getEntityValidator();
+        Set<ConstraintViolation<User>> users = validator.validate(user);
+        String message = "";
+        if (users.size() > 0) {
+            Iterator iterator = users.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<User> userError = (ConstraintViolation<User>) iterator.next();
+                message += " " + userError.getMessage();
+            }
+            throw new Exception(message);
+        }
+        session.save(user);
+        transaction.commit();
+        session.close();
+        return user;
     }
 
-    public static Optional<User> findByLoginAndPassword(String login, String password) {
+    public static User findByLoginAndPassword(String login, String password) throws Exception {
         List users = null;
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            users = session.createQuery("FROM User AS u WHERE u.login=" + login + " AND u.password=" + password).list();
+            users = session.createQuery("FROM User AS u WHERE u.login=:login AND u.password=:password")
+                    .setParameter("login", login).setParameter("password", password).list();
             transaction.commit();
             session.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (users.size() != 1) {
-            return Optional.empty();
-        } else {
-            return Optional.of((User) users.get(0));
+        if (users.size() == 1) {
+            return (User) users.get(0);
         }
+        
+        throw new Exception("Zły login lub hasło!");
     }
 
     public static List findManagers() {
@@ -64,21 +71,18 @@ public class UserRepository {
         return users;
     }
 
-    public static Optional<User> findByNameAndLastName(String name, String lastName) {
+    public static List findByNameAndLastName(String name, String lastName) {
         List users = null;
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            users = session.createQuery("FROM User AS u WHERE u.name=" + name + " AND u.lastName=" + lastName).list();
+            users = session.createQuery("FROM User AS u WHERE u.name=:name AND u.lastName=:lastName")
+                    .setParameter("name", name).setParameter("lastName", lastName).list();
             transaction.commit();
             session.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (users.size() != 1) {
-            return Optional.empty();
-        } else {
-            return Optional.of((User) users.get(0));
-        }
+        return users;
     }
 }

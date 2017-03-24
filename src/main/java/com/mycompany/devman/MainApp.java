@@ -30,6 +30,14 @@ public class MainApp extends Application {
         return validatorFactory.getValidator();
     }
     
+    public static void setSessionFactory(SessionFactory sessionFactory) {
+        MainApp.sessionFactory = sessionFactory;
+    }
+    
+    public static void setValidatorFactory(ValidatorFactory validatorFactory) {
+        MainApp.validatorFactory = validatorFactory;
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
         try {
