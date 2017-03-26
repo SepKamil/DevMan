@@ -5,3 +5,7 @@
 .mainFxmlClass {
 
 }
+
+.root {
+   -fx-background-image:  url("../images/devman.png");
+}
