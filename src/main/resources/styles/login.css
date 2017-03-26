@@ -9,3 +9,7 @@
 .root {
    -fx-background-image:  url("../images/devman.png");
 }
+
+.button {
+    -fx-background-color: #1a376d;
+}

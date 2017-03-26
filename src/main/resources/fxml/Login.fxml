@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
@@ -20,17 +21,17 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="619.0">
          <children>
-            <Label layoutX="199.0" layoutY="39.0" text="Logowanie">
+            <Label layoutX="217.0" layoutY="84.0" style="-fx-text-fill: #1a376d;" text="Logowanie" textAlignment="RIGHT" textFill="#00040a">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font></Label>
-            <TextField fx:id="login" layoutX="217.0" layoutY="117.0" />
-            <TextField fx:id="password" layoutX="217.0" layoutY="159.0" />
-            <Label layoutX="165.0" layoutY="121.0" text="Login:" />
-            <Label layoutX="167.0" layoutY="163.0" text="Hasło:" />
-            <Button layoutX="217.0" layoutY="200.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="42.0" prefWidth="91.0" text="Zaloguj" />
-            <Button layoutX="24.0" layoutY="345.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" text="Rejestracja" />
-            <Button layoutX="438.0" layoutY="345.0" mnemonicParsing="false" onAction="#onRecoveryButtonClick" text="Przypominanie hasła" />
+            <TextField fx:id="login" layoutX="216.0" layoutY="158.0" />
+            <TextField fx:id="password" layoutX="216.0" layoutY="200.0" />
+            <Label layoutX="155.0" layoutY="163.0" text="Login:" textAlignment="CENTER" />
+            <Label layoutX="155.0" layoutY="205.0" text="Hasło:" textAlignment="CENTER" />
+            <Button layoutX="217.0" layoutY="252.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="21.0" prefWidth="186.0" style="-fx-background-color: #1a376d;" text="Zaloguj" textFill="WHITE" />
+            <Button layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #1a376d;" text="Rejestracja" textFill="WHITE" />
+            <Button layoutX="448.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRecoveryButtonClick" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #1a376d;" text="Przypominanie hasła" textFill="WHITE" />
          </children>
       </Pane>
    </children>
