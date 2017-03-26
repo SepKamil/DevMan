@@ -29,9 +29,9 @@
             <TextField fx:id="password" layoutX="216.0" layoutY="200.0" />
             <Label layoutX="155.0" layoutY="163.0" text="Login:" textAlignment="CENTER" />
             <Label layoutX="155.0" layoutY="205.0" text="Hasło:" textAlignment="CENTER" />
-            <Button layoutX="217.0" layoutY="252.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="21.0" prefWidth="186.0" style="-fx-background-color: #1a376d;" text="Zaloguj" textFill="WHITE" />
-            <Button layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" style="-fx-background-color: #1a376d;" text="Rejestracja" textFill="WHITE" />
-            <Button layoutX="448.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRecoveryButtonClick" prefHeight="31.0" prefWidth="157.0" style="-fx-background-color: #1a376d;" text="Przypominanie hasła" textFill="WHITE" />
+            <Button layoutX="217.0" layoutY="251.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="21.0" prefWidth="186.0" style="-fx-background-color: #1a376d;" text="Zaloguj" textFill="WHITE" />
+            <Button layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #1a376d;" text="Rejestracja" textFill="WHITE" />
+            <Button layoutX="445.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRecoveryButtonClick" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: #1a376d;" text="Przypominanie hasła" textFill="WHITE" />
          </children>
       </Pane>
    </children>
