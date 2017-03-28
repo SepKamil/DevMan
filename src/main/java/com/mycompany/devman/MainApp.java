@@ -1,6 +1,12 @@
 package com.mycompany.devman;
 
+import com.mycompany.devman.domain.Leaves;
+import com.mycompany.devman.domain.Message;
+import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
+import com.mycompany.devman.domain.WorkTime;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -42,6 +48,12 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         try {
         sessionFactory = new Configuration().addAnnotatedClass(User.class)
+                    .addAnnotatedClass(Leaves.class)
+                    .addAnnotatedClass(Message.class)
+                    .addAnnotatedClass(Project.class)
+                    .addAnnotatedClass(Task.class)
+                    .addAnnotatedClass(Team.class)
+                    .addAnnotatedClass(WorkTime.class)
                     .buildSessionFactory();
         validatorFactory = Validation.buildDefaultValidatorFactory();
         }catch(HibernateException e)

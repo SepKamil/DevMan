@@ -33,8 +33,8 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class registerTests {
    
-    @BeforeClass
-    public static void setup() {
+    @Before
+    public void setup() {
         SessionFactory sessionFactory = new Configuration().addAnnotatedClass(User.class)
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
                 .setProperty("hibernate.connection.driver_class", "org.h2.Driver")
@@ -72,7 +72,7 @@ public class registerTests {
         assertEquals(UserRepository.findByNameAndLastName("Kuba", "Sierżęga").size(), 1);
     }
     
-    @Test
+    @Test(expected = Exception.class)
     public void registerWithPeselTooShortTest() throws Exception {
         User manager = new User();
         manager.setLogin("admin");

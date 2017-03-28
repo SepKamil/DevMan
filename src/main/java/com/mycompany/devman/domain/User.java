@@ -5,13 +5,16 @@
  */
 package com.mycompany.devman.domain;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import static javax.swing.text.StyleConstants.Size;
@@ -64,6 +67,9 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private User manager;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Team> teams;
 
     /**
      * @return the id
@@ -194,5 +200,19 @@ public class User {
     @Override
     public String toString() {
         return getName()+" "+getLastName();
+    }
+
+    /**
+     * @return the teams
+     */
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    /**
+     * @param teams the teams to set
+     */
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }
