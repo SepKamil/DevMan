@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,7 +20,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.EmployeePanelController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.EmployeePanelController">
     <stylesheets>
         <URL value="@/styles/employeepanel.css" />
     </stylesheets>
@@ -27,15 +33,47 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="8.0" layoutY="14.0" text="Jest 5 zadań zaplanowanych na dziś" />
-                              <Label layoutX="8.0" layoutY="75.0" text="Zespół ma do wykonania 20 zadań w ramach tego projektu" />
-                              <Label layoutX="8.0" layoutY="136.0" text="Procent ukończenia całego projektu: 30%" />
-                              <Label layoutX="8.0" layoutY="169.0" text="Dzisiaj musisz przepracować jeszcze 5 godzin" />
-                              <Button layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#onTaskManagementButtonClick" text="Zarządzaj zadaniami" />
-                              <Button layoutX="14.0" layoutY="101.0" mnemonicParsing="false" onAction="#onTeamInfoButtonClick" text="Zobacz informacje o zaspole" />
-                              <Button layoutX="14.0" layoutY="197.0" mnemonicParsing="false" onAction="#onWorkTimeButtonClick" text="Zarządzaj czasem pracy" />
-                              <Label layoutX="14.0" layoutY="237.0" text="Do najbliższego urlopu pozostało: 17 dni" />
-                              <Button layoutX="8.0" layoutY="264.0" mnemonicParsing="false" onAction="#onLeaveRequestsButtonClick" text="Zobacz wnioski o urlop" />
+                              <Label layoutX="14.0" layoutY="148.0" prefHeight="40.0" prefWidth="312.0" text="Procent ukończenia całego projektu:">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font></Label>
+                              <Label layoutX="21.0" layoutY="229.0" prefHeight="21.0" prefWidth="215.0" text="Ilość godzin do przepracowania:" />
+                              <Button layoutX="370.0" layoutY="19.0" mnemonicParsing="false" onAction="#onTaskManagementButtonClick" prefHeight="31.0" prefWidth="210.0" style="-fx-background-color: #1a376d;" text="Zarządzaj zadaniami" textFill="WHITE" />
+                              <Button layoutX="370.0" layoutY="76.0" mnemonicParsing="false" onAction="#onTeamInfoButtonClick" prefHeight="31.0" prefWidth="210.0" style="-fx-background-color: #1a376d;" text="Zobacz informacje o zaspole" textFill="WHITE" />
+                              <Button layoutX="370.0" layoutY="224.0" mnemonicParsing="false" onAction="#onWorkTimeButtonClick" prefHeight="31.0" prefWidth="210.0" style="-fx-background-color: #1a376d;" text="Zarządzaj czasem pracy" textFill="WHITE" />
+                              <Label layoutX="20.0" layoutY="286.0" prefHeight="21.0" prefWidth="201.0" text="Dni urlopu do wykorzystania:" />
+                              <Button layoutX="370.0" layoutY="281.0" mnemonicParsing="false" onAction="#onLeaveRequestsButtonClick" prefHeight="31.0" prefWidth="210.0" style="-fx-background-color: #1a376d;" text="Zobacz wnioski o urlop" textFill="WHITE" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="266.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="209.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Label layoutX="392.0" layoutY="115.0" prefHeight="48.0" prefWidth="167.0" text="39%" textFill="#c80000">
+                                 <font>
+                                    <Font name="System Bold" size="72.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="15.0" layoutY="82.0" prefHeight="21.0" prefWidth="199.0" text="Ilość zadań Twojego zespołu:" />
+                              <Label layoutX="15.0" layoutY="24.0" prefHeight="21.0" prefWidth="243.0" text="Ilość zadań do wykonania dla Ciebie:" />
+                              <Label layoutX="276.0" layoutY="217.0" prefHeight="46.0" prefWidth="65.0" text="4" textFill="#1a376d">
+                                 <font>
+                                    <Font name="System Bold" size="31.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="276.0" layoutY="274.0" prefHeight="46.0" prefWidth="65.0" text="7" textFill="#1a376d">
+                                 <font>
+                                    <Font name="System Bold" size="31.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="276.0" layoutY="66.0" prefHeight="46.0" prefWidth="65.0" text="18" textFill="#1a376d">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="276.0" layoutY="12.0" prefHeight="46.0" prefWidth="65.0" text="5" textFill="#1a376d">
+                                 <font>
+                                    <Font name="System Bold" size="36.0" />
+                                 </font>
+                              </Label>
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -45,15 +83,15 @@
                            <children>
                               <TableView prefHeight="252.0" prefWidth="600.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Nazwa" />
-                                  <TableColumn prefWidth="111.0" text="Data rozpoczęcia" />
-                                  <TableColumn prefWidth="126.0" text="Data zakończenia" />
-                                  <TableColumn prefWidth="116.0" text="Czas pracy" />
+                                  <TableColumn prefWidth="90.0" text="Nazwa" />
+                                  <TableColumn prefWidth="130.0" text="Data rozpoczęcia" />
+                                  <TableColumn prefWidth="130.0" text="Data zakończenia" />
+                                  <TableColumn prefWidth="90.0" text="Czas pracy" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" text="Nowe" />
-                              <Button layoutX="84.0" layoutY="264.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" text="Edytuj" />
-                              <Button layoutX="159.0" layoutY="264.0" mnemonicParsing="false" text="Usuń" />
+                              <Button layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Nowe" textFill="WHITE" />
+                              <Button layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
+                              <Button layoutX="220.0" layoutY="281.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -68,8 +106,8 @@
                                   <TableColumn prefWidth="75.0" text="Czas" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="256.0" mnemonicParsing="false" onAction="#onNewWorkTimeButtonClick" text="Loguj czas" />
-                              <Button layoutX="115.0" layoutY="256.0" mnemonicParsing="false" onAction="#onWorkTimeEditButtonClick" text="Koryguj czas" />
+                              <Button layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#onNewWorkTimeButtonClick" prefWidth="110.0" style="-fx-background-color: #1a376d;" text="Loguj czas" textFill="WHITE" />
+                              <Button layoutX="154.0" layoutY="281.0" mnemonicParsing="false" onAction="#onWorkTimeEditButtonClick" prefWidth="110.0" style="-fx-background-color: #1a376d;" text="Koryguj czas" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -98,7 +136,7 @@
                                   <TableColumn prefWidth="122.0" text="Ilość dni" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="14.0" layoutY="264.0" mnemonicParsing="false" onAction="#onAddLeaveRequestButtonClick" text="Nowy wniosek" />
+                              <Button layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#onAddLeaveRequestButtonClick" prefWidth="120.0" style="-fx-background-color: #1a376d;" text="Nowy wniosek" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -106,11 +144,13 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="77.0" layoutY="29.0" text="Tutaj możesz zobaczyć otrzymać raport o swoim czasie pracy." />
-                              <Label layoutX="199.0" layoutY="66.0" text="Rodzaj raportu:" />
-                              <RadioButton layoutX="101.0" layoutY="102.0" mnemonicParsing="false" text="Doc" />
-                              <RadioButton layoutX="316.0" layoutY="102.0" mnemonicParsing="false" text="PDF" />
-                              <Button layoutX="219.0" layoutY="170.0" mnemonicParsing="false" text="Generuj" />
+                              <Label layoutX="97.0" layoutY="50.0" text="Tutaj możesz zobaczyć otrzymać raport o swoim czasie pracy." />
+                              <Label layoutX="249.0" layoutY="88.0" text="Rodzaj raportu:" />
+                              <RadioButton layoutX="206.0" layoutY="123.0" mnemonicParsing="false" text="DOC" />
+                              <RadioButton layoutX="340.0" layoutY="123.0" mnemonicParsing="false" text="PDF" />
+                              <Button layoutX="260.0" layoutY="168.0" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Generuj" textFill="WHITE" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
