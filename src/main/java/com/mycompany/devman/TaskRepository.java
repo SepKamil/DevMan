@@ -1,6 +1,7 @@
-package com.mycompany.devman.domain;
+package com.mycompany.devman;
 
 import com.mycompany.devman.MainApp;
+import com.mycompany.devman.domain.Task;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
