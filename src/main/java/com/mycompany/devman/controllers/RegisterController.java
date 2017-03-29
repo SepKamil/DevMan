@@ -61,7 +61,7 @@ public class RegisterController implements Initializable {
      * Concludes developer registation and closes the password window after the
      * user confirms reading the message
      */
-    public void OnRegisterButtonClick() {
+    public void OnRegisterButtonClick() throws Exception {
         User user = new User();
         user.setLogin(login.getText());
         user.setPassword(password.getText());
@@ -71,6 +71,7 @@ public class RegisterController implements Initializable {
         user.setManager((User) manager.getSelectionModel().getSelectedItem());
         user.setPesel(pesel.getText());
         user.setAccountType(AccountType.EMPLOYEE);
+
         try {
             if(!password.getText().equals(repeatPassword.getText())) {
                 throw new Exception("Hasła się nie zgadzają!");

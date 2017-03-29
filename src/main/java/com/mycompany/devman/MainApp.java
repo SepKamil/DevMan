@@ -7,6 +7,7 @@ import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import com.mycompany.devman.domain.WorkTime;
+import com.sun.jna.platform.win32.Netapi32Util;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,8 @@ public class MainApp extends Application {
     public static void setValidatorFactory(ValidatorFactory validatorFactory) {
         MainApp.validatorFactory = validatorFactory;
     }
-    
+
+
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -86,9 +88,12 @@ public class MainApp extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         launch(args);
+
         if(sessionFactory != null)
             sessionFactory.close();
+
     }
 
 }

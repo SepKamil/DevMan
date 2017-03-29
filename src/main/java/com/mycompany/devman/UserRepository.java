@@ -7,6 +7,7 @@ package com.mycompany.devman;
 
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.User;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -14,11 +15,11 @@ import java.util.Set;
 import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
- *
  * @author jakub
  */
 public class UserRepository {
@@ -58,9 +59,27 @@ public class UserRepository {
         if (users.size() == 1) {
             return (User) users.get(0);
         }
-        
+
         throw new Exception("Zły login lub hasło!");
     }
+
+    public static void deleteById(Long id) throws Exception {
+
+        try {
+            Session session = MainApp.getDatabaseSession();
+            Transaction transaction = session.beginTransaction();
+          Query query = session.createQuery("Delete from User where id=:id").setParameter("id",id);
+            query.executeUpdate();
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
 
     public static List findManagers() {
         Session session = MainApp.getDatabaseSession();
@@ -71,18 +90,5 @@ public class UserRepository {
         return users;
     }
 
-    public static List findByNameAndLastName(String name, String lastName) {
-        List users = null;
-        try {
-            Session session = MainApp.getDatabaseSession();
-            Transaction transaction = session.beginTransaction();
-            users = session.createQuery("FROM User AS u WHERE u.name=:name AND u.lastName=:lastName")
-                    .setParameter("name", name).setParameter("lastName", lastName).list();
-            transaction.commit();
-            session.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
-    }
+
 }
