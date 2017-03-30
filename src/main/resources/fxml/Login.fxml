@@ -22,7 +22,7 @@
    <children>
       <Pane prefHeight="400.0" prefWidth="619.0">
          <children>
-            <Label layoutX="217.0" layoutY="84.0" style="-fx-text-fill: #1a376d;" text="Logowanie" textAlignment="RIGHT" textFill="#00040a">
+            <Label layoutX="198.0" layoutY="77.0" style="-fx-text-fill: #1a376d;" text="Logowanie" textAlignment="RIGHT" textFill="#00040a">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font></Label>
@@ -30,24 +30,10 @@
             <TextField fx:id="password" layoutX="216.0" layoutY="200.0" />
             <Label layoutX="155.0" layoutY="163.0" text="Login:" textAlignment="CENTER" />
             <Label layoutX="155.0" layoutY="205.0" text="Hasło:" textAlignment="CENTER" />
-            <Button layoutX="217.0" layoutY="251.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="21.0" prefWidth="186.0" style="-fx-background-color: #1a376d;" text="Zaloguj" textFill="WHITE" />
+            <Button layoutX="197.0" layoutY="252.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="21.0" prefWidth="186.0" style="-fx-background-color: #1a376d;" text="Zaloguj" textFill="WHITE" />
             <Button layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #1a376d;" text="Rejestracja" textFill="WHITE" />
             <Button layoutX="445.0" layoutY="350.0" mnemonicParsing="false" onAction="#onRecoveryButtonClick" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: #1a376d;" text="Przypominanie hasła" textFill="WHITE" />
-            <Arc fill="#1a376d" layoutX="156.0" layoutY="68.0" length="270.0" radiusX="54.0" radiusY="54.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
-            <Arc fill="#f4f4f4" layoutX="136.0" layoutY="68.0" length="270.0" radiusX="54.0" radiusY="54.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
-            <Circle fill="#1a376d" layoutX="139.0" layoutY="35.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Text fill="#1a376d" layoutX="16.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEVMAN">
-               <font>
-                  <Font name="SF Sports Night" size="28.0" />
-               </font>
-            </Text>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" layoutX="64.0" layoutY="167.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="139.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="74.0" layoutY="109.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="64.0" layoutY="99.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="54.0" layoutY="89.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="3.0" layoutX="136.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="3.0" layoutX="150.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f4f4f4" height="3.0" layoutX="146.0" layoutY="54.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="80.0" />
          </children>
       </Pane>
    </children>

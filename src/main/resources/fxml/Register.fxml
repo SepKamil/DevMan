@@ -27,14 +27,14 @@
       <TextField fx:id="lastName" layoutX="219.0" layoutY="136.0" />
       <TextField fx:id="email" layoutX="219.0" layoutY="177.0" />
       <TextField fx:id="pesel" layoutX="219.0" layoutY="218.0" />
-      <ChoiceBox fx:id="manager" layoutX="219.0" layoutY="382.0" prefWidth="150.0" style="-fx-background-color: #1a476d;" />
+      <ChoiceBox fx:id="manager" layoutX="219.0" layoutY="382.0" prefWidth="150.0" style="-fx-background-color: #00000;" />
       <Label layoutX="166.0" layoutY="100.0" text="Imię:" />
       <Label layoutX="132.0" layoutY="141.0" text="Nazwisko:" />
       <Label layoutX="112.0" layoutY="182.0" text="Adres e-mail:" />
       <Label layoutX="157.0" layoutY="223.0" text="PESEL:" />
       <Label layoutX="132.0" layoutY="387.0" text="Menadżer" />
-      <Button fx:id="registerButton" layoutX="219.0" layoutY="441.0" mnemonicParsing="false" onAction="#OnRegisterButtonClick" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #1a376d;" text="Zarejestruj" textFill="WHITE" />
-      <Button layoutX="339.0" layoutY="441.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
+      <Button fx:id="registerButton" layoutX="179.0" layoutY="441.0" mnemonicParsing="false" onAction="#OnRegisterButtonClick" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #1a376d;" text="Zarejestruj" textFill="WHITE" />
+      <Button layoutX="309.0" layoutY="441.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
       <Label layoutX="157.0" layoutY="264.0" text="Login:" />
       <Label layoutX="158.0" layoutY="305.0" text="Hasło:" />
       <Label layoutX="102.0" layoutY="346.0" text="Powtórz hasło:" />

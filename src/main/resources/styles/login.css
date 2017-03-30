@@ -7,7 +7,7 @@
 }
 
 .root {
-   /*-fx-background-image:  url("../images/devman.png"); */
+   -fx-background-image:  url("../images/devman.png");
 }
 
 .button {
