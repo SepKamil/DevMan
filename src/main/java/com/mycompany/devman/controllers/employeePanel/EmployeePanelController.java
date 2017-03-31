@@ -1,7 +1,12 @@
 package com.mycompany.devman.controllers.employeePanel;
 
+import com.mycompany.devman.LeaveRepository;
+import com.mycompany.devman.domain.Leave;
+import com.mycompany.devman.domain.LeaveRequestType;
+import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -14,6 +19,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -24,10 +32,23 @@ import javafx.stage.Stage;
 public class EmployeePanelController implements Initializable {
 
     @FXML
-    MenuBar menuBar;
+    private MenuBar menuBar;
 
     @FXML
-    TabPane tabPanel;
+    private TabPane tabPanel;
+    
+    private User currentUser;
+    
+    @FXML
+    private TableView<Leave> leaveTable;
+    
+    public EmployeePanelController(User user) {
+        this.currentUser = user;
+    }
+    
+    public void addNewLeaveRequest(Leave leave) {
+        leaveTable.getItems().add(leave);
+    }
     
     /**
      * Initializes the controller class.
@@ -62,6 +83,24 @@ public class EmployeePanelController implements Initializable {
                 infoWindow.show();
             }
         });
+        TableColumn firstNameCol = new TableColumn("Status");
+        firstNameCol.setMinWidth(150);
+        firstNameCol.setCellValueFactory(
+                new PropertyValueFactory<Leave, LeaveRequestType>("type"));
+ 
+        TableColumn lastNameCol = new TableColumn("Data rozpoczęcia");
+        lastNameCol.setMinWidth(150);
+        lastNameCol.setCellValueFactory(
+                new PropertyValueFactory<Leave, LocalDate>("startDate"));
+ 
+        TableColumn emailCol = new TableColumn("ilość dni");
+        emailCol.setMinWidth(200);
+        emailCol.setCellValueFactory(
+                new PropertyValueFactory<Leave, Integer>("numberOfDays"));
+ 
+        leaveTable.getItems().addAll(LeaveRepository.findLeavesByUser(currentUser));
+        leaveTable.getColumns().clear();
+        leaveTable.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
     }
 
     private void close() {
@@ -148,7 +187,10 @@ public class EmployeePanelController implements Initializable {
     
     public void onAddLeaveRequestButtonClick() throws IOException {
         Stage leaveRequest = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/AddLeaveRequest.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/AddLeaveRequest.fxml"));
+        AddLeaveRequestController controller = new AddLeaveRequestController(currentUser, this);
+        loader.setController(controller);
+        Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");

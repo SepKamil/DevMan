@@ -8,7 +8,13 @@ package registerTests.registerTests;
 import com.mycompany.devman.MainApp;
 import com.mycompany.devman.UserRepository;
 import com.mycompany.devman.domain.AccountType;
+import com.mycompany.devman.domain.Leave;
+import com.mycompany.devman.domain.Message;
+import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
+import com.mycompany.devman.domain.WorkTime;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -36,6 +42,12 @@ public class registerTests {
     @Before
     public void setup() {
         SessionFactory sessionFactory = new Configuration().addAnnotatedClass(User.class)
+                .addAnnotatedClass(Leave.class)
+                    .addAnnotatedClass(Message.class)
+                    .addAnnotatedClass(Project.class)
+                    .addAnnotatedClass(Task.class)
+                    .addAnnotatedClass(Team.class)
+                    .addAnnotatedClass(WorkTime.class)
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
                 .setProperty("hibernate.connection.driver_class", "org.h2.Driver")
                 .setProperty("hibernate.connection.url", "jdbc:h2:mem:")
@@ -68,8 +80,10 @@ public class registerTests {
         user.setEmail("kuba3351@gmail.com");
         user.setAccountType(AccountType.EMPLOYEE);
         user.setManager(manager);
-        UserRepository.addUserToDatabase(user);
-        assertEquals(UserRepository.findByNameAndLastName("Kuba", "Sierżęga").size(), 1);
+        user = UserRepository.addUserToDatabase(user);
+        assertEquals(UserRepository.findByLoginAndPassword("kuba3351", "devman2017").getLogin(), user.getLogin());
+        assertEquals(UserRepository.findByLoginAndPassword("kuba3351", "devman2017").getPassword(), user.getPassword());
+
     }
     
     @Test(expected = Exception.class)
@@ -95,7 +109,6 @@ public class registerTests {
         user.setAccountType(AccountType.EMPLOYEE);
         user.setManager(manager);
         UserRepository.addUserToDatabase(user);
-        assertEquals(UserRepository.findByNameAndLastName("Kuba", "Sierżęga").size(), 1);
     }
     
 }

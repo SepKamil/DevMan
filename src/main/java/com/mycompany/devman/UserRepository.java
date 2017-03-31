@@ -38,7 +38,8 @@ public class UserRepository {
             }
             throw new Exception(message);
         }
-        session.save(user);
+        Long id = (Long) session.save(user);
+        user.setId(id);
         transaction.commit();
         session.close();
         return user;

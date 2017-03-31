@@ -1,6 +1,6 @@
 package com.mycompany.devman;
 
-import com.mycompany.devman.domain.Leaves;
+import com.mycompany.devman.domain.Leave;
 import com.mycompany.devman.domain.Message;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
@@ -50,7 +50,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         try {
         sessionFactory = new Configuration().addAnnotatedClass(User.class)
-                    .addAnnotatedClass(Leaves.class)
+                    .addAnnotatedClass(Leave.class)
                     .addAnnotatedClass(Message.class)
                     .addAnnotatedClass(Project.class)
                     .addAnnotatedClass(Task.class)
