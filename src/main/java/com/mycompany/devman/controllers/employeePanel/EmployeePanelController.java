@@ -2,7 +2,7 @@ package com.mycompany.devman.controllers.employeePanel;
 
 import com.mycompany.devman.LeaveRepository;
 import com.mycompany.devman.domain.Leave;
-import com.mycompany.devman.domain.LeaveRequestType;
+import com.mycompany.devman.domain.LeaveRequestStatus;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
@@ -85,8 +85,7 @@ public class EmployeePanelController implements Initializable {
         });
         TableColumn firstNameCol = new TableColumn("Status");
         firstNameCol.setMinWidth(150);
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<Leave, LeaveRequestType>("type"));
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<Leave, LeaveRequestStatus>("status"));
  
         TableColumn lastNameCol = new TableColumn("Data rozpoczęcia");
         lastNameCol.setMinWidth(150);

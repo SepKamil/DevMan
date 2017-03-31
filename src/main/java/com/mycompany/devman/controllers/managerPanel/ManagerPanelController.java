@@ -1,5 +1,6 @@
 package com.mycompany.devman.controllers.managerPanel;
 
+import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,11 +27,17 @@ import javax.swing.event.HyperlinkEvent;
 public class ManagerPanelController implements Initializable {
 
     @FXML
-    TabPane tabPanel;
+    private TabPane tabPanel;
 
     @FXML
-    MenuBar menuBar;
+    private MenuBar menuBar;
+    
+    private User currentUser;
 
+    public ManagerPanelController(User user) {
+        this.currentUser = user;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -96,7 +103,10 @@ public class ManagerPanelController implements Initializable {
 
     public void onLeaveVerifyClick() throws IOException {
         Stage leaveRequestVerifyWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/LeaveRequest.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/LeaveRequest.fxml"));
+        LeaveRequestController controller = new LeaveRequestController(currentUser);
+        loader.setController(controller);
+        Parent root = (Parent)loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");

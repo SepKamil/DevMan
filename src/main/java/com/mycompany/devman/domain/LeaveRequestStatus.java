@@ -9,6 +9,6 @@ package com.mycompany.devman.domain;
  *
  * @author jakub
  */
-public enum LeaveRequestType {
+public enum LeaveRequestStatus {
     OCZEKUJE, ZAAKCEPTOWANY, ODRZUCONY;
 }

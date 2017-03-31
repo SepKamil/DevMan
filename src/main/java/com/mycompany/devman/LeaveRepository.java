@@ -7,12 +7,14 @@ package com.mycompany.devman;
 
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.Leave;
-import com.mycompany.devman.domain.LeaveRequestType;
+import com.mycompany.devman.domain.LeaveRequestStatus;
 import com.mycompany.devman.domain.User;
 import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.hibernate.Session;
@@ -26,7 +28,7 @@ public class LeaveRepository {
     public static Leave addNewLeaveRequest(Leave leave) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        leave.setType(LeaveRequestType.OCZEKUJE);
+        leave.setStatus(LeaveRequestStatus.OCZEKUJE);
         Validator validator = MainApp.getEntityValidator();
         Set<ConstraintViolation<Leave>> leaves = validator.validate(leave);
         String message = "";
@@ -54,6 +56,32 @@ public class LeaveRepository {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Leave> leaves = session.createQuery("FROM Leave AS l WHERE l.employee=:user").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
         return leaves;
+    }
+    public static List<Leave> findPendingLeavesByManager(User manager) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Leave> leaves = session.createQuery("FROM Leave AS l WHERE l.employee.manager=:manager AND l.status = 'OCZEKUJE'").setParameter("manager", manager).list();
+        transaction.commit();
+        session.close();
+        return leaves;
+    }
+    public static void acceptLeaveRequest(Leave leave) {
+        leave.setStatus(LeaveRequestStatus.ZAAKCEPTOWANY);
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(leave);
+        transaction.commit();
+        session.close();
+    }
+    public static void rejectLeaveRequest(Leave leave) {
+        leave.setStatus(LeaveRequestStatus.ODRZUCONY);
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(leave);
+        transaction.commit();
+        session.close();
     }
 }

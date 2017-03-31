@@ -38,7 +38,7 @@ public class Leave {
     
     @NotNull(message = "status urlopu nie może być nullem")
     @Enumerated(EnumType.STRING)
-    private LeaveRequestType type;
+    private LeaveRequestStatus status;
     
     @NotNull(message = "Data rozpoczęcia nie może być nullem")
     private LocalDate startDate;
@@ -105,16 +105,16 @@ public class Leave {
     }
 
     /**
-     * @return the type
+     * @return the status
      */
-    public LeaveRequestType getType() {
-        return type;
+    public LeaveRequestStatus getStatus() {
+        return status;
     }
 
     /**
-     * @param type the type to set
+     * @param status the status to set
      */
-    public void setType(LeaveRequestType type) {
-        this.type = type;
+    public void setStatus(LeaveRequestStatus status) {
+        this.status = status;
     }
 }

@@ -2,6 +2,7 @@ package com.mycompany.devman.controllers;
 
 import com.mycompany.devman.UserRepository;
 import com.mycompany.devman.controllers.employeePanel.EmployeePanelController;
+import com.mycompany.devman.controllers.managerPanel.ManagerPanelController;
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
@@ -74,7 +75,10 @@ public class LoginController implements Initializable {
         if (user.getAccountType().equals(AccountType.MANAGER)) {
 
             Stage managerWindow = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/ManagerPanel.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ManagerPanel.fxml"));
+            ManagerPanelController controller = new ManagerPanelController(user);
+            loader.setController(controller);
+            Parent root = (Parent)loader.load();
 
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/styles/managerpanel.css");
