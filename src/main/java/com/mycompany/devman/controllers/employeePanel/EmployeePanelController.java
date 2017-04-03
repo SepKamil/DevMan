@@ -85,17 +85,17 @@ public class EmployeePanelController implements Initializable {
         });
         TableColumn firstNameCol = new TableColumn("Status");
         firstNameCol.setMinWidth(150);
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Leave, LeaveRequestStatus>("status"));
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("status"));
  
         TableColumn lastNameCol = new TableColumn("Data rozpoczęcia");
         lastNameCol.setMinWidth(150);
         lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<Leave, LocalDate>("startDate"));
+                new PropertyValueFactory<>("startDate"));
  
         TableColumn emailCol = new TableColumn("ilość dni");
         emailCol.setMinWidth(200);
         emailCol.setCellValueFactory(
-                new PropertyValueFactory<Leave, Integer>("numberOfDays"));
+                new PropertyValueFactory<>("numberOfDays"));
  
         leaveTable.getItems().addAll(LeaveRepository.findLeavesByUser(currentUser));
         leaveTable.getColumns().clear();

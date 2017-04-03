@@ -1,5 +1,8 @@
 package com.mycompany.devman.controllers.managerPanel;
 
+import com.mycompany.devman.LeaveRepository;
+import com.mycompany.devman.ProjectRepository;
+import com.mycompany.devman.TeamRepository;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +19,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javax.swing.event.HyperlinkEvent;
 
@@ -31,6 +37,12 @@ public class ManagerPanelController implements Initializable {
 
     @FXML
     private MenuBar menuBar;
+    
+    @FXML
+    private TableView projectsTable;
+    
+    @FXML
+    private TableView teamsTable;
     
     private User currentUser;
 
@@ -71,6 +83,35 @@ public class ManagerPanelController implements Initializable {
                 infoWindow.show();
             }
         });
+        TableColumn firstNameCol = new TableColumn("ID");
+        firstNameCol.setMinWidth(100);
+        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+ 
+        TableColumn lastNameCol = new TableColumn("Nazwa");
+        lastNameCol.setMinWidth(150);
+        lastNameCol.setCellValueFactory(
+                new PropertyValueFactory<>("name"));
+ 
+        projectsTable.getItems().addAll(ProjectRepository.findAll());
+        projectsTable.getColumns().clear();
+        projectsTable.getColumns().addAll(firstNameCol, lastNameCol);
+        
+        TableColumn idCol = new TableColumn("ID");
+        idCol.setMinWidth(100);
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+ 
+        TableColumn nameCol = new TableColumn("Nazwa");
+        nameCol.setMinWidth(150);
+        nameCol.setCellValueFactory(
+                new PropertyValueFactory<>("name"));
+ 
+        TableColumn projectCol = new TableColumn("Projekt");
+        projectCol.setMinWidth(100);
+        projectCol.setCellValueFactory(new PropertyValueFactory<>("project"));
+        
+        teamsTable.getItems().addAll(TeamRepository.findAllTeams());
+        teamsTable.getColumns().clear();
+        teamsTable.getColumns().addAll(idCol, nameCol, projectCol);
     }
 
     private void close() {

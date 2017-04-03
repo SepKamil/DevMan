@@ -25,13 +25,74 @@ public class Project {
     @GeneratedValue
     private Long id;
     
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "Nazwa nie może być usta")
+    @NotNull(message = "Nazwa nie może być nullem")
     private String name;
     
-    @NotNull
+    @NotNull(message = "Data rozpoczęcia nie może być nullem")
     private LocalDate startDate;
     
-    @NotNull
+    @NotNull(message = "Data zakończenia nie może być nullem")
     private LocalDate endDate;
+
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the startDate
+     */
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    /**
+     * @param startDate the startDate to set
+     */
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * @return the endDate
+     */
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+    
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

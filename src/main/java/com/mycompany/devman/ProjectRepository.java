@@ -31,6 +31,8 @@ public class ProjectRepository {
             }
             throw new Exception(message);
         }
+        if(project.getStartDate().isAfter(project.getEndDate()))
+            throw new Exception("Data rozpoczęcia musi być przed datą zakończenia prjektu.");
         session.save(project);
         transaction.commit();
         session.close();
@@ -83,6 +85,15 @@ public class ProjectRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return projects;
+    }
+    
+    public static List<Project> findAll() {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Project> projects = session.createQuery("FROM Project").list();
+        transaction.commit();
+        session.close();
         return projects;
     }
 }
