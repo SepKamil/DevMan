@@ -91,5 +91,32 @@ public class UserRepository {
         return users;
     }
 
-
+    public static List<User> findEmployees() {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> users = session.createQuery("FROM User AS u WHERE u.accountType='EMPLOYEE'").list();
+        transaction.commit();
+        session.close();
+        return users;
+    }
+    
+    public static User UpdateUser(User user) throws Exception {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        Validator validator = MainApp.getEntityValidator();
+        Set<ConstraintViolation<User>> users = validator.validate(user);
+        String message = "";
+        if (users.size() > 0) {
+            Iterator iterator = users.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<User> userError = (ConstraintViolation<User>) iterator.next();
+                message += " " + userError.getMessage();
+            }
+            throw new Exception(message);
+        }
+        session.update(user);
+        transaction.commit();
+        session.close();
+        return user;
+    }
 }

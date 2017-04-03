@@ -47,4 +47,24 @@ public class TeamRepository {
         session.close();
         return teams;
     }
+    
+    public static Team updateTeam(Team team) throws Exception {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        Validator validator = MainApp.getEntityValidator();
+        Set<ConstraintViolation<Team>> teams = validator.validate(team);
+        String message = "";
+        if (teams.size() > 0) {
+            Iterator iterator = teams.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<Team> teamError = (ConstraintViolation<Team>) iterator.next();
+                message += " " + teamError.getMessage();
+            }
+            throw new Exception(message);
+        }
+        session.update(team);
+        transaction.commit();
+        session.close();
+        return team;
+    }
 }

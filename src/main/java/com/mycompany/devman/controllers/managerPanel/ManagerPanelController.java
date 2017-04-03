@@ -3,6 +3,7 @@ package com.mycompany.devman.controllers.managerPanel;
 import com.mycompany.devman.LeaveRepository;
 import com.mycompany.devman.ProjectRepository;
 import com.mycompany.devman.TeamRepository;
+import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -251,9 +253,21 @@ public class ManagerPanelController implements Initializable {
     }
     
     public void onEmployeeAssignClick() throws IOException {
+        if(teamsTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd!");
+            alert.setContentText("Nie wybrano zespołu!");
+            alert.showAndWait();
+            return;
+        }
         Stage employeeAssign = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/EmployeeAssign.fxml"));
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/EmployeeAssign.fxml"));
+        
+        EmployeeAssignController controller = new EmployeeAssignController((Team)teamsTable.getSelectionModel().getSelectedItem());
+        loader.setController(controller);
+        Parent root = loader.load();
+        
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
