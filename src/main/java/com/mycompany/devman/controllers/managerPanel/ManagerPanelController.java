@@ -2,6 +2,7 @@ package com.mycompany.devman.controllers.managerPanel;
 
 import com.mycompany.devman.LeaveRepository;
 import com.mycompany.devman.ProjectRepository;
+import com.mycompany.devman.TaskRepository;
 import com.mycompany.devman.TeamRepository;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
@@ -45,6 +46,9 @@ public class ManagerPanelController implements Initializable {
     
     @FXML
     private TableView teamsTable;
+    
+    @FXML
+    private TableView taskTable;
     
     private User currentUser;
 
@@ -114,6 +118,30 @@ public class ManagerPanelController implements Initializable {
         teamsTable.getItems().addAll(TeamRepository.findAllTeams());
         teamsTable.getColumns().clear();
         teamsTable.getColumns().addAll(idCol, nameCol, projectCol);
+        
+        TableColumn name = new TableColumn("Nazwa");
+        name.setMinWidth(150);
+        name.setCellValueFactory(
+                new PropertyValueFactory<>("name"));
+ 
+        TableColumn startDate = new TableColumn("Data rozpoczęcia");
+        startDate.setMinWidth(150);
+        startDate.setCellValueFactory(
+                new PropertyValueFactory<>("startDate"));
+        
+        TableColumn endDate = new TableColumn("Data zakończenia");
+        endDate.setMinWidth(150);
+        endDate.setCellValueFactory(
+                new PropertyValueFactory<>("endDate"));
+        
+        TableColumn predictedTime = new TableColumn("Przewidywany czas");
+        predictedTime.setMinWidth(150);
+        predictedTime.setCellValueFactory(
+                new PropertyValueFactory<>("predictedTime"));
+        
+        taskTable.getItems().addAll(TaskRepository.findAllTasks());
+        taskTable.getColumns().clear();
+        taskTable.getColumns().addAll(name, startDate, endDate, predictedTime);
     }
 
     private void close() {
@@ -238,9 +266,21 @@ public class ManagerPanelController implements Initializable {
     }
     
     public void onTaskAssignButtonClick() throws IOException {
+        if(teamsTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd!");
+            alert.setContentText("Nie wybrano zespołu!");
+            alert.showAndWait();
+            return;
+        }
         Stage taskAssignWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/TaskAssign.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/TaskAssign.fxml"));
 
+        TaskAssignController controller = new TaskAssignController((Team)teamsTable.getSelectionModel().getSelectedItem());
+        loader.setController(controller);
+        Parent root = loader.load();
+        
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 

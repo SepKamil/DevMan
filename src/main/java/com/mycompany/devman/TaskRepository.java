@@ -31,7 +31,33 @@ public class TaskRepository {
             }
             throw new Exception(message);
         }
+        if(task.getStartDate().isAfter(task.getEndDate())) {
+            throw new Exception("Data rozpoczęcia nie może być po dacie zakończenia.");
+        }
         session.save(task);
+        transaction.commit();
+        session.close();
+        return task;
+    }
+    
+    public static Task updateTask(Task task) throws Exception {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        Validator validator = MainApp.getEntityValidator();
+        Set<ConstraintViolation<Task>> tasks = validator.validate(task);
+        String message = "";
+        if (tasks.size() > 0) {
+            Iterator iterator = tasks.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<Task> taskError = (ConstraintViolation<Task>) iterator.next();
+                message += " " + taskError.getMessage();
+            }
+            throw new Exception(message);
+        }
+        if(task.getStartDate().isAfter(task.getEndDate())) {
+            throw new Exception("Data rozpoczęcia nie może być po dacie zakończenia.");
+        }
+        session.update(task);
         transaction.commit();
         session.close();
         return task;
@@ -98,11 +124,15 @@ public class TaskRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
             return tasks;
-
-
     }
-
-
+    
+    public static List<Task> findAllTasks() {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task").list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
 }

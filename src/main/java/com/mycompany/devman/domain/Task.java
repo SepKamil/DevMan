@@ -41,6 +41,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+    
+    private Integer predictedTime;
 
     /**
      * @return the id
@@ -110,5 +112,24 @@ public class Task {
      */
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    /**
+     * @return the predictedTime
+     */
+    public Integer getPredictedTime() {
+        return predictedTime;
+    }
+
+    /**
+     * @param predictedTime the predictedTime to set
+     */
+    public void setPredictedTime(Integer predictedTime) {
+        this.predictedTime = predictedTime;
+    }
+    
+    @Override
+    public String toString() {
+        return getName();
     }
 }
