@@ -5,8 +5,10 @@
  */
 package com.mycompany.devman;
 
+import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
+import com.mycompany.devman.domain.User;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -66,5 +68,23 @@ public class TeamRepository {
         transaction.commit();
         session.close();
         return team;
+    }
+    
+    public static List<Team> findTeamsByProjectAndUser(Project project, User user) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Team> teams = session.createQuery("SELECT t FROM User u JOIN u.teams t WHERE t.project=:project AND u=:user").setParameter("project", project).setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return teams;
+    }
+    
+    public static List<Team> findTeamsByUser(User user) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Team> teams = session.createQuery("SELECT t FROM User u JOIN u.teams t WHERE u=:user").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return teams;
     }
 }

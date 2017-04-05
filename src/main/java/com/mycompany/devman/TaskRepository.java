@@ -68,7 +68,7 @@ public class TaskRepository {
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            tasks = session.createQuery("FROM Tasks AS u WHERE u.id=:id")
+            tasks = session.createQuery("FROM Tasks u WHERE u.id=:id")
                     .setParameter("id", id).list();
             transaction.commit();
             session.close();
@@ -102,7 +102,7 @@ public class TaskRepository {
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            tasks = session.createQuery("FROM tasks AS u WHERE u.name=:name")
+            tasks = session.createQuery("FROM tasks u WHERE u.name=:name")
                     .setParameter("name", name).list();
             transaction.commit();
             session.close();
@@ -117,7 +117,7 @@ public class TaskRepository {
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            tasks = session.createQuery("FROM Tasks AS u WHERE u.team_id=:id")
+            tasks = session.createQuery("FROM Tasks u WHERE u.team_id=:id")
                     .setParameter("id", id).list();
             transaction.commit();
             session.close();

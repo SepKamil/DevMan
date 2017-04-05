@@ -2,6 +2,7 @@ package com.mycompany.devman;
 
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -44,7 +45,7 @@ public class ProjectRepository {
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            projects = session.createQuery("FROM Projects AS u WHERE u.id=:id")
+            projects = session.createQuery("FROM Project u WHERE u.id=:id")
                     .setParameter("id", id).list();
             transaction.commit();
             session.close();
@@ -78,7 +79,7 @@ public class ProjectRepository {
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            projects = session.createQuery("FROM projects AS u WHERE u.name=:name")
+            projects = session.createQuery("FROM projects u WHERE u.name=:name")
                     .setParameter("name", name).list();
             transaction.commit();
             session.close();
@@ -92,6 +93,15 @@ public class ProjectRepository {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project").list();
+        transaction.commit();
+        session.close();
+        return projects;
+    }
+    
+    public static List<Project> findProjectsByUser(User user) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Project> projects = session.createQuery("SELECT DISTINCT team.project FROM User u JOIN u.teams team WHERE u=:user").setParameter("user", user).list();
         transaction.commit();
         session.close();
         return projects;

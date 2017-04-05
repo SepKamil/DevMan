@@ -6,6 +6,8 @@
 package com.mycompany.devman;
 
 import com.mycompany.devman.domain.AccountType;
+import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 
 import java.util.Iterator;
@@ -50,7 +52,7 @@ public class UserRepository {
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            users = session.createQuery("FROM User AS u WHERE u.login=:login AND u.password=:password")
+            users = session.createQuery("FROM User u WHERE u.login=:login AND u.password=:password")
                     .setParameter("login", login).setParameter("password", password).list();
             transaction.commit();
             session.close();
@@ -85,7 +87,7 @@ public class UserRepository {
     public static List findManagers() {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List users = session.createQuery("FROM User AS u WHERE u.accountType='MANAGER'").list();
+        List users = session.createQuery("FROM User u WHERE u.accountType='MANAGER'").list();
         transaction.commit();
         session.close();
         return users;
@@ -94,7 +96,7 @@ public class UserRepository {
     public static List<User> findEmployees() {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<User> users = session.createQuery("FROM User AS u WHERE u.accountType='EMPLOYEE'").list();
+        List<User> users = session.createQuery("FROM User u WHERE u.accountType='EMPLOYEE'").list();
         transaction.commit();
         session.close();
         return users;
@@ -118,5 +120,32 @@ public class UserRepository {
         transaction.commit();
         session.close();
         return user;
+    }
+    
+    public static List<User> findUsersByTeam(Team team) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> users = session.createQuery("FROM User u JOIN u.teams t WHERE t=:team").setParameter("team", team).list();
+        transaction.commit();
+        session.close();
+        return users;
+    }
+    
+    public static List<User> findUsersByProject(Project project) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> users = session.createQuery("FROM User u JOIN u.teams t WHERE t.project=:project").setParameter("project", project).list();
+        transaction.commit();
+        session.close();
+        return users;
+    }
+    
+    public static List<User> findAnotherUsersInTeams(User user) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> users = session.createQuery("FROM User u JOIN u.teams t WHERE t in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return users;
     }
 }
