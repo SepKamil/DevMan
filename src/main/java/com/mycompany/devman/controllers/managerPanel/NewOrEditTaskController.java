@@ -46,6 +46,12 @@ public class NewOrEditTaskController implements Initializable {
     @FXML
     private Spinner predictedTime;
     
+    private ManagerPanelController controller;
+    
+    public NewOrEditTaskController(ManagerPanelController controller) {
+        this.controller = controller;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -90,6 +96,7 @@ public class NewOrEditTaskController implements Initializable {
             alert.showAndWait();
             return;
         }
+        controller.addTask(task);
         close();
     }
     

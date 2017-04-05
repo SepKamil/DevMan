@@ -38,6 +38,12 @@ public class AddOrEditProjectController implements Initializable {
     @FXML
     private DatePicker endDate;
     
+    private ManagerPanelController controller;
+    
+    public AddOrEditProjectController(ManagerPanelController controller) {
+        this.controller = controller;
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -65,6 +71,7 @@ public class AddOrEditProjectController implements Initializable {
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
+        controller.addProject(project);
         close();
     }
     

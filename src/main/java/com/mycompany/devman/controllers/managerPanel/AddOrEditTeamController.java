@@ -33,7 +33,11 @@ public class AddOrEditTeamController implements Initializable {
     @FXML
     private ChoiceBox projects;
    
+    private ManagerPanelController controller;
     
+    public AddOrEditTeamController(ManagerPanelController controller) {
+        this.controller = controller;
+    }
     
     /**
      * Initializes the controller class.
@@ -66,6 +70,7 @@ public class AddOrEditTeamController implements Initializable {
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
+        controller.addTeam(team);
         close();
     }
 }

@@ -4,6 +4,8 @@ import com.mycompany.devman.LeaveRepository;
 import com.mycompany.devman.ProjectRepository;
 import com.mycompany.devman.TaskRepository;
 import com.mycompany.devman.TeamRepository;
+import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
@@ -143,6 +145,18 @@ public class ManagerPanelController implements Initializable {
         taskTable.getColumns().clear();
         taskTable.getColumns().addAll(name, startDate, endDate, predictedTime);
     }
+    
+    public void addTask(Task task) {
+        taskTable.getItems().add(task);
+    }
+    
+    public void addTeam(Team team) {
+        teamsTable.getItems().add(team);
+    }
+    
+    public void addProject(Project project) {
+        projectsTable.getItems().add(project);
+    }
 
     private void close() {
         Stage window = (Stage) tabPanel.getScene().getWindow();
@@ -222,7 +236,10 @@ public class ManagerPanelController implements Initializable {
     
     public void onAddTeamClick() throws IOException {
         Stage teamAddWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/AddOrEditTeam.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditTeam.fxml"));
+        AddOrEditTeamController controller = new AddOrEditTeamController(this);
+        loader.setController(controller);
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
@@ -336,8 +353,12 @@ public class ManagerPanelController implements Initializable {
     
     public void onNewProjectButtonClick() throws IOException {
         Stage newProject = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/AddOrEditProject.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditProject.fxml"));
 
+        AddOrEditProjectController controller = new AddOrEditProjectController(this);
+        loader.setController(controller);
+        Parent root = loader.load();
+        
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
@@ -366,7 +387,10 @@ public class ManagerPanelController implements Initializable {
     
     public void onNewTaskButtonClick() throws IOException {
         Stage newTask = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/NewOrEditTask.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/NewOrEditTask.fxml"));
+        NewOrEditTaskController controller = new NewOrEditTaskController(this);
+        loader.setController(controller);
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
