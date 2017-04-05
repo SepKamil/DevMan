@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author jakub
+ * @author bloczek
  */
 public class EditWorkTimeController implements Initializable {
 

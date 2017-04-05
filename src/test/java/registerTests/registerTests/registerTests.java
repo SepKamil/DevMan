@@ -33,7 +33,7 @@ import org.junit.runners.JUnit4;
 
 /**
  *
- * @author jakub
+ * @author bloczek
  */
 
 @RunWith(JUnit4.class)
@@ -57,9 +57,9 @@ public class registerTests {
         MainApp.setSessionFactory(sessionFactory);
         MainApp.setValidatorFactory(validatorFactory);
     }
-    
+
     @Test
-    public void registerTest() throws Exception {
+    public void loginTest() throws Exception {
         User manager = new User();
         manager.setLogin("admin");
         manager.setPassword("devman2017");
@@ -68,9 +68,9 @@ public class registerTests {
         manager.setPesel("11111111111");
         manager.setEmail("admin@devman.pl");
         manager.setAccountType(AccountType.MANAGER);
-        
+
         manager = UserRepository.addUserToDatabase(manager);
-        
+
         User user = new User();
         user.setLogin("kuba3351");
         user.setPassword("devman2017");
@@ -96,9 +96,9 @@ public class registerTests {
         manager.setPesel("11111111111");
         manager.setEmail("admin@devman.pl");
         manager.setAccountType(AccountType.MANAGER);
-        
+
         manager = UserRepository.addUserToDatabase(manager);
-        
+
         User user = new User();
         user.setLogin("kuba3351");
         user.setPassword("devman2017");
@@ -110,5 +110,8 @@ public class registerTests {
         user.setManager(manager);
         UserRepository.addUserToDatabase(user);
     }
-    
+
+
+
+
 }

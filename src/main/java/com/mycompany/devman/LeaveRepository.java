@@ -22,7 +22,7 @@ import org.hibernate.Transaction;
 
 /**
  *
- * @author jakub
+ * @author bloczek
  */
 public class LeaveRepository {
     public static Leave addNewLeaveRequest(Leave leave) throws Exception {
