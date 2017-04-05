@@ -51,7 +51,6 @@ public class EmployeeAssignController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         List<User> users = UserRepository.findEmployees();
         users.forEach(user -> {
-            System.out.println(user.getTeams().size());
             if(user.getTeams().contains(team))
                 selectedEmployees.getItems().add(user);
             else
@@ -99,7 +98,6 @@ public class EmployeeAssignController implements Initializable {
     
     public void onRightButtonClick() {
         List<User> selected = new ArrayList<>(allEmployees.getSelectionModel().getSelectedItems());
-        System.out.println(selected.size());
         selected.forEach(selectedEmployees.getItems()::add);
         selected.forEach(allEmployees.getItems()::remove);
     }
@@ -111,13 +109,11 @@ public class EmployeeAssignController implements Initializable {
     }
     
     public void onAllRightButtonClick() {
-        System.out.println(selectedEmployees.getItems().size());
         allEmployees.getItems().forEach(selectedEmployees.getItems()::add);
         allEmployees.getItems().clear();
     }
     
     public void onAllLeftButtonClick() {
-        System.out.println(selectedEmployees.getItems().size());
         selectedEmployees.getItems().forEach(allEmployees.getItems()::add);
         selectedEmployees.getItems().clear();
     }
