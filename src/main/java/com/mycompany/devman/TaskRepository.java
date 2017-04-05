@@ -1,7 +1,10 @@
 package com.mycompany.devman;
 
 import com.mycompany.devman.MainApp;
+import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.Team;
+import com.mycompany.devman.domain.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -131,6 +134,33 @@ public class TaskRepository {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task").list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+    
+    public static List<Task> findTasksByTeam(Team team) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.team=:team").setParameter("team", team).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+    
+    public static List<Task> findTasksByProject(Project project) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.team.project=:project").setParameter("project", project).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+    
+    public static List<Task> findTasksByUser(User user) {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
         transaction.commit();
         session.close();
         return tasks;

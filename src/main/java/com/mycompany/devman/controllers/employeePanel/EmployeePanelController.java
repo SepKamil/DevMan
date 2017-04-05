@@ -1,13 +1,23 @@
 package com.mycompany.devman.controllers.employeePanel;
 
 import com.mycompany.devman.LeaveRepository;
+import com.mycompany.devman.ProjectRepository;
+import com.mycompany.devman.TaskRepository;
+import com.mycompany.devman.TeamRepository;
+import com.mycompany.devman.UserRepository;
 import com.mycompany.devman.domain.Leave;
 import com.mycompany.devman.domain.LeaveRequestStatus;
+import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -16,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -41,6 +52,24 @@ public class EmployeePanelController implements Initializable {
     
     @FXML
     private TableView<Leave> leaveTable;
+    
+    @FXML
+    private ChoiceBox projectBox;
+    
+    @FXML
+    private ChoiceBox teamBox;
+    
+    @FXML
+    private ChoiceBox project2Box;
+    
+    @FXML
+    private ChoiceBox team2Box;
+    
+    @FXML
+    private TableView<User> usersTable;
+    
+    @FXML
+    private TableView<Task> tasksTable;
     
     public EmployeePanelController(User user) {
         this.currentUser = user;
@@ -100,11 +129,123 @@ public class EmployeePanelController implements Initializable {
         leaveTable.getItems().addAll(LeaveRepository.findLeavesByUser(currentUser));
         leaveTable.getColumns().clear();
         leaveTable.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        
+        TableColumn name = new TableColumn("Imię");
+        name.setMinWidth(150);
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+ 
+        TableColumn lastName = new TableColumn("Nazwisko");
+        lastName.setMinWidth(150);
+        lastName.setCellValueFactory(
+                new PropertyValueFactory<>("lastName"));
+ 
+        TableColumn email = new TableColumn("e-mail");
+        email.setMinWidth(200);
+        email.setCellValueFactory(
+                new PropertyValueFactory<>("email"));
+ 
+        usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeams(currentUser));
+        usersTable.getColumns().clear();
+        usersTable.getColumns().addAll(name, lastName, email);
+        
+        TableColumn nameColumn = new TableColumn("Nazwa");
+        nameColumn.setMinWidth(150);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+ 
+        TableColumn startDate = new TableColumn("Data rozpoczęcia");
+        startDate.setMinWidth(150);
+        startDate.setCellValueFactory(
+                new PropertyValueFactory<>("startDate"));
+ 
+        TableColumn endDate = new TableColumn("Data zakończenia");
+        endDate.setMinWidth(200);
+        endDate.setCellValueFactory(
+                new PropertyValueFactory<>("endDate"));
+        
+        TableColumn predictedTime = new TableColumn("Przewidywany czas");
+        predictedTime.setMinWidth(200);
+        predictedTime.setCellValueFactory(
+                new PropertyValueFactory<>("predictedTime"));
+ 
+        tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
+        tasksTable.getColumns().clear();
+        tasksTable.getColumns().addAll(nameColumn, startDate, endDate, predictedTime);
+        
+        projectBox.getItems().add("Wszystkie");
+        projectBox.getItems().addAll(ProjectRepository.findProjectsByUser(currentUser));
+        projectBox.getSelectionModel().selectFirst();
+        
+        projectBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                Object o = projectBox.getItems().get((Integer)t1);
+                if(o instanceof String && o.equals("Wszystkie")) {
+                    teamBox.getItems().clear();
+                    teamBox.getItems().add("Wszystkie");
+                    teamBox.getItems().addAll(TeamRepository.findTeamsByUser(currentUser));
+                    teamBox.getSelectionModel().selectFirst();
+                }
+                else if(o instanceof Project) {
+                    teamBox.getItems().clear();
+                    teamBox.getItems().add("Wszystkie");
+                    teamBox.getItems().addAll(TeamRepository.findTeamsByProjectAndUser((Project)o, currentUser));
+                    teamBox.getSelectionModel().selectFirst();
+                }
+            }
+        });
+        
+        teamBox.getItems().clear();
+        teamBox.getItems().add("Wszystkie");
+        teamBox.getItems().addAll(TeamRepository.findTeamsByUser(currentUser));
+        teamBox.getSelectionModel().selectFirst();
+        
+        project2Box.setItems(projectBox.getItems());
+        project2Box.setSelectionModel(projectBox.getSelectionModel());
+        team2Box.setItems(teamBox.getItems());
+        team2Box.setSelectionModel(teamBox.getSelectionModel());
     }
 
     private void close() {
         Stage window = (Stage) menuBar.getScene().getWindow();
         window.close();
+    }
+    
+    public void onTeamFilterClick() {
+        Object o = teamBox.getSelectionModel().getSelectedItem();
+        if(o instanceof Team) {
+            usersTable.getItems().clear();
+            usersTable.getItems().addAll(UserRepository.findUsersByTeam((Team)o));
+        }
+        else if(o instanceof String && o.equals("Wszystkie")) {
+            Object p = projectBox.getSelectionModel().getSelectedItem();
+            if(p instanceof Project) {
+                usersTable.getItems().clear();
+                usersTable.getItems().addAll(UserRepository.findUsersByProject((Project)p));
+            }
+            else if(p instanceof String && p.equals("Wszystkie")) {
+                usersTable.getItems().clear();
+                usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeams(currentUser));
+            }
+        }
+    }
+    
+    public void onTaskFilterButtonClick() {
+        Object o = teamBox.getSelectionModel().getSelectedItem();
+        if(o instanceof Team) {
+            tasksTable.getItems().clear();
+            tasksTable.getItems().addAll(TaskRepository.findTasksByTeam((Team)o));
+        }
+        else if(o instanceof String && o.equals("Wszystkie")) {
+            Object p = projectBox.getSelectionModel().getSelectedItem();
+            if(p instanceof Project) {
+                tasksTable.getItems().clear();
+                tasksTable.getItems().addAll(TaskRepository.findTasksByProject((Project)p));
+            }
+            else if(p instanceof String && p.equals("Wszystkie")) {
+                tasksTable.getItems().clear();
+                tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
+            }
+        }
     }
     
     public void onTaskManagementButtonClick() {

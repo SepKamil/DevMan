@@ -125,7 +125,7 @@ public class UserRepository {
     public static List<User> findUsersByTeam(Team team) {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<User> users = session.createQuery("FROM User u JOIN u.teams t WHERE t=:team").setParameter("team", team).list();
+        List<User> users = session.createQuery("SELECT u FROM User u JOIN u.teams t WHERE t=:team").setParameter("team", team).list();
         transaction.commit();
         session.close();
         return users;
@@ -134,7 +134,7 @@ public class UserRepository {
     public static List<User> findUsersByProject(Project project) {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<User> users = session.createQuery("FROM User u JOIN u.teams t WHERE t.project=:project").setParameter("project", project).list();
+        List<User> users = session.createQuery("SELECT u FROM User u JOIN u.teams t WHERE t.project=:project").setParameter("project", project).list();
         transaction.commit();
         session.close();
         return users;
@@ -143,7 +143,7 @@ public class UserRepository {
     public static List<User> findAnotherUsersInTeams(User user) {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<User> users = session.createQuery("FROM User u JOIN u.teams t WHERE t in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
+        List<User> users = session.createQuery("SELECT u FROM User u JOIN u.teams t WHERE t in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
         transaction.commit();
         session.close();
         return users;
