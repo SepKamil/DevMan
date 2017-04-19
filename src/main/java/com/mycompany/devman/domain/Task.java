@@ -28,20 +28,21 @@ public class Task {
     @GeneratedValue
     private Long id;
     
-    @NotEmpty
-    @NotNull
+    @NotEmpty(message = "Naazwa nie może być pusta")
+    @NotNull(message = "Nazwa nie może być nullem")
     private String name;
     
-    @NotNull
+    @NotNull(message = "Data rozpoczęcia nie może być nullem")
     private LocalDate startDate;
     
-    @NotNull
+    @NotNull(message = "Data zakończenie nie może być nullem")
     private LocalDate endDate;
     
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
     
+    @NotNull(message = "Przewidywany czas nie może być nullem")
     private Integer predictedTime;
 
     /**

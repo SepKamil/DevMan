@@ -6,15 +6,14 @@ package com.mycompany.devman.controllers.managerPanel;
  * and open the template in the editor.
  */
 
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -49,6 +48,13 @@ public class EmployeeAssignController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        placeEmployeesOnSides();
+        
+        allEmployees.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        selectedEmployees.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    private void placeEmployeesOnSides() {
         List<User> users = UserRepository.findEmployees();
         users.forEach(user -> {
             if(user.getTeams().contains(team))
@@ -56,42 +62,47 @@ public class EmployeeAssignController implements Initializable {
             else
                 allEmployees.getItems().add(user);
         });
-        
-        allEmployees.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        selectedEmployees.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    } 
-    
+    }
+
     private void close() {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
     
     public void onOkButtonClick() {
-        for(Object o : allEmployees.getItems()) {
-            User user = (User)o;
-            if(user.getTeams().contains(team)) {
-                user.getTeams().remove(team);
-                try {
-                    UserRepository.UpdateUser(user);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
+        updateSelectedEmployees();
+        updateNonSelectedEmployees();
+        close();
+    }
+
+    private void updateNonSelectedEmployees() {
         for(Object o : selectedEmployees.getItems()) {
             User user = (User)o;
             if(!user.getTeams().contains(team)) {
                 user.getTeams().add(team);
                 try {
-                    UserRepository.UpdateUser(user);
+                    UserRepository.updateUser(user);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         }
-        close();
     }
-    
+
+    private void updateSelectedEmployees() {
+        for(Object o : allEmployees.getItems()) {
+            User user = (User)o;
+            if(user.getTeams().contains(team)) {
+                user.getTeams().remove(team);
+                try {
+                    UserRepository.updateUser(user);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void onCancelButtonClick() {
         close();
     }

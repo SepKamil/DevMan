@@ -5,19 +5,16 @@
  */
 package com.mycompany.devman.controllers.managerPanel;
 
-import com.mycompany.devman.TaskRepository;
-import com.mycompany.devman.TeamRepository;
+import com.mycompany.devman.repositories.TaskRepository;
 import com.mycompany.devman.domain.Task;
-import com.mycompany.devman.domain.Team;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;

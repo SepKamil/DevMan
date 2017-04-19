@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.devman;
+package com.mycompany.devman.repositories;
 
+import com.mycompany.devman.MainApp;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
@@ -25,6 +26,14 @@ public class TeamRepository {
     public static Team addTeam(Team team) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
+        validateEntity(team);
+        session.save(team);
+        transaction.commit();
+        session.close();
+        return team;
+    }
+
+    private static void validateEntity(Team team) throws Exception {
         Validator validator = MainApp.getEntityValidator();
         Set<ConstraintViolation<Team>> teams = validator.validate(team);
         String message = "";
@@ -36,11 +45,8 @@ public class TeamRepository {
             }
             throw new Exception(message);
         }
-        session.save(team);
-        transaction.commit();
-        session.close();
-        return team;
     }
+
     public static List<Team> findAllTeams() {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
@@ -53,17 +59,7 @@ public class TeamRepository {
     public static Team updateTeam(Team team) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        Validator validator = MainApp.getEntityValidator();
-        Set<ConstraintViolation<Team>> teams = validator.validate(team);
-        String message = "";
-        if (teams.size() > 0) {
-            Iterator iterator = teams.iterator();
-            while (iterator.hasNext()) {
-                ConstraintViolation<Team> teamError = (ConstraintViolation<Team>) iterator.next();
-                message += " " + teamError.getMessage();
-            }
-            throw new Exception(message);
-        }
+        validateEntity(team);
         session.update(team);
         transaction.commit();
         session.close();

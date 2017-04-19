@@ -5,26 +5,22 @@
  */
 package com.mycompany.devman.controllers.employeePanel;
 
-import com.mycompany.devman.LeaveRepository;
+import com.mycompany.devman.repositories.LeaveRepository;
 import com.mycompany.devman.domain.Leave;
 import com.mycompany.devman.domain.User;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -56,6 +52,10 @@ public class AddLeaveRequestController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        setUpSpinner();
+    }
+
+    private void setUpSpinner() {
         SpinnerValueFactory factory = new SpinnerValueFactory() {
             @Override
             public void decrement(int i) {
@@ -72,8 +72,8 @@ public class AddLeaveRequestController implements Initializable {
         };
         numberOfDays.setValueFactory(factory);
         numberOfDays.getValueFactory().setValue(1);
-    }    
-    
+    }
+
     private void close() {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
@@ -84,19 +84,15 @@ public class AddLeaveRequestController implements Initializable {
     }
     
     public void onOkButtonClick() {
-        Leave leave = new Leave();
-        LocalDate date = startDate.valueProperty().get();
-        leave.setNumberOfDays((Integer)numberOfDays.getValueFactory().getValue());
-        leave.setStartDate(date);
-        leave.setEmployee(currentUser);
+        Leave leave = null;
         try {
-            LeaveRepository.addNewLeaveRequest(leave);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            leave = sendLeaveToRepository();
+        } catch (Exception e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Bląd");
             alert.setHeaderText("Błąd składania wniosku!");
-            alert.setContentText(ex.getMessage());
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
             return;
         }
@@ -104,11 +100,22 @@ public class AddLeaveRequestController implements Initializable {
         alert.setTitle("Informacja");
         alert.setHeaderText("Wniosek zlożony!");
         alert.setContentText("Wniosek zostanie przekazany do rozpatrzenia przez menadżera. Otrzymasz powiadomienie o jego zaakceptowaniu bądź odrzuceniu.");
+        Leave finalLeave = leave;
         alert.showAndWait().ifPresent(rs -> {
         if (rs == ButtonType.OK) {
+            controller.addNewLeaveRequest(finalLeave);
             close();
         }
-        controller.addNewLeaveRequest(leave);
       });
+    }
+
+    private Leave sendLeaveToRepository() throws Exception {
+        Leave leave = new Leave();
+        LocalDate date = startDate.valueProperty().get();
+        leave.setNumberOfDays((Integer)numberOfDays.getValueFactory().getValue());
+        leave.setStartDate(date);
+        leave.setEmployee(currentUser);
+        LeaveRepository.addNewLeaveRequest(leave);
+        return leave;
     }
 }

@@ -1,4 +1,4 @@
-package com.mycompany.devman;
+package com.mycompany.devman.repositories;
 
 import com.mycompany.devman.MainApp;
 import com.mycompany.devman.domain.Project;
@@ -23,29 +23,14 @@ public class TaskRepository {
     public static Task addTask(Task task) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        Validator validator = MainApp.getEntityValidator();
-        Set<ConstraintViolation<Task>> tasks = validator.validate(task);
-        String message = "";
-        if (tasks.size() > 0) {
-            Iterator iterator = tasks.iterator();
-            while (iterator.hasNext()) {
-                ConstraintViolation<Task> taskError = (ConstraintViolation<Task>) iterator.next();
-                message += " " + taskError.getMessage();
-            }
-            throw new Exception(message);
-        }
-        if(task.getStartDate().isAfter(task.getEndDate())) {
-            throw new Exception("Data rozpoczęcia nie może być po dacie zakończenia.");
-        }
+        validateEntity(task);
         session.save(task);
         transaction.commit();
         session.close();
         return task;
     }
-    
-    public static Task updateTask(Task task) throws Exception {
-        Session session = MainApp.getDatabaseSession();
-        Transaction transaction = session.beginTransaction();
+
+    private static void validateEntity(Task task) throws Exception {
         Validator validator = MainApp.getEntityValidator();
         Set<ConstraintViolation<Task>> tasks = validator.validate(task);
         String message = "";
@@ -60,6 +45,12 @@ public class TaskRepository {
         if(task.getStartDate().isAfter(task.getEndDate())) {
             throw new Exception("Data rozpoczęcia nie może być po dacie zakończenia.");
         }
+    }
+
+    public static Task updateTask(Task task) throws Exception {
+        Session session = MainApp.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        validateEntity(task);
         session.update(task);
         transaction.commit();
         session.close();
@@ -86,7 +77,6 @@ public class TaskRepository {
     }
 
     public static void deleteById(Long id) throws Exception {
-
         try {
             Session session = MainApp.getDatabaseSession();
             Transaction transaction = session.beginTransaction();

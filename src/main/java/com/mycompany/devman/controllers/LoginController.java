@@ -1,23 +1,20 @@
 package com.mycompany.devman.controllers;
 
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.controllers.employeePanel.EmployeePanelController;
 import com.mycompany.devman.controllers.managerPanel.ManagerPanelController;
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -73,41 +70,48 @@ public class LoginController implements Initializable {
         }
 
         if (user.getAccountType().equals(AccountType.MANAGER)) {
-
-            Stage managerWindow = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ManagerPanel.fxml"));
-            ManagerPanelController controller = new ManagerPanelController(user);
-            loader.setController(controller);
-            Parent root = (Parent)loader.load();
-
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("/styles/managerpanel.css");
-
-            managerWindow.setTitle("DevMan - Panel Menadżera");
-            managerWindow.setResizable(false);
-            managerWindow.setScene(scene);
-            managerWindow.setX(20);
-            managerWindow.setY(20);
-            managerWindow.show();
+            showManagerPanel(user);
         }
 
         if (user.getAccountType().equals(AccountType.EMPLOYEE)) {
-            Stage employeeWindow = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/EmployeePanel.fxml"));
-            EmployeePanelController controller = new EmployeePanelController(user);
-            loader.setController(controller);
-            Parent root2 = (Parent)loader.load();
-            
-            Scene scene2 = new Scene(root2);
-            scene2.getStylesheets().add("/styles/employeepanel.css");
-
-            employeeWindow.setTitle("DevMan - Panel Pracownika");
-            employeeWindow.setResizable(false);
-            employeeWindow.setScene(scene2);
-            employeeWindow.setX(300);
-            employeeWindow.setY(300);
-            employeeWindow.show();
+            showEmployeePanel(user);
         }
+    }
+
+    private void showEmployeePanel(User user) throws IOException {
+        Stage employeeWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/EmployeePanel.fxml"));
+        EmployeePanelController controller = new EmployeePanelController(user);
+        loader.setController(controller);
+        Parent root2 = (Parent)loader.load();
+
+        Scene scene2 = new Scene(root2);
+        scene2.getStylesheets().add("/styles/employeepanel.css");
+
+        employeeWindow.setTitle("DevMan - Panel Pracownika");
+        employeeWindow.setResizable(false);
+        employeeWindow.setScene(scene2);
+        employeeWindow.setX(300);
+        employeeWindow.setY(300);
+        employeeWindow.show();
+    }
+
+    private void showManagerPanel(User user) throws IOException {
+        Stage managerWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ManagerPanel.fxml"));
+        ManagerPanelController controller = new ManagerPanelController(user);
+        loader.setController(controller);
+        Parent root = (Parent)loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/managerpanel.css");
+
+        managerWindow.setTitle("DevMan - Panel Menadżera");
+        managerWindow.setResizable(false);
+        managerWindow.setScene(scene);
+        managerWindow.setX(20);
+        managerWindow.setY(20);
+        managerWindow.show();
     }
 
     /**

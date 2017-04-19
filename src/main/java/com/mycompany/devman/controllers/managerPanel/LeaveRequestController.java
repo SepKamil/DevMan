@@ -1,7 +1,7 @@
 
 package com.mycompany.devman.controllers.managerPanel;
 
-import com.mycompany.devman.LeaveRepository;
+import com.mycompany.devman.repositories.LeaveRepository;
 import com.mycompany.devman.domain.Leave;
 import com.mycompany.devman.domain.LeaveRequestStatus;
 import com.mycompany.devman.domain.User;
@@ -36,23 +36,23 @@ public class LeaveRequestController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TableColumn firstNameCol = new TableColumn("Pracownik");
-        firstNameCol.setMinWidth(150);
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<Leave, LeaveRequestStatus>("employee"));
+        TableColumn employee = new TableColumn("Pracownik");
+        employee.setMinWidth(150);
+        employee.setCellValueFactory(new PropertyValueFactory<Leave, LeaveRequestStatus>("employee"));
  
-        TableColumn lastNameCol = new TableColumn("Data rozpoczęcia");
-        lastNameCol.setMinWidth(150);
-        lastNameCol.setCellValueFactory(
+        TableColumn startDate = new TableColumn("Data rozpoczęcia");
+        startDate.setMinWidth(150);
+        startDate.setCellValueFactory(
                 new PropertyValueFactory<Leave, LocalDate>("startDate"));
  
-        TableColumn emailCol = new TableColumn("ilość dni");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
+        TableColumn numberOfDays = new TableColumn("ilość dni");
+        numberOfDays.setMinWidth(200);
+        numberOfDays.setCellValueFactory(
                 new PropertyValueFactory<Leave, Integer>("numberOfDays"));
  
         leaveTable.getItems().addAll(LeaveRepository.findPendingLeavesByManager(currentUser));
         leaveTable.getColumns().clear();
-        leaveTable.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        leaveTable.getColumns().addAll(employee, startDate, numberOfDays);
     }
 
     public void onAcceptButtonClick() {

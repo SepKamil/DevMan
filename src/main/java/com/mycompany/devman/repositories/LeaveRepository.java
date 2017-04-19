@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.devman;
+package com.mycompany.devman.repositories;
 
+import com.mycompany.devman.MainApp;
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.Leave;
 import com.mycompany.devman.domain.LeaveRequestStatus;
@@ -29,16 +30,25 @@ public class LeaveRepository {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         leave.setStatus(LeaveRequestStatus.OCZEKUJE);
+        validateEntity(leave);
+        Long id = (Long) session.save(leave);
+        leave.setId(id);
+        transaction.commit();
+        session.close();
+        return leave;
+    }
+
+    private static void validateEntity(Leave leave) throws Exception {
         Validator validator = MainApp.getEntityValidator();
         Set<ConstraintViolation<Leave>> leaves = validator.validate(leave);
-        String message = "";
+        StringBuilder message = new StringBuilder();
         if (leaves.size() > 0) {
             Iterator iterator = leaves.iterator();
             while (iterator.hasNext()) {
                 ConstraintViolation<User> userError = (ConstraintViolation<User>) iterator.next();
-                message += " " + userError.getMessage();
+                message.append(", ").append(userError.getMessage());
             }
-            throw new Exception(message);
+            throw new Exception(message.toString());
         }
         if(!leave.getEmployee().getAccountType().equals(AccountType.EMPLOYEE)) {
             throw new Exception("Składający wniosek nie jest pracownikiem");
@@ -46,12 +56,8 @@ public class LeaveRepository {
         if(leave.getStartDate().isBefore(LocalDate.now())) {
             throw new Exception("Data rozpoczęcia musi byc z przyszlości.");
         }
-        Long id = (Long) session.save(leave);
-        leave.setId(id);
-        transaction.commit();
-        session.close();
-        return leave;
     }
+
     public static List<Leave> findLeavesByUser(User user) {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();

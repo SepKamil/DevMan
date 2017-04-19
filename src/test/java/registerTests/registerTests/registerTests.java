@@ -6,7 +6,7 @@
 package registerTests.registerTests;
 
 import com.mycompany.devman.MainApp;
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.Leave;
 import com.mycompany.devman.domain.Message;
@@ -16,17 +16,14 @@ import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import com.mycompany.devman.domain.WorkTime;
 import javax.validation.Validation;
-import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import org.hibernate.Session;
+
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.junit.After;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

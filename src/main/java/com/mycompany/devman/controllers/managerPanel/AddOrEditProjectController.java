@@ -5,12 +5,11 @@
  */
 package com.mycompany.devman.controllers.managerPanel;
 
-import com.mycompany.devman.ProjectRepository;
+import com.mycompany.devman.repositories.ProjectRepository;
 import com.mycompany.devman.domain.Project;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;

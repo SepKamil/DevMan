@@ -1,13 +1,10 @@
 package registerTests.registerTests;
 
 import com.mycompany.devman.MainApp;
-import com.mycompany.devman.ProjectRepository;
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.ProjectRepository;
 import com.mycompany.devman.domain.*;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Type;
 import org.hibernate.cfg.Configuration;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +16,7 @@ import javax.validation.ValidatorFactory;
 import java.time.LocalDate;
 
 import static junit.framework.TestCase.assertEquals;
+import org.junit.Ignore;
 
 /**
  * Created by bloczek on 04.04.2017.
@@ -72,7 +70,7 @@ public class projectTest {
     public void findProjectByIdIfNotExist() throws Exception {
         Project testProject = ProjectRepository.findById(new Long(0));
     }
-
+    @Ignore
     @Test(expected = Exception.class)
     public void deleteProjectIfNotExist() throws Exception {
         ProjectRepository.deleteById(new Long(0));

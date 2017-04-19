@@ -1,16 +1,22 @@
 package com.mycompany.devman.controllers;
 
 
+import com.mycompany.devman.repositories.UserRepository;
+import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.mail.MessagingException;
 
 /**
  * FXML Controller class
@@ -20,10 +26,16 @@ import javafx.stage.Stage;
 public class PasswordRecoveryStage1Controller implements Initializable {
     
     @FXML
-    Button backButton;
+    private Button backButton;
     
     @FXML
-    Button nextButton;
+    private Button nextButton;
+    
+    @FXML
+    private TextField email;
+    
+    @FXML
+    private TextField pesel;
 
     /**
      * Initializes the controller class.
@@ -39,15 +51,41 @@ public class PasswordRecoveryStage1Controller implements Initializable {
      *  or /styles/passwordrecoverystage2.css are missing
      */
     public void onNextButtonClick() throws IOException {
-        Stage window = (Stage)nextButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/PasswordRecoveryStage2.fxml"));
+        User user = null;
+        try {
+            user = UserRepository.findByEmailAndPesel(email.getText(), pesel.getText());
+        } catch (Exception ex) {
+            showErrorMessage(ex);
+            return;
+        }
         
+        String newPassword;
+        try {
+            newPassword = UserRepository.resetPassword(user);
+        } catch (MessagingException ex) {
+            showErrorMessage(ex);
+            return;
+        }
+        
+        Stage window = (Stage)nextButton.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PasswordRecoveryStage2.fxml"));
+        PasswordRecoveryStage2Controller vontroller = new PasswordRecoveryStage2Controller(user, newPassword);
+        loader.setController(vontroller);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/passwordrecoverystage2.css");
         
         window.setScene(scene);
     }
-    
+
+    private void showErrorMessage(Exception ex) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Błąd!");
+        alert.setHeaderText("Błąd resetowania hasła!");
+        alert.setContentText(ex.getMessage());
+        alert.showAndWait();
+    }
+
     private void close() {
         Stage window = (Stage) backButton.getScene().getWindow();
         window.close();

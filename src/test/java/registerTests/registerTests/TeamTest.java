@@ -1,14 +1,11 @@
 package registerTests.registerTests;
 
 import com.mycompany.devman.MainApp;
-import com.mycompany.devman.ProjectRepository;
-import com.mycompany.devman.TeamRepository;
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.ProjectRepository;
+import com.mycompany.devman.repositories.TeamRepository;
 import com.mycompany.devman.domain.*;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.annotations.Type;
 import org.hibernate.cfg.Configuration;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,11 +47,14 @@ public class TeamTest {
     @Test
     public void addTest() throws Exception {
         Team team = new Team();
+        team.setName("test");
         Project project = new Project();
         project.setName("addTeam");
         project.setStartDate(LocalDate.of(1969, 06, 9));
         project.setEndDate(LocalDate.of(2001, 06, 9));
+        team.setProject(project);
         Session session = MainApp.getDatabaseSession();
+        ProjectRepository.addProject(project);
         TeamRepository.addTeam(team);
         assertEquals(team, session.createQuery("FROM Team").list().get(0));
     }

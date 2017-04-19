@@ -1,10 +1,9 @@
 package com.mycompany.devman.controllers;
 
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.User;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,15 +61,7 @@ public class RegisterController implements Initializable {
      * user confirms reading the message
      */
     public void OnRegisterButtonClick() throws Exception {
-        User user = new User();
-        user.setLogin(login.getText());
-        user.setPassword(password.getText());
-        user.setName(name.getText());
-        user.setLastName(lastName.getText());
-        user.setEmail(email.getText());
-        user.setManager((User) manager.getSelectionModel().getSelectedItem());
-        user.setPesel(pesel.getText());
-        user.setAccountType(AccountType.EMPLOYEE);
+        User user = makeNewUser();
 
         try {
             if(!password.getText().equals(repeatPassword.getText())) {
@@ -97,6 +88,19 @@ public class RegisterController implements Initializable {
         });
     }
 
+    private User makeNewUser() {
+        User user = new User();
+        user.setLogin(login.getText());
+        user.setPassword(password.getText());
+        user.setName(name.getText());
+        user.setLastName(lastName.getText());
+        user.setEmail(email.getText());
+        user.setManager((User) manager.getSelectionModel().getSelectedItem());
+        user.setPesel(pesel.getText());
+        user.setAccountType(AccountType.EMPLOYEE);
+        return user;
+    }
+
     /**
      * Closes the Password recovery window
      */
@@ -109,24 +113,7 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (UserRepository.findManagers().isEmpty()) {
-            User user = new User();
-            user.setLogin("admin");
-            user.setPassword("devman2017");
-            user.setName("Jan");
-            user.setLastName("Kowalski");
-            user.setPesel("11111111111");
-            user.setEmail("admin@devman.pl");
-            user.setAccountType(AccountType.MANAGER);
-            try {
-                UserRepository.addUserToDatabase(user);
-            } catch (Exception ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
         UserRepository.findManagers().forEach(manager.getItems()::add);
-        
         manager.getSelectionModel().selectFirst();
     }
     

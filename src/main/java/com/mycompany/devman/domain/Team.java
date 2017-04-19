@@ -64,8 +64,8 @@ public class Team {
         return true;
     }
     
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "nazwa nie może być nullem")
+    @NotEmpty(message = "nazwa nie może być pusta")
     private String name;
     
     @ManyToOne
