@@ -8,6 +8,6 @@ INSERT INTO `projects` (`id`, `endDate`, `name`, `startDate`) VALUES(15, '2017-0
 
 INSERT INTO `teams` (`id`, `name`, `project`) VALUES(16, 'bbb', 15),(21, 'ccc', 15),(28, 'eee', 27),(31, 'qwerty', 15),(33, 'zxcvbnm', 15);
 
-INSERT INTO `tasks` (`id`, `endDate`, `name`, `predictedTime`, `startDate`, `team_id`) VALUES(22, '2017-04-16', 'zadanie1', NULL, '2017-04-10', NULL),(23, '2017-04-07', 'zadanie2', 4, '2017-04-05', 16),(24, '2017-04-30', 'zadanie3', 3, '2017-04-22', 16),(25, '2017-04-15', 'zadanie4', 7, '2017-04-03', 16),(26, '2017-04-16', 'zadanie5', 10, '2017-04-12', NULL),(30, '2017-04-16', 'vvv', 4, '2017-04-07', NULL),(34, '2017-04-23', 'task123', 5, '2017-04-15', NULL);
+INSERT INTO `tasks` (`id`, `endDate`, `name`, `predictedTime`, `startDate`, `team_id`) VALUES(22, '2017-04-16', 'zadanie1', 5, '2017-04-10', NULL),(23, '2017-04-07', 'zadanie2', 4, '2017-04-05', 16),(24, '2017-04-30', 'zadanie3', 3, '2017-04-22', 16),(25, '2017-04-15', 'zadanie4', 7, '2017-04-03', 16),(26, '2017-04-16', 'zadanie5', 10, '2017-04-12', NULL),(30, '2017-04-16', 'vvv', 4, '2017-04-07', NULL),(34, '2017-04-23', 'task123', 5, '2017-04-15', NULL);
 
 INSERT INTO `users_teams` (`User_id`, `teams_id`) VALUES (18, 16), (20, 16), (2, 16), (2, 28);
