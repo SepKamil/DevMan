@@ -22,7 +22,7 @@
       <Label layoutX="14.0" layoutY="22.0" text="Data:" />
       <DatePicker layoutX="144.0" layoutY="17.0" />
       <Label layoutX="14.0" layoutY="64.0" text="Zadanie:" />
-      <ChoiceBox layoutX="144.0" layoutY="59.0" prefWidth="150.0" style="-fx-background-color: #1a376d;" />
+      <ChoiceBox layoutX="144.0" layoutY="59.0" prefWidth="150.0" />
       <Label layoutX="12.0" layoutY="107.0" text="Czas w godzinach:" />
       <TextField layoutX="144.0" layoutY="102.0" />
       <Button layoutX="12.0" layoutY="141.0" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="OK" textFill="WHITE" />
