@@ -17,7 +17,7 @@
         <URL value="@/styles/login.css" />
     </stylesheets>
    <children>
-      <Label layoutX="129.0" layoutY="69.0" text="Nazwa:" />
+      <Label layoutX="133.0" layoutY="69.0" text="Nazwa:" />
       <TextField layoutX="188.0" layoutY="64.0" />
       <Label layoutX="64.0" layoutY="109.0" text="Data rozpoczęcia:" />
       <Label layoutX="63.0" layoutY="149.0" text="Data zakończenia:" />

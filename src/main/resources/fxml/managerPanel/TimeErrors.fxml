@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.managerPanel.TimeErrorsController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.managerPanel.TimeErrorsController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
@@ -19,6 +23,6 @@
           <TableColumn prefWidth="177.0" text="Zalogowane godziny" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Usuń" />
+      <Button layoutX="10.0" layoutY="365.0" mnemonicParsing="false" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
    </children>
 </AnchorPane>
