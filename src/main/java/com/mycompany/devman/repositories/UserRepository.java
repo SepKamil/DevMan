@@ -35,16 +35,14 @@ import org.hibernate.Transaction;
 public class UserRepository {
 
     public static String resetPassword(User user) throws AddressException, MessagingException {
-        Random generator = new Random();
-        StringBuilder newPassword = new StringBuilder();
-        int znak;
-        while (newPassword.length() < 12) {
-            do {
-                znak = generator.nextInt(Character.MAX_VALUE);
-            } while (!Character.isDigit(znak));
-            newPassword.append((char) znak);
-        }
+        StringBuilder newPassword = generateNewPassword();
 
+        sendNewPasswordByEmail(user, newPassword);
+
+        return newPassword.toString();
+    }
+
+    private static void sendNewPasswordByEmail(User user, StringBuilder newPassword) throws MessagingException {
         Message message = new MimeMessage(MainApp.getMailSession());
         message.setFrom(new InternetAddress("devmanmailer@gmail.com"));
         message.setRecipients(Message.RecipientType.TO,
@@ -56,13 +54,33 @@ public class UserRepository {
                 +"\n\nWiadomość wygenerowana automatycznie.");
 
         Transport.send(message);
+    }
 
-        return newPassword.toString();
+    private static StringBuilder generateNewPassword() {
+        Random generator = new Random();
+        StringBuilder newPassword = new StringBuilder();
+        int znak;
+        while (newPassword.length() < 12) {
+            do {
+                znak = generator.nextInt(Character.MAX_VALUE);
+            } while (!Character.isDigit(znak));
+            newPassword.append((char) znak);
+        }
+        return newPassword;
     }
 
     public static User addUserToDatabase(User user) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
+        validateEntity(user);
+        Long id = (Long) session.save(user);
+        user.setId(id);
+        transaction.commit();
+        session.close();
+        return user;
+    }
+
+    private static void validateEntity(User user) throws Exception {
         Validator validator = MainApp.getEntityValidator();
         Set<ConstraintViolation<User>> users = validator.validate(user);
         String message = "";
@@ -74,11 +92,6 @@ public class UserRepository {
             }
             throw new Exception(message);
         }
-        Long id = (Long) session.save(user);
-        user.setId(id);
-        transaction.commit();
-        session.close();
-        return user;
     }
 
     public static User findByLoginAndPassword(String login, String password) throws Exception {
@@ -154,17 +167,7 @@ public class UserRepository {
     public static User updateUser(User user) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        Validator validator = MainApp.getEntityValidator();
-        Set<ConstraintViolation<User>> users = validator.validate(user);
-        String message = "";
-        if (users.size() > 0) {
-            Iterator iterator = users.iterator();
-            while (iterator.hasNext()) {
-                ConstraintViolation<User> userError = (ConstraintViolation<User>) iterator.next();
-                message += " " + userError.getMessage();
-            }
-            throw new Exception(message);
-        }
+        validateEntity(user);
         session.update(user);
         transaction.commit();
         session.close();

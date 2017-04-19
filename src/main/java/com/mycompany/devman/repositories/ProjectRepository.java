@@ -21,23 +21,27 @@ public class ProjectRepository {
     public static Project addProject(Project project) throws Exception {
         Session session = MainApp.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        Validator validator = MainApp.getEntityValidator();
-        Set<ConstraintViolation<Project>> projects = validator.validate(project);
-        String message = "";
-        if (projects.size() > 0) {
-            Iterator iterator = projects.iterator();
-            while (iterator.hasNext()) {
-                ConstraintViolation<Project> projectError = (ConstraintViolation<Project>) iterator.next();
-                message += " " + projectError.getMessage();
-            }
-            throw new Exception(message);
-        }
-        if(project.getStartDate().isAfter(project.getEndDate()))
-            throw new Exception("Data rozpoczęcia musi być przed datą zakończenia prjektu.");
+        validateEntity(project);
         session.save(project);
         transaction.commit();
         session.close();
         return project;
+    }
+
+    private static void validateEntity(Project project) throws Exception {
+        Validator validator = MainApp.getEntityValidator();
+        Set<ConstraintViolation<Project>> projects = validator.validate(project);
+        StringBuilder message = new StringBuilder();
+        if (projects.size() > 0) {
+            Iterator iterator = projects.iterator();
+            while (iterator.hasNext()) {
+                ConstraintViolation<Project> projectError = (ConstraintViolation<Project>) iterator.next();
+                message.append(", ").append(projectError.getMessage());
+            }
+            throw new Exception(message.toString());
+        }
+        if(project.getStartDate().isAfter(project.getEndDate()))
+            throw new Exception("Data rozpoczęcia musi być przed datą zakończenia prjektu.");
     }
 
     public static Project findById(Long id) throws Exception {
