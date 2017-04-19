@@ -1,4 +1,4 @@
-package com.mycompany.devman;
+package com.mycompany.devman.repositories;
 
 import com.mycompany.devman.MainApp;
 import com.mycompany.devman.domain.Project;

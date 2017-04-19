@@ -6,11 +6,10 @@ package com.mycompany.devman.controllers.managerPanel;
  * and open the template in the editor.
  */
 
-import com.mycompany.devman.TaskRepository;
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.TaskRepository;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
-import com.mycompany.devman.domain.User;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +48,13 @@ public class TaskAssignController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        placeTasksOnSides();
+        
+        allTasks.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        selectedTasks.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    }
+
+    private void placeTasksOnSides() {
         List<Task> tasks = TaskRepository.findAllTasks();
         tasks.forEach(task -> {
             if(team.equals(task.getTeam()))
@@ -56,28 +62,20 @@ public class TaskAssignController implements Initializable {
             else
                 allTasks.getItems().add(task);
         });
-        
-        allTasks.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        selectedTasks.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    } 
-    
+    }
+
     private void close() {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
     
     public void onOkButtonClick() {
-        for(Object o : allTasks.getItems()) {
-            Task task = (Task)o;
-            if(team.equals(task.getTeam())) {
-                task.setTeam(null);
-                try {
-                    TaskRepository.updateTask(task);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
+        updateSelectedTasks();
+        updateNonSelectedTasks();
+        close();
+    }
+
+    private void updateNonSelectedTasks() {
         for(Object o : selectedTasks.getItems()) {
             Task task = (Task)o;
             if(!team.equals(task.getTeam())) {
@@ -89,9 +87,22 @@ public class TaskAssignController implements Initializable {
                 }
             }
         }
-        close();
     }
-    
+
+    private void updateSelectedTasks() {
+        for(Object o : allTasks.getItems()) {
+            Task task = (Task)o;
+            if(team.equals(task.getTeam())) {
+                task.setTeam(null);
+                try {
+                    TaskRepository.updateTask(task);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void onCancelButtonClick() {
         close();
     }

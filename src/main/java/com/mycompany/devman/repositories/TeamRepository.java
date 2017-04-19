@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.devman;
+package com.mycompany.devman.repositories;
 
+import com.mycompany.devman.MainApp;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;

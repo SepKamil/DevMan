@@ -1,20 +1,17 @@
 package com.mycompany.devman.controllers.employeePanel;
 
-import com.mycompany.devman.LeaveRepository;
-import com.mycompany.devman.ProjectRepository;
-import com.mycompany.devman.TaskRepository;
-import com.mycompany.devman.TeamRepository;
-import com.mycompany.devman.UserRepository;
+import com.mycompany.devman.repositories.LeaveRepository;
+import com.mycompany.devman.repositories.ProjectRepository;
+import com.mycompany.devman.repositories.TaskRepository;
+import com.mycompany.devman.repositories.TeamRepository;
+import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.domain.Leave;
-import com.mycompany.devman.domain.LeaveRequestStatus;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -28,7 +25,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -54,13 +50,13 @@ public class EmployeePanelController implements Initializable {
     private TableView<Leave> leaveTable;
     
     @FXML
-    private ChoiceBox projectBox;
+    private ChoiceBox<Object> projectBox;
     
     @FXML
     private ChoiceBox teamBox;
     
     @FXML
-    private ChoiceBox project2Box;
+    private ChoiceBox<Object> project2Box;
     
     @FXML
     private ChoiceBox team2Box;
@@ -78,7 +74,27 @@ public class EmployeePanelController implements Initializable {
     public void addNewLeaveRequest(Leave leave) {
         leaveTable.getItems().add(leave);
     }
-    
+
+    private void showInfoWindow() {
+        Stage infoWindow = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/Info.fxml"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        infoWindow.setTitle("DevMan - Informacje");
+        infoWindow.setResizable(false);
+        infoWindow.setScene(scene);
+        infoWindow.setX(20);
+        infoWindow.setY(20);
+        infoWindow.show();
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -93,88 +109,35 @@ public class EmployeePanelController implements Initializable {
         menuBar.getMenus().filtered(menu -> menu.getText().equals("Pomoc")).get(0).getItems().filtered(item -> item.getText().equals("Informacje")).get(0).addEventHandler(EventType.ROOT, new EventHandler() {
             @Override
             public void handle(Event t) {
-                Stage infoWindow = new Stage();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/Info.fxml"));
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add("/styles/register.css");
-
-                infoWindow.setTitle("DevMan - Informacje");
-                infoWindow.setResizable(false);
-                infoWindow.setScene(scene);
-                infoWindow.setX(20);
-                infoWindow.setY(20);
-                infoWindow.show();
+                showInfoWindow();
             }
+
+
         });
-        TableColumn firstNameCol = new TableColumn("Status");
-        firstNameCol.setMinWidth(150);
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("status"));
- 
-        TableColumn lastNameCol = new TableColumn("Data rozpoczęcia");
-        lastNameCol.setMinWidth(150);
-        lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<>("startDate"));
- 
-        TableColumn emailCol = new TableColumn("ilość dni");
-        emailCol.setMinWidth(200);
-        emailCol.setCellValueFactory(
-                new PropertyValueFactory<>("numberOfDays"));
- 
-        leaveTable.getItems().addAll(LeaveRepository.findLeavesByUser(currentUser));
-        leaveTable.getColumns().clear();
-        leaveTable.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
-        
-        TableColumn name = new TableColumn("Imię");
-        name.setMinWidth(150);
-        name.setCellValueFactory(new PropertyValueFactory<>("name"));
- 
-        TableColumn lastName = new TableColumn("Nazwisko");
-        lastName.setMinWidth(150);
-        lastName.setCellValueFactory(
-                new PropertyValueFactory<>("lastName"));
- 
-        TableColumn email = new TableColumn("e-mail");
-        email.setMinWidth(200);
-        email.setCellValueFactory(
-                new PropertyValueFactory<>("email"));
- 
-        usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeams(currentUser));
-        usersTable.getColumns().clear();
-        usersTable.getColumns().addAll(name, lastName, email);
-        
-        TableColumn nameColumn = new TableColumn("Nazwa");
-        nameColumn.setMinWidth(150);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
- 
-        TableColumn startDate = new TableColumn("Data rozpoczęcia");
-        startDate.setMinWidth(150);
-        startDate.setCellValueFactory(
-                new PropertyValueFactory<>("startDate"));
- 
-        TableColumn endDate = new TableColumn("Data zakończenia");
-        endDate.setMinWidth(200);
-        endDate.setCellValueFactory(
-                new PropertyValueFactory<>("endDate"));
-        
-        TableColumn predictedTime = new TableColumn("Przewidywany czas");
-        predictedTime.setMinWidth(200);
-        predictedTime.setCellValueFactory(
-                new PropertyValueFactory<>("predictedTime"));
- 
-        tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
-        tasksTable.getColumns().clear();
-        tasksTable.getColumns().addAll(nameColumn, startDate, endDate, predictedTime);
-        
+        setUpLeavesTable();
+        setUpUsersTable();
+        setUpTasksTable();
+        setUpProjectFiltering();
+
+        setUpTeamFiltering();
+    }
+
+    private void setUpTeamFiltering() {
+        teamBox.getItems().clear();
+        teamBox.getItems().add("Wszystkie");
+        teamBox.getItems().addAll(TeamRepository.findTeamsByUser(currentUser));
+        teamBox.getSelectionModel().selectFirst();
+
+
+        team2Box.setItems(teamBox.getItems());
+        team2Box.setSelectionModel(teamBox.getSelectionModel());
+    }
+
+    private void setUpProjectFiltering() {
         projectBox.getItems().add("Wszystkie");
         projectBox.getItems().addAll(ProjectRepository.findProjectsByUser(currentUser));
         projectBox.getSelectionModel().selectFirst();
-        
+
         projectBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
@@ -193,16 +156,73 @@ public class EmployeePanelController implements Initializable {
                 }
             }
         });
-        
-        teamBox.getItems().clear();
-        teamBox.getItems().add("Wszystkie");
-        teamBox.getItems().addAll(TeamRepository.findTeamsByUser(currentUser));
-        teamBox.getSelectionModel().selectFirst();
-        
         project2Box.setItems(projectBox.getItems());
         project2Box.setSelectionModel(projectBox.getSelectionModel());
-        team2Box.setItems(teamBox.getItems());
-        team2Box.setSelectionModel(teamBox.getSelectionModel());
+    }
+
+    private void setUpTasksTable() {
+        TableColumn nameColumn = new TableColumn("Nazwa");
+        nameColumn.setMinWidth(150);
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn startDate = new TableColumn("Data rozpoczęcia");
+        startDate.setMinWidth(150);
+        startDate.setCellValueFactory(
+                new PropertyValueFactory<>("startDate"));
+
+        TableColumn endDate = new TableColumn("Data zakończenia");
+        endDate.setMinWidth(200);
+        endDate.setCellValueFactory(
+                new PropertyValueFactory<>("endDate"));
+
+        TableColumn predictedTime = new TableColumn("Przewidywany czas");
+        predictedTime.setMinWidth(200);
+        predictedTime.setCellValueFactory(
+                new PropertyValueFactory<>("predictedTime"));
+
+        tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
+        tasksTable.getColumns().clear();
+        tasksTable.getColumns().addAll(nameColumn, startDate, endDate, predictedTime);
+    }
+
+    private void setUpUsersTable() {
+        TableColumn name = new TableColumn("Imię");
+        name.setMinWidth(150);
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn lastName = new TableColumn("Nazwisko");
+        lastName.setMinWidth(150);
+        lastName.setCellValueFactory(
+                new PropertyValueFactory<>("lastName"));
+
+        TableColumn email = new TableColumn("e-mail");
+        email.setMinWidth(200);
+        email.setCellValueFactory(
+                new PropertyValueFactory<>("email"));
+
+        usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeams(currentUser));
+        usersTable.getColumns().clear();
+        usersTable.getColumns().addAll(name, lastName, email);
+    }
+
+    private void setUpLeavesTable() {
+        TableColumn status = new TableColumn("Status");
+        status.setMinWidth(150);
+        status.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        TableColumn startDate = new TableColumn("Data rozpoczęcia");
+        startDate.setMinWidth(150);
+        startDate.setCellValueFactory(
+                new PropertyValueFactory<>("startDate"));
+
+        TableColumn numberOfDays = new TableColumn("ilość dni");
+        numberOfDays.setMinWidth(200);
+        numberOfDays.setCellValueFactory(
+                new PropertyValueFactory<>("numberOfDays"));
+
+        leaveTable.getItems().addAll(LeaveRepository.findLeavesByUser(currentUser));
+        leaveTable.getColumns().clear();
+        leaveTable.getColumns().addAll(status, startDate, numberOfDays);
     }
 
     private void close() {

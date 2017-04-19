@@ -1,9 +1,12 @@
 package com.mycompany.devman.controllers;
 
 
+import com.mycompany.devman.repositories.UserRepository;
+import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -22,7 +26,19 @@ import javafx.stage.Stage;
 public class PasswordRecoveryStage2Controller implements Initializable {
 
     @FXML
-    Button finishButton;
+    private Button finishButton;
+    
+    @FXML
+    private TextField newPassword;
+    
+    private User currentUser;
+    
+    private String password;
+    
+    public PasswordRecoveryStage2Controller(User user, String newPassword) {
+        this.currentUser = user;
+        this.password = newPassword;
+    }
     
     private void close() {
         Stage window = (Stage) finishButton.getScene().getWindow();
@@ -41,6 +57,27 @@ public class PasswordRecoveryStage2Controller implements Initializable {
      *  Concludes password recovery and closes the password window after the user confirms reading the message
      */
     public void onFinishButtonClick() {
+        if(!newPassword.getText().equals(password)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd resetowania hasła!");
+            alert.setContentText("To nie jest hasło przysłane na skrzynkę e-mail.");
+            alert.showAndWait();
+            return;
+        }
+        
+        currentUser.setPassword(password);
+        try {
+            UserRepository.updateUser(currentUser);
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd resetowania hasła!");
+            alert.setContentText(ex.getMessage());
+            alert.showAndWait();
+            return;
+        }
+        
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Informacja");
         alert.setHeaderText("Przypominanie hasła.");
