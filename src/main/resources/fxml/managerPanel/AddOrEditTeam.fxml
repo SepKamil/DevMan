@@ -18,8 +18,8 @@
       <Label layoutX="81.0" layoutY="108.0" text="Realizowany projekt:" />
       <TextField fx:id="name" layoutX="227.0" layoutY="62.0" />
       <ChoiceBox fx:id="projects" layoutX="227.0" layoutY="103.0" prefWidth="150.0" />
-      <Button layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Dodaj" textFill="WHITE" />
-      <Button fx:id="cancel" layoutX="406.0" layoutY="139.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
+      <Button layoutX="10.0" layoutY="145.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Dodaj" textFill="WHITE" />
+      <Button fx:id="cancel" layoutX="410.0" layoutY="145.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
       <Label layoutX="125.0" layoutY="14.0" text="Dodaj lub edytuj zespół" textFill="#1a376d">
          <font>
             <Font size="24.0" />

@@ -25,8 +25,8 @@
       <ChoiceBox layoutX="144.0" layoutY="59.0" prefWidth="150.0" />
       <Label layoutX="13.0" layoutY="107.0" text="Czas w godzinach:" />
       <TextField layoutX="144.0" layoutY="102.0" />
-      <Button layoutX="12.0" layoutY="141.0" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="OK" textFill="WHITE" />
-      <Button fx:id="cancel" layoutX="92.0" layoutY="141.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
+      <Button layoutX="10.0" layoutY="144.0" mnemonicParsing="false" onAction="#onOkButtonClick" prefHeight="31.0" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="OK" textFill="WHITE" />
+      <Button fx:id="cancel" layoutX="90.0" layoutY="144.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
       <Arc fill="#1a376d" layoutX="529.0" layoutY="91.0" length="270.0" radiusX="80.0" radiusY="80.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
       <Arc fill="WHITE" layoutX="521.0" layoutY="90.0" length="270.0" radiusX="80.0" radiusY="80.0" startAngle="45.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" type="ROUND" />
       <Text fill="#1a376d" layoutX="373.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEVMAN">
