@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
@@ -10,14 +11,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="101.0" prefWidth="399.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.EditWorkTimeController">
+<AnchorPane id="AnchorPane" prefHeight="148.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.EditWorkTimeController">
     <stylesheets>
         <URL value="@/styles/login.css" />
     </stylesheets>
    <children>
-      <Label layoutX="12.0" layoutY="22.0" text="Czas pracy w godzinach:" />
-      <TextField layoutX="183.0" layoutY="17.0" prefHeight="31.0" prefWidth="201.0" />
-      <Button layoutX="12.0" layoutY="62.0" mnemonicParsing="false" onAction="#onOkButtonClick" style="-fx-background-color: #1a376d;" text="OK" textFill="WHITE" />
-      <Button fx:id="cancel" layoutX="322.0" layoutY="62.0" mnemonicParsing="false" onAction="#onCancelButtonClick" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
+      <Label layoutX="61.0" layoutY="64.0" text="Czas pracy w godzinach:" />
+      <TextField layoutX="232.0" layoutY="59.0" prefHeight="31.0" prefWidth="201.0" />
+      <Button layoutX="12.0" layoutY="103.0" mnemonicParsing="false" onAction="#onOkButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="OK" textFill="WHITE" />
+      <Button fx:id="cancel" layoutX="406.0" layoutY="103.0" mnemonicParsing="false" onAction="#onCancelButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Anuluj" textFill="WHITE" />
+      <Label layoutX="160.0" layoutY="14.0" text="Edytuj czas pracy" textFill="#1a376d">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

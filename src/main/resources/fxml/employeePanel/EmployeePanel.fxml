@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -17,7 +23,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
         <URL value="@/styles/employeepanel.css" />
     </stylesheets>
@@ -86,14 +92,14 @@
                                   <TableColumn prefWidth="90.0" text="Czas pracy" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Nowe" textFill="WHITE" />
-                              <Button layoutX="120.0" layoutY="281.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
-                              <Button layoutX="220.0" layoutY="281.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
-                              <Label layoutX="14.0" layoutY="14.0" text="Projekt:" />
-                              <ChoiceBox fx:id="project2Box" layoutX="70.0" layoutY="9.0" prefWidth="150.0" />
-                              <Label layoutX="242.0" layoutY="14.0" text="Zespół:" />
-                              <ChoiceBox fx:id="team2Box" layoutX="300.0" layoutY="9.0" prefWidth="150.0" />
-                              <Button layoutX="471.0" layoutY="9.0" mnemonicParsing="false" onAction="#onTaskFilterButtonClick" text="Filtruj" />
+                              <Button layoutX="14.0" layoutY="290.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Nowe" textFill="WHITE" />
+                              <Button layoutX="104.0" layoutY="290.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
+                              <Button layoutX="194.0" layoutY="290.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
+                              <Label layoutX="9.0" layoutY="11.0" text="Projekt:" />
+                              <ChoiceBox fx:id="project2Box" layoutX="69.0" layoutY="6.0" prefWidth="150.0" />
+                              <Label layoutX="262.0" layoutY="11.0" text="Zespół:" />
+                              <ChoiceBox fx:id="team2Box" layoutX="320.0" layoutY="6.0" prefWidth="150.0" />
+                              <Button layoutX="508.0" layoutY="6.0" mnemonicParsing="false" onAction="#onTaskFilterButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Filtruj" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -108,8 +114,8 @@
                                   <TableColumn prefWidth="75.0" text="Czas" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#onNewWorkTimeButtonClick" prefWidth="110.0" style="-fx-background-color: #1a376d;" text="Loguj czas" textFill="WHITE" />
-                              <Button layoutX="154.0" layoutY="281.0" mnemonicParsing="false" onAction="#onWorkTimeEditButtonClick" prefWidth="110.0" style="-fx-background-color: #1a376d;" text="Koryguj czas" textFill="WHITE" />
+                              <Button layoutX="14.0" layoutY="290.0" mnemonicParsing="false" onAction="#onNewWorkTimeButtonClick" prefWidth="110.0" style="-fx-background-color: #1a376d;" text="Loguj czas" textFill="WHITE" />
+                              <Button layoutX="144.0" layoutY="290.0" mnemonicParsing="false" onAction="#onWorkTimeEditButtonClick" prefWidth="110.0" style="-fx-background-color: #1a376d;" text="Koryguj czas" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -124,11 +130,11 @@
                                   <TableColumn prefWidth="107.0" text="Adres e-mail" />
                                 </columns>
                               </TableView>
-                              <Label layoutX="14.0" layoutY="14.0" text="Projekt:" />
-                              <ChoiceBox fx:id="projectBox" layoutX="71.0" layoutY="9.0" prefWidth="150.0" />
-                              <Label layoutX="235.0" layoutY="14.0" text="Zespół:" />
-                              <ChoiceBox fx:id="teamBox" layoutX="289.0" layoutY="9.0" prefWidth="150.0" />
-                              <Button layoutX="460.0" layoutY="9.0" mnemonicParsing="false" onAction="#onTeamFilterClick" text="Filtruj" />
+                              <Label layoutX="9.0" layoutY="11.0" text="Projekt:" />
+                              <ChoiceBox fx:id="projectBox" layoutX="69.0" layoutY="6.0" prefWidth="150.0" />
+                              <Label layoutX="262.0" layoutY="11.0" text="Zespół:" />
+                              <ChoiceBox fx:id="teamBox" layoutX="320.0" layoutY="6.0" prefWidth="150.0" />
+                              <Button layoutX="508.0" layoutY="6.0" mnemonicParsing="false" onAction="#onTeamFilterClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Filtruj" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -143,7 +149,7 @@
                                   <TableColumn prefWidth="122.0" text="Ilość dni" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="24.0" layoutY="281.0" mnemonicParsing="false" onAction="#onAddLeaveRequestButtonClick" prefWidth="120.0" style="-fx-background-color: #1a376d;" text="Nowy wniosek" textFill="WHITE" />
+                              <Button layoutX="14.0" layoutY="290.0" mnemonicParsing="false" onAction="#onAddLeaveRequestButtonClick" prefWidth="120.0" style="-fx-background-color: #1a376d;" text="Nowy wniosek" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -151,8 +157,14 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="97.0" layoutY="50.0" text="Tutaj możesz zobaczyć otrzymać raport o swoim czasie pracy." />
-                              <Label layoutX="249.0" layoutY="88.0" text="Rodzaj raportu:" />
+                              <Label layoutX="56.0" layoutY="53.0" text="Tutaj możesz zobaczyć otrzymać raport o swoim czasie pracy.">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
+                              <Label layoutX="239.0" layoutY="80.0" text="Rodzaj raportu:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font></Label>
                               <RadioButton layoutX="206.0" layoutY="123.0" mnemonicParsing="false" text="DOC" />
                               <RadioButton layoutX="340.0" layoutY="123.0" mnemonicParsing="false" text="PDF" />
                               <Button layoutX="260.0" layoutY="168.0" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Generuj" textFill="WHITE" />
