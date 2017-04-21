@@ -23,8 +23,8 @@ public class MainApp extends Application {
             alert.showAndWait();
             return;
         }
-
         showLoginWindow(stage);
+        BackendSetup.closeDatabaseSession();
     }
 
     private void showLoginWindow(Stage stage) throws java.io.IOException {

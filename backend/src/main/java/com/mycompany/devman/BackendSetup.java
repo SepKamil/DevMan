@@ -16,7 +16,6 @@ public class BackendSetup {
     
     private static SessionFactory sessionFactory;
     private static ValidatorFactory validatorFactory;
-    
     private static javax.mail.Session session;
     
     public static javax.mail.Session getMailSession() {
@@ -24,6 +23,11 @@ public class BackendSetup {
             setupMailSession();
         }
         return session;
+    }
+    
+    public static void closeDatabaseSession() {
+        if(sessionFactory != null)
+            sessionFactory.close();
     }
 
     private static void setupMailSession() {
