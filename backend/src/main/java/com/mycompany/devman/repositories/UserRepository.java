@@ -71,6 +71,7 @@ public class UserRepository {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         validateEntity(user);
+        user.setUserState(User.userState.INACTIVE);
         Long id = (Long) session.save(user);
         user.setId(id);
         transaction.commit();
@@ -104,6 +105,8 @@ public class UserRepository {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        User user = (User) users.get(0);
+        if(user.getUserState().equals(User.userState.INACTIVE)) throw new Exception("Użytkownik jest nieaktywny");
         if (users.size() == 1) {
             return (User) users.get(0);
         }
@@ -194,6 +197,15 @@ public class UserRepository {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("SELECT u FROM User u JOIN u.teams t WHERE t in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return users;
+    }
+
+    public static List<User> findInactiveUsers() {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List users = session.createQuery("FROM User u WHERE u.userState='INACTIVE'").list();
         transaction.commit();
         session.close();
         return users;

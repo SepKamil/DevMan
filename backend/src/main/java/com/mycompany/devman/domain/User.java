@@ -72,6 +72,11 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Team> teams;
 
+    public enum userState{ACTIVE,INACTIVE;};
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Stan użytkownika nie może być nieokreślony")
+    private userState userState;
     /**
      * @return the id
      */
@@ -211,7 +216,22 @@ public class User {
     }
 
     /**
+     * @return the user's state
+     */
+    public userState getUserState() {
+        return userState;
+    }
+
+    /**
+     * @param userState the state to set
+     */
+    public void setUserState(User.userState userState) {
+        this.userState = userState;
+    }
+
+    /**
      * @param teams the teams to set
+
      */
     public void setTeams(List<Team> teams) {
         this.teams = teams;

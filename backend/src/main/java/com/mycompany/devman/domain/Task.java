@@ -6,12 +6,7 @@
 package com.mycompany.devman.domain;
 
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -44,6 +39,13 @@ public class Task {
     
     @NotNull(message = "Przewidywany czas nie może być nullem")
     private Integer predictedTime;
+
+
+    public enum TaskState{IN_PROGRESS,FINISHED;}
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Stan zadania nie może być nullem")
+    private TaskState taskState;
 
     /**
      * @return the id
@@ -127,6 +129,20 @@ public class Task {
      */
     public void setPredictedTime(Integer predictedTime) {
         this.predictedTime = predictedTime;
+    }
+
+    /**
+     * @return the taskStatus
+     */
+    public TaskState getTaskState() {
+        return taskState;
+    }
+
+    /**
+     * @param taskState the taskState to set
+     */
+    public void setTaskState(TaskState taskState) {
+        this.taskState = taskState;
     }
     
     @Override

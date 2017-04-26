@@ -24,6 +24,7 @@ public class TaskRepository {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         validateEntity(task);
+        task.setTaskState(Task.TaskState.IN_PROGRESS);
         session.save(task);
         transaction.commit();
         session.close();
@@ -33,14 +34,14 @@ public class TaskRepository {
     private static void validateEntity(Task task) throws Exception {
         Validator validator = BackendSetup.getEntityValidator();
         Set<ConstraintViolation<Task>> tasks = validator.validate(task);
-        String message = "";
+        StringBuilder message = new StringBuilder();
         if (tasks.size() > 0) {
             Iterator iterator = tasks.iterator();
             while (iterator.hasNext()) {
                 ConstraintViolation<Task> taskError = (ConstraintViolation<Task>) iterator.next();
-                message += " " + taskError.getMessage();
+                message.append(", ").append(taskError.getMessage());
             }
-            throw new Exception(message);
+            throw new Exception(message.toString());
         }
         if(task.getStartDate().isAfter(task.getEndDate())) {
             throw new Exception("Data rozpoczęcia nie może być po dacie zakończenia.");

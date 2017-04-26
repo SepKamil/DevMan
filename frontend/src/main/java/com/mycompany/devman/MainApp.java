@@ -24,7 +24,6 @@ public class MainApp extends Application {
             return;
         }
         showLoginWindow(stage);
-        BackendSetup.closeDatabaseSession();
     }
 
     private void showLoginWindow(Stage stage) throws java.io.IOException {
