@@ -47,10 +47,9 @@
                               <Button layoutX="336.0" layoutY="230.0" mnemonicParsing="false" onAction="#onTasksInProgressClick" prefWidth="250.0" style="-fx-background-color: #1a376d;" text="Zobacz zadania w trakcie realicacji" textFill="WHITE" />
                               <Button layoutX="336.0" layoutY="272.0" mnemonicParsing="false" onAction="#onProjectsInProgressClick" style="-fx-background-color: #1a376d;" text="Zobacz projekty w trakcie realizacji" textFill="WHITE" />
                               <Label layoutX="340.0" layoutY="83.0" text="Pracownicy na urlopie:" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="300.0" layoutX="322.0" layoutY="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="6.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="6.0" layoutX="11.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="6.0" layoutX="14.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="6.0" layoutX="15.0" layoutY="316.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="11.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="14.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="15.0" layoutY="316.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
                               <Label layoutX="237.0" layoutY="148.0" text="24" textFill="#1a376d">
                                  <font>
                                     <Font name="System Bold" size="24.0" />

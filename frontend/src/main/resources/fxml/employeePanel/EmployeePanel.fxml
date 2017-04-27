@@ -46,35 +46,35 @@
                               <Button layoutX="370.0" layoutY="224.0" mnemonicParsing="false" onAction="#onWorkTimeButtonClick" prefHeight="31.0" prefWidth="210.0" style="-fx-background-color: #1a376d;" text="Zarządzaj czasem pracy" textFill="WHITE" />
                               <Label layoutX="20.0" layoutY="286.0" prefHeight="21.0" prefWidth="201.0" text="Dni urlopu do wykorzystania:" />
                               <Button layoutX="370.0" layoutY="281.0" mnemonicParsing="false" onAction="#onLeaveRequestsButtonClick" prefHeight="31.0" prefWidth="210.0" style="-fx-background-color: #1a376d;" text="Zobacz wnioski o urlop" textFill="WHITE" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="266.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="209.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-                              <Label layoutX="392.0" layoutY="115.0" prefHeight="48.0" prefWidth="167.0" text="39%" textFill="#c80000">
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="61.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="266.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="209.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Label layoutX="436.0" layoutY="142.0" prefHeight="53.0" prefWidth="78.0" text="39%" textFill="#c80000">
                                  <font>
-                                    <Font name="System Bold" size="72.0" />
+                                    <Font name="System Bold" size="36.0" />
                                  </font>
                               </Label>
                               <Label layoutX="15.0" layoutY="82.0" prefHeight="21.0" prefWidth="199.0" text="Ilość zadań Twojego zespołu:" />
                               <Label layoutX="15.0" layoutY="24.0" prefHeight="21.0" prefWidth="243.0" text="Ilość zadań do wykonania dla Ciebie:" />
-                              <Label layoutX="276.0" layoutY="217.0" prefHeight="46.0" prefWidth="65.0" text="4" textFill="#1a376d">
+                              <Label layoutX="276.0" layoutY="217.0" prefHeight="46.0" prefWidth="22.0" text="4" textFill="#1a376d">
                                  <font>
-                                    <Font name="System Bold" size="31.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
                               <Label layoutX="276.0" layoutY="274.0" prefHeight="46.0" prefWidth="65.0" text="7" textFill="#1a376d">
                                  <font>
-                                    <Font name="System Bold" size="31.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="276.0" layoutY="66.0" prefHeight="46.0" prefWidth="65.0" text="18" textFill="#1a376d">
+                              <Label layoutX="276.0" layoutY="66.0" prefHeight="46.0" prefWidth="35.0" text="18" textFill="#1a376d">
                                  <font>
-                                    <Font name="System Bold" size="36.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
                               <Label layoutX="276.0" layoutY="12.0" prefHeight="46.0" prefWidth="65.0" text="5" textFill="#1a376d">
                                  <font>
-                                    <Font name="System Bold" size="36.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
                            </children></AnchorPane>
@@ -168,8 +168,8 @@
                               <RadioButton layoutX="206.0" layoutY="123.0" mnemonicParsing="false" text="DOC" />
                               <RadioButton layoutX="340.0" layoutY="123.0" mnemonicParsing="false" text="PDF" />
                               <Button layoutX="260.0" layoutY="168.0" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Generuj" textFill="WHITE" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="5.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

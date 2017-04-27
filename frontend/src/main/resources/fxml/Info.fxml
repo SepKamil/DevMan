@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="151.0" prefWidth="400.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.InfoController">
     <stylesheets>
-        <URL value="@/styles/login.css" />
+        <URL value="@/styles.main/info.css" />
     </stylesheets>
    <children>
       <Label layoutX="69.0" layoutY="25.0" text="DevMan 2017" />

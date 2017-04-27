@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="230.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.TaskEditOrAddController">
     <stylesheets>
-        <URL value="@/styles/login.css" />
+        <URL value="@/styles.employeePanel/taskEditOrAdd.css" />
     </stylesheets>
    <children>
       <Label layoutX="133.0" layoutY="69.0" text="Nazwa:" />

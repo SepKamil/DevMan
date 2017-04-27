@@ -7,13 +7,13 @@
 }
 
 .root {
-  /* -fx-background-image:  url("../images/devman.png"); */
+  -fx-background-image:  url("../images/stage.jpeg"); 
 }
 
-.button {
+.Button {
     -fx-background-color: #1a376d;
 }
 
-.button:hover {
+.Button:hover {
     -fx-background-color: #0c2759;
 }
