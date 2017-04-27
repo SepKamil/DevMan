@@ -98,7 +98,7 @@
                            </children></AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Pracownicy">
+                <Tab fx:id="employeeTable" text="Pracownicy">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -133,7 +133,7 @@
                               </TableView>
                               <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onAddTeamClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Nowy" textFill="WHITE" />
                               <Button layoutX="80.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditTeamClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edycja" textFill="WHITE" />
-                              <Button layoutX="170.0" layoutY="292.0" mnemonicParsing="false" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
+                              <Button layoutX="170.0" layoutY="292.0" mnemonicParsing="false" onAction="#onDeleteTeamButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
                               <Button layoutX="260.0" layoutY="292.0" mnemonicParsing="false" onAction="#onTaskAssignButtonClick" prefWidth="140.0" style="-fx-background-color: #1a376d;" text="Przydziel zadania" textFill="WHITE" />
                               <Button layoutX="410.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEmployeeAssignClick" prefWidth="180.0" style="-fx-background-color: #1a376d;" text="Przydziel pracowników" textFill="WHITE" />
                            </children></AnchorPane>

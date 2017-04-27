@@ -41,13 +41,16 @@ public class ManagerPanelController implements Initializable {
     private MenuBar menuBar;
     
     @FXML
-    private TableView projectsTable;
+    private TableView<Project> projectsTable;
     
     @FXML
-    private TableView teamsTable;
+    private TableView<Team> teamsTable;
     
     @FXML
     private TableView<Task> taskTable;
+
+    //@FXML
+   // private TableView<User> employeeTable;
     
     private User currentUser;
 
@@ -333,6 +336,13 @@ public class ManagerPanelController implements Initializable {
         employeeAssign.show();
     }
 
+    /*public void onDeleteEmployeeButtonClick() throws Exception {
+        for(User employee : employeeTable.getSelectionModel().getSelectedItems()) {
+            TaskRepository.deleteById(employee.getId());
+            employeeTable.getItems().remove(employee);
+        }
+    }*/
+
     private boolean checkIfTeamSelected() {
         if(teamsTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -358,6 +368,13 @@ public class ManagerPanelController implements Initializable {
         teamsAssign.setX(20);
         teamsAssign.setY(20);
         teamsAssign.show();
+    }
+
+    public void onDeleteTeamButtonClick() throws Exception {
+        for(Team team : teamsTable.getSelectionModel().getSelectedItems()) {
+            TaskRepository.deleteById(team.getId());
+            teamsTable.getItems().remove(team);
+        }
     }
     
     public void onNewProjectButtonClick() throws IOException {
