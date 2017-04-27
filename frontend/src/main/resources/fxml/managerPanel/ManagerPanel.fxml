@@ -22,7 +22,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@/styles/employeepanel.css" />
+<!--        <URL value="@/styles/employeepanel.css" />-->
     </stylesheets>
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">

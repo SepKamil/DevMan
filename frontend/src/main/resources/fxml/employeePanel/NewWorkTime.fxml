@@ -16,7 +16,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="183.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.NewWorkTimeController">
     <stylesheets>
-        <URL value="@/styles/register.css" />
+<!--        <URL value="@/styles/register.css" />-->
     </stylesheets>
    <children>
       <Label layoutX="99.0" layoutY="22.0" text="Data:" />

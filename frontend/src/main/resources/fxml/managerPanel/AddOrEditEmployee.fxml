@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="252.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.managerPanel.AddOrEditEmployeeController">
     <stylesheets>
-        <URL value="@/styles.employeePanel/addOrEditEmployee.css" />
+<!--        <URL value="@/styles.employeePanel/addOrEditEmployee.css" />-->
     </stylesheets>
    <children>
       <TextField layoutX="207.0" layoutY="75.0" />
