@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane id="AnchorPane" prefHeight="158.0" prefWidth="395.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+    <stylesheets>
+        <URL value="@/styles/employeePanel/addLeaveRequest.css" />
+    </stylesheets>
    <children>
       <Label layoutX="15.0" layoutY="30.0" text="Data rozpoczęcia:" />
       <Label layoutX="76.0" layoutY="71.0" text="ilość dni:" />

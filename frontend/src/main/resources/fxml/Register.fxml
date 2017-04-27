@@ -15,7 +15,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.RegisterController">
     <stylesheets>
-        <URL value="@/styles.main/register.css" />
+        <URL value="@/styles/main/register.css" />
     </stylesheets>
    <children>
       <Label layoutX="211.0" layoutY="14.0" text="Rejestracja" textFill="#1a376d">
