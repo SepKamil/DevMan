@@ -47,7 +47,7 @@ public class ManagerPanelController implements Initializable {
     private TableView teamsTable;
     
     @FXML
-    private TableView taskTable;
+    private TableView<Task> taskTable;
     
     private User currentUser;
 
@@ -123,9 +123,14 @@ public class ManagerPanelController implements Initializable {
         predictedTime.setCellValueFactory(
                 new PropertyValueFactory<>("predictedTime"));
 
+        TableColumn taskState = new TableColumn("Status");
+        taskState.setMinWidth(150);
+        taskState.setCellValueFactory(
+                new PropertyValueFactory<>("taskState"));
+
         taskTable.getItems().addAll(TaskRepository.findAllTasks());
         taskTable.getColumns().clear();
-        taskTable.getColumns().addAll(name, startDate, endDate, predictedTime);
+        taskTable.getColumns().addAll(name, startDate, endDate, predictedTime, taskState);
     }
 
     private void setUpTeamTable() throws Exception {
@@ -406,5 +411,11 @@ public class ManagerPanelController implements Initializable {
 
     public void onEditTaskButtonClick() throws IOException {
         showAddOrEditTaskWindow();
+    }
+    public void onDeleteTaskButtonClick() throws Exception {
+        for(Task task : taskTable.getSelectionModel().getSelectedItems()) {
+            TaskRepository.deleteById(task.getId());
+            taskTable.getItems().remove(task);
+        }
     }
 }

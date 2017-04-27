@@ -161,18 +161,19 @@
                            <children>
                               <TableView fx:id="taskTable" prefHeight="283.0" prefWidth="600.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="ID" />
-                                  <TableColumn prefWidth="75.0" text="Nazwa" />
-                                  <TableColumn prefWidth="75.0" text="Zespół" />
-                                  <TableColumn prefWidth="75.0" text="Projekt" />
-                                  <TableColumn prefWidth="115.0" text="Data rozpoczęcia" />
-                                  <TableColumn prefWidth="120.0" text="Data zakończenia" />
-                                  <TableColumn prefWidth="64.0" text="Czas trwania" />
+                                  <TableColumn prefWidth="41.0" text="ID" />
+                                  <TableColumn prefWidth="83.0" text="Nazwa" />
+                                  <TableColumn prefWidth="65.0" text="Zespół" />
+                                  <TableColumn prefWidth="57.0" text="Projekt" />
+                                  <TableColumn prefWidth="117.0" text="Data rozpoczęcia" />
+                                  <TableColumn prefWidth="103.0" text="Data zakończenia" />
+                                  <TableColumn prefWidth="78.0" text="Czas trwania" />
+                                    <TableColumn prefWidth="55.0" text="Status" />
                                 </columns>
                               </TableView>
                               <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Nowe" textFill="WHITE" />
                               <Button layoutX="80.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
-                              <Button layoutX="170.0" layoutY="292.0" mnemonicParsing="false" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
+                              <Button layoutX="170.0" layoutY="292.0" mnemonicParsing="false" onAction="#onDeleteTaskButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
