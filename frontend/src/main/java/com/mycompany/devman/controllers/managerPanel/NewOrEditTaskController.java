@@ -9,6 +9,7 @@ import com.mycompany.devman.repositories.TaskRepository;
 import com.mycompany.devman.domain.Task;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class NewOrEditTaskController implements Initializable {
+public class NewOrEditTaskController extends Observable implements Initializable {
 
     @FXML
     private Button cancel;
@@ -94,6 +95,8 @@ public class NewOrEditTaskController implements Initializable {
             return;
         }
         controller.addTask(task);
+        setChanged();
+        notifyObservers();
         close();
     }
     

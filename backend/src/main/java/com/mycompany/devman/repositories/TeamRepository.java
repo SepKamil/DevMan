@@ -12,6 +12,7 @@ import com.mycompany.devman.domain.User;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.hibernate.Session;
@@ -46,13 +47,26 @@ public class TeamRepository {
         }
     }
 
-    public static List<Team> findAllTeams() throws Exception {
+    public static List<Team> findAllTeams() {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Team> teams = session.createQuery("FROM Team").list();
         transaction.commit();
         session.close();
         return teams;
+    }
+
+    public static void deleteById(Long id) throws Exception {
+        try {
+            Session session = BackendSetup.getDatabaseSession();
+            Transaction transaction = session.beginTransaction();
+            Query query = session.createQuery("Delete from Team where id=:id").setParameter("id",id);
+            query.executeUpdate();
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     public static Team updateTeam(Team team) throws Exception {

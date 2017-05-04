@@ -8,6 +8,7 @@ package com.mycompany.devman.controllers.managerPanel;
 import com.mycompany.devman.repositories.ProjectRepository;
 import com.mycompany.devman.domain.Project;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class AddOrEditProjectController implements Initializable {
+public class AddOrEditProjectController extends Observable implements Initializable {
 
     @FXML
     private Button cancel;
@@ -71,6 +72,8 @@ public class AddOrEditProjectController implements Initializable {
             alert.showAndWait();
         }
         controller.addProject(project);
+        setChanged();
+        notifyObservers();
         close();
     }
     

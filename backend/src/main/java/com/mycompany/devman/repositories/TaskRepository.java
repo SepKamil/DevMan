@@ -82,7 +82,7 @@ public class TaskRepository {
         try {
             Session session = BackendSetup.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            Query query = session.createQuery("Delete from tasks where id=:id").setParameter("id",id);
+            Query query = session.createQuery("Delete from Task where id=:id").setParameter("id",id);
             query.executeUpdate();
             transaction.commit();
             session.close();
@@ -144,6 +144,24 @@ public class TaskRepository {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.team.project=:project").setParameter("project", project).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+
+    public static List<Task> findTasksInProgress() {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS'").list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+
+    public static List<Task> findCompletedTasks() {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='FINISHED'").list();
         transaction.commit();
         session.close();
         return tasks;

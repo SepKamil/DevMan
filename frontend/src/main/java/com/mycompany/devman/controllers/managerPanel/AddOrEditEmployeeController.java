@@ -2,6 +2,7 @@
 package com.mycompany.devman.controllers.managerPanel;
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class AddOrEditEmployeeController implements Initializable {
+public class AddOrEditEmployeeController extends Observable implements Initializable {
 
     @FXML
     Button cancel;
@@ -44,6 +45,8 @@ public class AddOrEditEmployeeController implements Initializable {
         alert.setContentText("Tymczasowe hasło pracownika zostanie wysłane na jego adres e-mail.");
         alert.showAndWait().ifPresent(rs -> {
         if (rs == ButtonType.OK) {
+            setChanged();
+            notifyObservers();
             close();
         }
       });

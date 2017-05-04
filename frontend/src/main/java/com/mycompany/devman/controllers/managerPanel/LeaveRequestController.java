@@ -8,6 +8,7 @@ import com.mycompany.devman.domain.User;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author jakub
  */
-public class LeaveRequestController implements Initializable {
+public class LeaveRequestController extends Observable implements Initializable {
 
     @FXML
     private TableView<Leave> leaveTable;
@@ -66,6 +67,8 @@ public class LeaveRequestController implements Initializable {
             LeaveRepository.acceptLeaveRequest(leave1);
         }
         selected.forEach(leave -> leaveTable.getItems().remove(leave));
+        setChanged();
+        notifyObservers();
     }
     
     public void onRejectButtonClick() throws Exception {
@@ -75,5 +78,7 @@ public class LeaveRequestController implements Initializable {
             LeaveRepository.rejectLeaveRequest(leave1);
         }
         selected.forEach(leave -> leaveTable.getItems().remove(leave));
+        setChanged();
+        notifyObservers();
     }
 }

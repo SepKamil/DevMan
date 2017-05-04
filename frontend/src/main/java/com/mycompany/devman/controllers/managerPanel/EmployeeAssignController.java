@@ -12,6 +12,7 @@ import com.mycompany.devman.domain.User;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class EmployeeAssignController implements Initializable {
+public class EmployeeAssignController extends Observable implements Initializable {
 
     @FXML
     private Button cancel;
@@ -76,6 +77,8 @@ public class EmployeeAssignController implements Initializable {
     public void onOkButtonClick() {
         updateSelectedEmployees();
         updateNonSelectedEmployees();
+        setChanged();
+        notifyObservers();
         close();
     }
 

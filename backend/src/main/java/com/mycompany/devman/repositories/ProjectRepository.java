@@ -93,7 +93,7 @@ public class ProjectRepository {
         return projects;
     }
     
-    public static List<Project> findAll() throws Exception {
+    public static List<Project> findAll() {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project").list();

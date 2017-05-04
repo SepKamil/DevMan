@@ -6,6 +6,7 @@ import com.mycompany.devman.repositories.TeamRepository;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Team;
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class AddOrEditTeamController implements Initializable {
+public class AddOrEditTeamController extends Observable implements Initializable {
 
     @FXML
     private Button cancel;
@@ -74,6 +75,8 @@ public class AddOrEditTeamController implements Initializable {
             alert.showAndWait();
         }
         controller.addTeam(team);
+        setChanged();
+        notifyObservers();
         close();
     }
 }

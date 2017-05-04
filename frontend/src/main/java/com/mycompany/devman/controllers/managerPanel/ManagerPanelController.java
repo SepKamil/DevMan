@@ -1,16 +1,16 @@
 package com.mycompany.devman.controllers.managerPanel;
 
-import com.mycompany.devman.repositories.ProjectRepository;
-import com.mycompany.devman.repositories.TaskRepository;
-import com.mycompany.devman.repositories.TeamRepository;
+import com.mycompany.devman.repositories.*;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
+import javafx.beans.Observable;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -19,11 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -32,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author kuba3
  */
-public class ManagerPanelController implements Initializable {
+public class ManagerPanelController implements Initializable, Observer {
 
     @FXML
     private TabPane tabPanel;
@@ -50,12 +46,46 @@ public class ManagerPanelController implements Initializable {
     private TableView<Task> taskTable;
 
     //@FXML
-   // private TableView<User> employeeTable;
+    //private TableView<User> employeeTable;
+
+    @FXML
+    private Label pendingEmployees;
+
+    @FXML
+    private Label pendingLeaveRequests;
+
+    @FXML
+    private Label numberOfProjects;
+
+    @FXML
+    private Label numberOfTeams;
+
+    @FXML
+    private Label tasksInProgress;
+
+    @FXML
+    private Label completedTasks;
     
     private User currentUser;
 
     public ManagerPanelController(User user) {
         this.currentUser = user;
+    }
+
+    private void initializeNumbersOnMainPage() {
+        pendingEmployees.setText(Integer
+                .valueOf(UserRepository.findInactiveUsers().size()).toString());
+        pendingLeaveRequests.setText(Integer
+                .valueOf(LeaveRepository.findPendingLeavesByManager(currentUser)
+                        .size()).toString());
+        numberOfProjects.setText(Integer
+                .valueOf(ProjectRepository.findAll().size()).toString());
+        numberOfTeams.setText(Integer
+                .valueOf(TeamRepository.findAllTeams().size()).toString());
+        tasksInProgress.setText(Integer
+                .valueOf(TaskRepository.findTasksInProgress().size()).toString());
+        completedTasks.setText(Integer
+                .valueOf(TaskRepository.findCompletedTasks().size()).toString());
     }
 
     private void showInfoWindow() {
@@ -100,6 +130,7 @@ public class ManagerPanelController implements Initializable {
             setUpProjectTable();
             setUpTeamTable();
             setUpTaskTable();
+            initializeNumbersOnMainPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,14 +203,17 @@ public class ManagerPanelController implements Initializable {
 
     public void addTask(Task task) {
         taskTable.getItems().add(task);
+        initializeNumbersOnMainPage();
     }
     
     public void addTeam(Team team) {
         teamsTable.getItems().add(team);
+        initializeNumbersOnMainPage();
     }
     
     public void addProject(Project project) {
         projectsTable.getItems().add(project);
+        initializeNumbersOnMainPage();
     }
 
     private void close() {
@@ -197,7 +231,10 @@ public class ManagerPanelController implements Initializable {
 
     public void onEmployeeVerifyClick() throws IOException {
         Stage employeeVerifyWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/EmployeeVerify.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/EmployeeVerify.fxml"));
+        Parent root = loader.load();
+        EmployeeVerifyController controller = loader.getController();
+        controller.addObserver(this);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
@@ -214,6 +251,7 @@ public class ManagerPanelController implements Initializable {
         Stage leaveRequestVerifyWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/LeaveRequest.fxml"));
         LeaveRequestController controller = new LeaveRequestController(currentUser);
+        controller.addObserver(this);
         loader.setController(controller);
         Parent root = (Parent)loader.load();
 
@@ -238,8 +276,11 @@ public class ManagerPanelController implements Initializable {
 
     private void showAddOrEditEmployeeWindow() throws IOException {
         Stage employeeAddWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/AddOrEditEmployee.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditEmployee.fxml"));
 
+        Parent root = loader.load();
+        AddOrEditEmployeeController controller = loader.getController();
+        controller.addObserver(this);
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
@@ -264,6 +305,7 @@ public class ManagerPanelController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditTeam.fxml"));
         AddOrEditTeamController controller = new AddOrEditTeamController(this);
         loader.setController(controller);
+        controller.addObserver(this);
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
@@ -281,21 +323,6 @@ public class ManagerPanelController implements Initializable {
         showAddOrEditTeamWindow();
     }
     
-    public void onErrorsButtonClick() throws IOException {
-        Stage errorsWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/TimeErrors.fxml"));
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
-
-        errorsWindow.setTitle("DevMan - Błędy");
-        errorsWindow.setResizable(false);
-        errorsWindow.setScene(scene);
-        errorsWindow.setX(20);
-        errorsWindow.setY(20);
-        errorsWindow.show();
-    }
-    
     public void onTaskAssignButtonClick() throws IOException {
         if (checkIfTeamSelected()) return;
         Stage taskAssignWindow = new Stage();
@@ -303,6 +330,7 @@ public class ManagerPanelController implements Initializable {
 
         TaskAssignController controller = new TaskAssignController((Team)teamsTable.getSelectionModel().getSelectedItem());
         loader.setController(controller);
+        controller.addObserver(this);
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
@@ -323,6 +351,7 @@ public class ManagerPanelController implements Initializable {
         
         EmployeeAssignController controller = new EmployeeAssignController((Team)teamsTable.getSelectionModel().getSelectedItem());
         loader.setController(controller);
+        controller.addObserver(this);
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
@@ -357,7 +386,9 @@ public class ManagerPanelController implements Initializable {
 
     public void onTeamsAssignClick() throws IOException {
         Stage teamsAssign = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/managerPanel/TeamsAssign.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/TeamsAssign.fxml"));
+
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
@@ -372,9 +403,10 @@ public class ManagerPanelController implements Initializable {
 
     public void onDeleteTeamButtonClick() throws Exception {
         for(Team team : teamsTable.getSelectionModel().getSelectedItems()) {
-            TaskRepository.deleteById(team.getId());
+            TeamRepository.deleteById(team.getId());
             teamsTable.getItems().remove(team);
         }
+        initializeNumbersOnMainPage();
     }
     
     public void onNewProjectButtonClick() throws IOException {
@@ -388,6 +420,8 @@ public class ManagerPanelController implements Initializable {
         AddOrEditProjectController controller = new AddOrEditProjectController(this);
         loader.setController(controller);
         Parent root = loader.load();
+
+        controller.addObserver(this);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
@@ -415,6 +449,8 @@ public class ManagerPanelController implements Initializable {
         loader.setController(controller);
         Parent root = loader.load();
 
+        controller.addObserver(this);
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
@@ -434,5 +470,11 @@ public class ManagerPanelController implements Initializable {
             TaskRepository.deleteById(task.getId());
             taskTable.getItems().remove(task);
         }
+        initializeNumbersOnMainPage();
+    }
+
+    @Override
+    public void update(java.util.Observable observable, Object o) {
+        initializeNumbersOnMainPage();
     }
 }

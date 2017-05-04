@@ -13,6 +13,7 @@ import com.mycompany.devman.domain.Team;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
  *
  * @author jakub
  */
-public class TaskAssignController implements Initializable {
+public class TaskAssignController extends Observable implements Initializable {
 
     @FXML
     private Button cancel;
@@ -76,6 +77,8 @@ public class TaskAssignController implements Initializable {
     public void onOkButtonClick() {
         updateSelectedTasks();
         updateNonSelectedTasks();
+        setChanged();
+        notifyObservers();
         close();
     }
 

@@ -2,6 +2,7 @@ package com.mycompany.devman.controllers.managerPanel;
 
 
 import java.net.URL;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.mycompany.devman.domain.User;
@@ -18,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author jakub
  */
-public class EmployeeVerifyController implements Initializable {
+public class EmployeeVerifyController extends Observable implements Initializable {
 
     @FXML
     TableView<User> employeeTable;
@@ -28,7 +29,6 @@ public class EmployeeVerifyController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         setUpEmployeeTable();
-
     }
 
     private void setUpEmployeeTable(){
@@ -58,6 +58,8 @@ public class EmployeeVerifyController implements Initializable {
             UserRepository.deleteById(user.getId());
             employeeTable.getItems().remove(user);
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void onAcceptButtonClick() throws Exception {
@@ -66,5 +68,7 @@ public class EmployeeVerifyController implements Initializable {
             UserRepository.updateUser(user);
             employeeTable.getItems().remove(user);
         }
+        setChanged();
+        notifyObservers();
     }
 }
