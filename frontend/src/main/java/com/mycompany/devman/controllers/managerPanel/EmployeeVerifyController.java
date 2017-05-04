@@ -6,7 +6,6 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 
 import com.mycompany.devman.domain.User;
-import com.mycompany.devman.repositories.TaskRepository;
 import com.mycompany.devman.repositories.UserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,7 +56,7 @@ public class EmployeeVerifyController extends Observable implements Initializabl
 
     public void onDeleteButtonClick() throws Exception {
         for(User user : employeeTable.getSelectionModel().getSelectedItems()) {
-            UserRepository.deleteById(user.getId());
+            UserRepository.deleteUser(user);
         }
         employeeTable.getItems().removeAll(employeeTable.getItems());
         setChanged();

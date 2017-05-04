@@ -76,11 +76,6 @@ public class UserTest {
     public void findUserByLoginAndPasswordIfNotExist() throws Exception {
         User testUsers = UserRepository.findByLoginAndPassword("6","9");
     }
-    @Ignore
-    @Test(expected = Exception.class)
-    public void deleteUserIfNotExist() throws Exception {
-        UserRepository.deleteById(new Long(0));
-    }
 
     @Test (expected = Exception.class)
     public void addUserIfIncorrect() throws Exception {

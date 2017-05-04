@@ -20,7 +20,6 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
@@ -133,13 +132,12 @@ public class UserRepository {
         throw new Exception("Zły email lub pesel");
     }
 
-    public static void deleteById(Long id) throws Exception {
+    public static void deleteUser(User user) throws Exception {
 
         try {
             Session session = BackendSetup.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            Query query = session.createQuery("Delete from User where id=:id").setParameter("id", id);
-            query.executeUpdate();
+            session.delete(user);
             transaction.commit();
             session.close();
         } catch (Exception e) {
@@ -193,7 +191,16 @@ public class UserRepository {
         return users;
     }
 
-    public static List<User> findAnotherUsersInTeams(User user) throws Exception {
+    public static List<User> findUsersByManager(User manager) {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> users = session.createQuery("SELECT u FROM User u WHERE u.manager=:manager").setParameter("manager", manager).list();
+        transaction.commit();
+        session.close();
+        return users;
+    }
+
+    public static List<User> findAnotherUsersInTeam(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("SELECT u FROM User u JOIN u.teams t WHERE t in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();

@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
-import javafx.beans.Observable;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -45,8 +45,8 @@ public class ManagerPanelController implements Initializable, Observer {
     @FXML
     private TableView<Task> taskTable;
 
-    //@FXML
-    //private TableView<User> employeeTable;
+    @FXML
+    private TableView<User> employeeTable;
 
     @FXML
     private Label pendingEmployees;
@@ -128,12 +128,40 @@ public class ManagerPanelController implements Initializable, Observer {
 
         try {
             setUpProjectTable();
+            setUpEmployeeTable();
             setUpTeamTable();
             setUpTaskTable();
             initializeNumbersOnMainPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void setUpEmployeeTable() {
+        employeeTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        TableColumn id = new TableColumn("ID");
+        id.setMinWidth(150);
+        id.setCellValueFactory(
+                new PropertyValueFactory<>("id"));
+
+        TableColumn name = new TableColumn("Imię");
+        name.setMinWidth(150);
+        name.setCellValueFactory(
+                new PropertyValueFactory<>("name"));
+
+        TableColumn lastName = new TableColumn("Nazwisko");
+        lastName.setMinWidth(150);
+        lastName.setCellValueFactory(
+                new PropertyValueFactory<>("lastName"));
+
+        TableColumn email = new TableColumn("E-mail");
+        email.setMinWidth(150);
+        email.setCellValueFactory(
+                new PropertyValueFactory<>("email"));
+
+        employeeTable.getItems().addAll(UserRepository.findUsersByManager(currentUser));
+        employeeTable.getColumns().clear();
+        employeeTable.getColumns().addAll(id, name, lastName, email);
     }
 
     private void setUpTaskTable() throws Exception {
@@ -201,6 +229,20 @@ public class ManagerPanelController implements Initializable, Observer {
         projectsTable.getColumns().addAll(idCol, nameCol);
     }
 
+    public void updateEmployee(User user) {
+        employeeTable.getItems().replaceAll(new UnaryOperator<User>() {
+            @Override
+            public User apply(User u) {
+                if(user.getId().equals(u.getId())) {
+                    return user;
+                }
+                else {
+                    return u;
+                }
+            }
+        });
+    }
+
     public void addTask(Task task) {
         taskTable.getItems().add(task);
         initializeNumbersOnMainPage();
@@ -265,21 +307,26 @@ public class ManagerPanelController implements Initializable, Observer {
         leaveRequestVerifyWindow.setY(20);
         leaveRequestVerifyWindow.show();
     }
-    
-    public void onAddEmployeeClick() throws IOException {
-        showEditEmployeeWindow();
-    }
 
     private void showEditEmployeeWindow() throws IOException {
         showAddOrEditEmployeeWindow();
     }
 
     private void showAddOrEditEmployeeWindow() throws IOException {
+        User selected = employeeTable.getSelectionModel().getSelectedItem();
+        if(selected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd!");
+            alert.setContentText("Nie wybrano pracownika!");
+            alert.showAndWait();
+            return;
+        }
         Stage employeeAddWindow = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditEmployee.fxml"));
-
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/EditEmployee.fxml"));
+        EditEmployeeController controller = new EditEmployeeController(selected, this);
+        loader.setController(controller);
         Parent root = loader.load();
-        AddOrEditEmployeeController controller = loader.getController();
         controller.addObserver(this);
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
@@ -365,12 +412,12 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeAssign.show();
     }
 
-    /*public void onDeleteEmployeeButtonClick() throws Exception {
+    public void onDeleteEmployeeButtonClick() throws Exception {
         for(User employee : employeeTable.getSelectionModel().getSelectedItems()) {
-            TaskRepository.deleteById(employee.getId());
-            employeeTable.getItems().remove(employee);
+            UserRepository.deleteUser(employee);
         }
-    }*/
+        employeeTable.getItems().removeAll(employeeTable.getSelectionModel().getSelectedItems());
+    }
 
     private boolean checkIfTeamSelected() {
         if(teamsTable.getSelectionModel().getSelectedItem() == null) {

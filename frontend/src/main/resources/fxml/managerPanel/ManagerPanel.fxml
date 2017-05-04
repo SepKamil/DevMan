@@ -79,11 +79,11 @@
                            </children></AnchorPane>
                   </content>
                 </Tab>
-                <Tab fx:id="employeeTable" text="Pracownicy">
+                <Tab text="Pracownicy">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView prefHeight="283.0" prefWidth="600.0">
+                              <TableView fx:id="employeeTable" prefHeight="283.0" prefWidth="600.0">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="ID" />  
                                   <TableColumn prefWidth="75.0" text="Imię" />
@@ -93,9 +93,8 @@
                                   <TableColumn prefWidth="71.0" text="Zespół" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="100.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditEmployeeClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
-                              <Button layoutX="190.0" layoutY="292.0" mnemonicParsing="false" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
-                              <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onAddEmployeeClick" prefHeight="31.0" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Dodaj" textFill="WHITE" />
+                              <Button layoutX="23.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditEmployeeClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
+                              <Button layoutX="123.0" layoutY="292.0" mnemonicParsing="false" onAction="#onDeleteEmployeeButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

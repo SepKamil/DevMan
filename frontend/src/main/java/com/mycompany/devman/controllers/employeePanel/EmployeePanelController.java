@@ -212,7 +212,7 @@ public class EmployeePanelController implements Initializable {
         email.setCellValueFactory(
                 new PropertyValueFactory<>("email"));
 
-        usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeams(currentUser));
+        usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeam(currentUser));
         usersTable.getColumns().clear();
         usersTable.getColumns().addAll(name, lastName, email);
     }
@@ -256,7 +256,7 @@ public class EmployeePanelController implements Initializable {
             }
             else if(p instanceof String && p.equals("Wszystkie")) {
                 usersTable.getItems().clear();
-                usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeams(currentUser));
+                usersTable.getItems().addAll(UserRepository.findAnotherUsersInTeam(currentUser));
             }
         }
     }
