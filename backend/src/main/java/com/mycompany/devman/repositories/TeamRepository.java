@@ -7,6 +7,7 @@ package com.mycompany.devman.repositories;
 
 import com.mycompany.devman.BackendSetup;
 import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.util.Iterator;
@@ -56,12 +57,17 @@ public class TeamRepository {
         return teams;
     }
 
-    public static void deleteById(Long id) throws Exception {
+    public static void deleteTeam(Team team) throws Exception {
+        for(Task task : TaskRepository.findAllTasks()) {
+            if(task.getTeam() != null && task.getTeam().equals(team)) {
+                task.setTeam(null);
+                TaskRepository.updateTask(task);
+            }
+        };
         try {
             Session session = BackendSetup.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            Query query = session.createQuery("Delete from Team where id=:id").setParameter("id",id);
-            query.executeUpdate();
+            session.delete(team);
             transaction.commit();
             session.close();
         } catch (Exception e) {

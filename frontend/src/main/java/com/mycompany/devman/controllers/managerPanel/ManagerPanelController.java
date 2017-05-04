@@ -196,6 +196,7 @@ public class ManagerPanelController implements Initializable, Observer {
     }
 
     private void setUpTeamTable() throws Exception {
+        teamsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn idCol = new TableColumn("ID");
         idCol.setMinWidth(100);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -344,10 +345,10 @@ public class ManagerPanelController implements Initializable, Observer {
     }
     
     public void onAddTeamClick() throws IOException {
-        showAddOrEditTeamWindow();
+        showAddTeamWindow();
     }
 
-    private void showAddOrEditTeamWindow() throws IOException {
+    private void showAddTeamWindow() throws IOException {
         Stage teamAddWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditTeam.fxml"));
         AddOrEditTeamController controller = new AddOrEditTeamController(this);
@@ -358,7 +359,26 @@ public class ManagerPanelController implements Initializable, Observer {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
-        teamAddWindow.setTitle("DevMan - Zespół");
+        teamAddWindow.setTitle("DevMan - Dodawanie zespołu");
+        teamAddWindow.setResizable(false);
+        teamAddWindow.setScene(scene);
+        teamAddWindow.setX(20);
+        teamAddWindow.setY(20);
+        teamAddWindow.show();
+    }
+
+    private void showEditTeamWindow(Team team) throws IOException {
+        Stage teamAddWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditTeam.fxml"));
+        AddOrEditTeamController controller = new AddOrEditTeamController(this, team);
+        loader.setController(controller);
+        controller.addObserver(this);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        teamAddWindow.setTitle("DevMan - Edycja zespołu");
         teamAddWindow.setResizable(false);
         teamAddWindow.setScene(scene);
         teamAddWindow.setX(20);
@@ -367,11 +387,25 @@ public class ManagerPanelController implements Initializable, Observer {
     }
 
     public void onEditTeamClick() throws IOException {
-        showAddOrEditTeamWindow();
+        showEditTeamWindow(teamsTable.getSelectionModel().getSelectedItem());
+    }
+
+    public void editTeam(Team t) {
+        teamsTable.getItems().replaceAll(new UnaryOperator<Team>() {
+            @Override
+            public Team apply(Team team) {
+                if(team.getId().equals(t.getId())) {
+                    return t;
+                }
+                else {
+                    return team;
+                }
+            }
+        });
     }
     
     public void onTaskAssignButtonClick() throws IOException {
-        if (checkIfTeamSelected()) return;
+        if (!checkIfTeamSelected()) return;
         Stage taskAssignWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/TaskAssign.fxml"));
 
@@ -450,9 +484,9 @@ public class ManagerPanelController implements Initializable, Observer {
 
     public void onDeleteTeamButtonClick() throws Exception {
         for(Team team : teamsTable.getSelectionModel().getSelectedItems()) {
-            TeamRepository.deleteById(team.getId());
-            teamsTable.getItems().remove(team);
+            TeamRepository.deleteTeam(team);
         }
+        teamsTable.getItems().removeAll(teamsTable.getSelectionModel().getSelectedItems());
         initializeNumbersOnMainPage();
     }
     

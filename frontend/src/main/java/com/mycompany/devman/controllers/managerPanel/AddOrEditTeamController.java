@@ -31,14 +31,21 @@ public class AddOrEditTeamController extends Observable implements Initializable
     private TextField name;
     
     @FXML
-    private ChoiceBox projects;
+    private ChoiceBox<Project> projects;
    
     private ManagerPanelController controller;
+
+    private Team team;
     
     public AddOrEditTeamController(ManagerPanelController controller) {
         this.controller = controller;
     }
-    
+
+    public AddOrEditTeamController(ManagerPanelController controller, Team team) {
+        this.controller = controller;
+        this.team = team;
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -49,7 +56,13 @@ public class AddOrEditTeamController extends Observable implements Initializable
         } catch (Exception e) {
             e.printStackTrace();
         }
-        projects.getSelectionModel().selectFirst();
+        if(team == null) {
+            projects.getSelectionModel().selectFirst();
+        }
+        else {
+            name.setText(team.getName());
+            projects.getSelectionModel().select(team.getProject());
+        }
     }    
     
     private void close() {
@@ -62,11 +75,20 @@ public class AddOrEditTeamController extends Observable implements Initializable
     }
     
     public void onAddButtonClick() {
-        Team team = new Team();
+        boolean newTeam = false;
+        if(team == null) {
+            team = new Team();
+            newTeam = true;
+        }
         team.setName(name.getText());
-        team.setProject((Project)projects.getSelectionModel().getSelectedItem());
+        team.setProject(projects.getSelectionModel().getSelectedItem());
         try {
-            TeamRepository.addTeam(team);
+            if(newTeam) {
+                TeamRepository.addTeam(team);
+            }
+            else {
+                TeamRepository.updateTeam(team);
+            }
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Błąd!");
@@ -74,7 +96,12 @@ public class AddOrEditTeamController extends Observable implements Initializable
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
-        controller.addTeam(team);
+        if(newTeam) {
+            controller.addTeam(team);
+        }
+        else {
+            controller.editTeam(team);
+        }
         setChanged();
         notifyObservers();
         close();
