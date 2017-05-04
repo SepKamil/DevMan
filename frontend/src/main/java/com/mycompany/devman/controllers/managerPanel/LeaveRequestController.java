@@ -12,6 +12,7 @@ import java.util.Observable;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -37,6 +38,7 @@ public class LeaveRequestController extends Observable implements Initializable 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        leaveTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn employee = new TableColumn("Pracownik");
         employee.setMinWidth(150);
         employee.setCellValueFactory(new PropertyValueFactory<Leave, LeaveRequestStatus>("employee"));
@@ -66,7 +68,7 @@ public class LeaveRequestController extends Observable implements Initializable 
         for (Leave leave1 : selected) {
             LeaveRepository.acceptLeaveRequest(leave1);
         }
-        selected.forEach(leave -> leaveTable.getItems().remove(leave));
+        leaveTable.getItems().removeAll(leaveTable.getSelectionModel().getSelectedItems());
         setChanged();
         notifyObservers();
     }
@@ -77,7 +79,7 @@ public class LeaveRequestController extends Observable implements Initializable 
         for (Leave leave1 : selected) {
             LeaveRepository.rejectLeaveRequest(leave1);
         }
-        selected.forEach(leave -> leaveTable.getItems().remove(leave));
+        leaveTable.getItems().removeAll(leaveTable.getSelectionModel().getSelectedItems());
         setChanged();
         notifyObservers();
     }

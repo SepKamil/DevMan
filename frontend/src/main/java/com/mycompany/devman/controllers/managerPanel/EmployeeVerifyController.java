@@ -10,6 +10,7 @@ import com.mycompany.devman.repositories.TaskRepository;
 import com.mycompany.devman.repositories.UserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +33,7 @@ public class EmployeeVerifyController extends Observable implements Initializabl
     }
 
     private void setUpEmployeeTable(){
+        employeeTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn name = new TableColumn("Imię");
         name.setMinWidth(150);
         name.setCellValueFactory(
@@ -56,8 +58,8 @@ public class EmployeeVerifyController extends Observable implements Initializabl
     public void onDeleteButtonClick() throws Exception {
         for(User user : employeeTable.getSelectionModel().getSelectedItems()) {
             UserRepository.deleteById(user.getId());
-            employeeTable.getItems().remove(user);
         }
+        employeeTable.getItems().removeAll(employeeTable.getItems());
         setChanged();
         notifyObservers();
     }
@@ -66,8 +68,8 @@ public class EmployeeVerifyController extends Observable implements Initializabl
         for(User user : employeeTable.getSelectionModel().getSelectedItems()) {
             user.setUserState(User.userState.ACTIVE);
             UserRepository.updateUser(user);
-            employeeTable.getItems().remove(user);
         }
+        employeeTable.getItems().removeAll(employeeTable.getItems());
         setChanged();
         notifyObservers();
     }
