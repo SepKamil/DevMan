@@ -28,6 +28,16 @@ public class ProjectRepository {
         return project;
     }
 
+    public static Project updateProject(Project project) throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        validateEntity(project);
+        session.update(project);
+        transaction.commit();
+        session.close();
+        return project;
+    }
+
     private static void validateEntity(Project project) throws Exception {
         Validator validator = BackendSetup.getEntityValidator();
         Set<ConstraintViolation<Project>> projects = validator.validate(project);

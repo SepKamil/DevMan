@@ -45,11 +45,19 @@ public class NewOrEditTaskController extends Observable implements Initializable
     private Spinner predictedTime;
     
     private ManagerPanelController controller;
+
+    private Task task;
     
     public NewOrEditTaskController(ManagerPanelController controller) {
         this.controller = controller;
     }
-    
+
+    public NewOrEditTaskController(ManagerPanelController controller, Task task) {
+        this.controller = controller;
+        this.task = task;
+    }
+
+
     /**
      * Initializes the controller class.
      */
@@ -70,7 +78,15 @@ public class NewOrEditTaskController extends Observable implements Initializable
             }
         };
         predictedTime.setValueFactory(factory);
-        predictedTime.getValueFactory().setValue(1);
+        if(task == null) {
+            predictedTime.getValueFactory().setValue(1);
+        }
+        else {
+            name.setText(task.getName());
+            startDate.setValue(task.getStartDate());
+            endDate.setValue(task.getEndDate());
+            predictedTime.getValueFactory().setValue(task.getPredictedTime());
+        }
     } 
     
     private void close() {
@@ -79,13 +95,22 @@ public class NewOrEditTaskController extends Observable implements Initializable
     }
     
     public void onOkButtonClick() {
-        Task task = new Task();
+        boolean newTask = false;
+        if(task == null) {
+            task = new Task();
+            newTask = true;
+        }
         task.setName(name.getText());
         task.setStartDate(startDate.valueProperty().get());
         task.setEndDate(endDate.valueProperty().get());
         task.setPredictedTime((Integer)predictedTime.getValue());
         try {
-            TaskRepository.addTask(task);
+            if(newTask) {
+                TaskRepository.addTask(task);
+            }
+            else {
+                TaskRepository.updateTask(task);
+            }
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Błąd!");
@@ -94,7 +119,12 @@ public class NewOrEditTaskController extends Observable implements Initializable
             alert.showAndWait();
             return;
         }
-        controller.addTask(task);
+        if(newTask) {
+            controller.addTask(task);
+        }
+        else  {
+            controller.editTask(task);
+        }
         setChanged();
         notifyObservers();
         close();

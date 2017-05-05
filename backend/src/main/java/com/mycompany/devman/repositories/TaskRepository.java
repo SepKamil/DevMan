@@ -23,8 +23,8 @@ public class TaskRepository {
     public static Task addTask(Task task) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        validateEntity(task);
         task.setTaskState(Task.TaskState.IN_PROGRESS);
+        validateEntity(task);
         session.save(task);
         transaction.commit();
         session.close();

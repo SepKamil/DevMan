@@ -39,17 +39,29 @@ public class AddOrEditProjectController extends Observable implements Initializa
     private DatePicker endDate;
     
     private ManagerPanelController controller;
+
+    private Project project;
     
     public AddOrEditProjectController(ManagerPanelController controller) {
         this.controller = controller;
     }
-    
+
+    public AddOrEditProjectController(ManagerPanelController controller, Project project) {
+        this.controller = controller;
+        this.project = project;
+    }
+
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        if(project != null) {
+            name.setText(project.getName());
+            startDate.setValue(project.getStartDate());
+            endDate.setValue(project.getEndDate());
+        }
     }    
     
     private void close() {
@@ -58,12 +70,21 @@ public class AddOrEditProjectController extends Observable implements Initializa
     }
     
     public void onOkButtonClick() {
-        Project project = new Project();
+        boolean newProject = false;
+        if(project == null) {
+            project = new Project();
+            newProject = true;
+        }
         project.setName(name.getText());
         project.setStartDate(startDate.valueProperty().get());
         project.setEndDate(endDate.valueProperty().get());
         try {
-            ProjectRepository.addProject(project);
+            if(!newProject) {
+                ProjectRepository.updateProject(project);
+            }
+            else {
+                ProjectRepository.addProject(project);
+            }
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Błąd!");
@@ -71,7 +92,12 @@ public class AddOrEditProjectController extends Observable implements Initializa
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
         }
-        controller.addProject(project);
+        if(newProject) {
+            controller.addProject(project);
+        }
+        else {
+            controller.updateProject(project);
+        }
         setChanged();
         notifyObservers();
         close();

@@ -165,6 +165,7 @@ public class ManagerPanelController implements Initializable, Observer {
     }
 
     private void setUpTaskTable() throws Exception {
+        taskTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn name = new TableColumn("Nazwa");
         name.setMinWidth(150);
         name.setCellValueFactory(
@@ -225,9 +226,19 @@ public class ManagerPanelController implements Initializable, Observer {
         nameCol.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
 
+        TableColumn startDateCol = new TableColumn("Data rozpoczęcia");
+        startDateCol.setMinWidth(150);
+        startDateCol.setCellValueFactory(
+                new PropertyValueFactory<>("startDate"));
+
+        TableColumn endDateCol = new TableColumn("Data zakończenia");
+        endDateCol.setMinWidth(150);
+        endDateCol.setCellValueFactory(
+                new PropertyValueFactory<>("endDate"));
+
         projectsTable.getItems().addAll(ProjectRepository.findAll());
         projectsTable.getColumns().clear();
-        projectsTable.getColumns().addAll(idCol, nameCol);
+        projectsTable.getColumns().addAll(idCol, nameCol, startDateCol, endDateCol);
     }
 
     public void updateEmployee(User user) {
@@ -491,10 +502,10 @@ public class ManagerPanelController implements Initializable, Observer {
     }
     
     public void onNewProjectButtonClick() throws IOException {
-        showAddOrEditProjectWindow();
+        showAddProjectWindow();
     }
 
-    private void showAddOrEditProjectWindow() throws IOException {
+    private void showAddProjectWindow() throws IOException {
         Stage newProject = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditProject.fxml"));
 
@@ -507,7 +518,36 @@ public class ManagerPanelController implements Initializable, Observer {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
-        newProject.setTitle("DevMan - projekt");
+        newProject.setTitle("DevMan - Dodaj projekt");
+        newProject.setResizable(false);
+        newProject.setScene(scene);
+        newProject.setX(20);
+        newProject.setY(20);
+        newProject.show();
+    }
+
+    private void showEditProjectWindow() throws IOException {
+        if(projectsTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd!");
+            alert.setContentText("Nie wybrano projektu!");
+            alert.showAndWait();
+            return;
+        }
+        Stage newProject = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/AddOrEditProject.fxml"));
+
+        AddOrEditProjectController controller = new AddOrEditProjectController(this, projectsTable.getSelectionModel().getSelectedItem());
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        controller.addObserver(this);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        newProject.setTitle("DevMan - Edytuj projekt");
         newProject.setResizable(false);
         newProject.setScene(scene);
         newProject.setX(20);
@@ -516,14 +556,14 @@ public class ManagerPanelController implements Initializable, Observer {
     }
 
     public void onEditProjectButtonClick() throws IOException {
-        showAddOrEditProjectWindow();
+        showEditProjectWindow();
     }
     
     public void onNewTaskButtonClick() throws IOException {
-        showAddOrEditTaskWindow();
+        showAddTaskWindow();
     }
 
-    private void showAddOrEditTaskWindow() throws IOException {
+    private void showAddTaskWindow() throws IOException {
         Stage newTask = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/NewOrEditTask.fxml"));
         NewOrEditTaskController controller = new NewOrEditTaskController(this);
@@ -535,7 +575,35 @@ public class ManagerPanelController implements Initializable, Observer {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/register.css");
 
-        newTask.setTitle("DevMan - zadanie");
+        newTask.setTitle("DevMan - Dodawanie zadania");
+        newTask.setResizable(false);
+        newTask.setScene(scene);
+        newTask.setX(20);
+        newTask.setY(20);
+        newTask.show();
+    }
+
+    private void showEditTaskWindow() throws IOException {
+        if(taskTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd!");
+            alert.setContentText("Nie wybrano zadania!");
+            alert.showAndWait();
+            return;
+        }
+        Stage newTask = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/NewOrEditTask.fxml"));
+        NewOrEditTaskController controller = new NewOrEditTaskController(this, taskTable.getSelectionModel().getSelectedItem());
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        controller.addObserver(this);
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/register.css");
+
+        newTask.setTitle("DevMan - Edycja zadania");
         newTask.setResizable(false);
         newTask.setScene(scene);
         newTask.setX(20);
@@ -544,18 +612,46 @@ public class ManagerPanelController implements Initializable, Observer {
     }
 
     public void onEditTaskButtonClick() throws IOException {
-        showAddOrEditTaskWindow();
+        showEditTaskWindow();
     }
     public void onDeleteTaskButtonClick() throws Exception {
         for(Task task : taskTable.getSelectionModel().getSelectedItems()) {
             TaskRepository.deleteById(task.getId());
-            taskTable.getItems().remove(task);
         }
+        taskTable.getItems().removeAll(taskTable.getSelectionModel().getSelectedItems());
         initializeNumbersOnMainPage();
     }
 
     @Override
     public void update(java.util.Observable observable, Object o) {
         initializeNumbersOnMainPage();
+    }
+
+    public void updateProject(Project p) {
+        projectsTable.getItems().replaceAll(new UnaryOperator<Project>() {
+            @Override
+            public Project apply(Project project) {
+                if(p.getId().equals(project.getId())) {
+                    return p;
+                }
+                else {
+                    return project;
+                }
+            }
+        });
+    }
+
+    public void editTask(Task t) {
+        taskTable.getItems().replaceAll(new UnaryOperator<Task>() {
+            @Override
+            public Task apply(Task task) {
+                if(t.getId().equals(task.getId())) {
+                    return t;
+                }
+                else {
+                    return task;
+                }
+            }
+        });
     }
 }
