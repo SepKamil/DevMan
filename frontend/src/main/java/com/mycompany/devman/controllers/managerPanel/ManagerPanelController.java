@@ -11,8 +11,6 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,7 +77,7 @@ public class ManagerPanelController implements Initializable, Observer {
                 .valueOf(LeaveRepository.findPendingLeavesByManager(currentUser)
                         .size()).toString());
         numberOfProjects.setText(Integer
-                .valueOf(ProjectRepository.findAll().size()).toString());
+                .valueOf(ProjectRepository.findProjectsInProgress().size()).toString());
         numberOfTeams.setText(Integer
                 .valueOf(TeamRepository.findAllTeams().size()).toString());
         tasksInProgress.setText(Integer
@@ -113,18 +111,36 @@ public class ManagerPanelController implements Initializable, Observer {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        menuBar.getMenus().filtered(menu -> menu.getText().equals("Plik")).get(0).getItems().filtered(item -> item.getText().equals("Zamknij")).get(0).addEventHandler(EventType.ROOT, new EventHandler() {
-            @Override
-            public void handle(Event t) {
-                close();
-            }
-        });
-        menuBar.getMenus().filtered(menu -> menu.getText().equals("Pomoc")).get(0).getItems().filtered(item -> item.getText().equals("Informacje")).get(0).addEventHandler(EventType.ROOT, new EventHandler() {
-            @Override
-            public void handle(Event t) {
-                showInfoWindow();
-            }
-        });
+        menuBar.getMenus().filtered(menu ->
+                menu.getText().equals("Plik")).get(0)
+                .getItems().filtered(item ->
+                    item.getText().equals("Zamknij"))
+                    .get(0).addEventHandler(EventType.ROOT, t -> close());
+        menuBar.getMenus().filtered(menu ->
+                menu.getText().equals("Pomoc")).get(0)
+                .getItems().filtered(item ->
+                    item.getText().equals("Informacje"))
+                    .get(0).addEventHandler(EventType.ROOT, t -> showInfoWindow());
+        menuBar.getMenus().filtered(menu ->
+                menu.getText().equals("Edycja")).get(0)
+                .getItems().filtered(item ->
+                item.getText().equals("Zaznacz wszystko"))
+                .get(0).addEventHandler(EventType.ROOT, t -> {
+                    if(tabPanel.getSelectionModel().getSelectedItem().getText().equals("Pracownicy")) {
+                        employeeTable.getSelectionModel().selectAll();
+                    }
+                    if(tabPanel.getSelectionModel().getSelectedItem().getText().equals("Zespoły")) {
+                        teamsTable.getSelectionModel().selectAll();
+                    }
+                    if(tabPanel.getSelectionModel().getSelectedItem().getText().equals("Projekty")) {
+                        projectsTable.getSelectionModel().selectAll();
+                    }
+                    if(tabPanel.getSelectionModel().getSelectedItem().getText().equals("Zadania")) {
+                        taskTable.getSelectionModel().selectAll();
+                    }
+
+                });
+
 
         try {
             setUpProjectTable();
@@ -191,7 +207,7 @@ public class ManagerPanelController implements Initializable, Observer {
         taskState.setCellValueFactory(
                 new PropertyValueFactory<>("taskState"));
 
-        taskTable.getItems().addAll(TaskRepository.findAllTasks());
+        taskTable.getItems().addAll(TaskRepository.findTasksInProgress());
         taskTable.getColumns().clear();
         taskTable.getColumns().addAll(name, startDate, endDate, predictedTime, taskState);
     }
@@ -217,6 +233,7 @@ public class ManagerPanelController implements Initializable, Observer {
     }
 
     private void setUpProjectTable() throws Exception {
+        projectsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn idCol = new TableColumn("ID");
         idCol.setMinWidth(100);
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -236,7 +253,7 @@ public class ManagerPanelController implements Initializable, Observer {
         endDateCol.setCellValueFactory(
                 new PropertyValueFactory<>("endDate"));
 
-        projectsTable.getItems().addAll(ProjectRepository.findAll());
+        projectsTable.getItems().addAll(ProjectRepository.findProjectsInProgress());
         projectsTable.getColumns().clear();
         projectsTable.getColumns().addAll(idCol, nameCol, startDateCol, endDateCol);
     }
@@ -299,6 +316,15 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.setX(20);
         employeeVerifyWindow.setY(20);
         employeeVerifyWindow.show();
+    }
+
+    public void onArchiveProjectButtonClick() throws Exception {
+        for(Project project : projectsTable.getSelectionModel().getSelectedItems()) {
+            project.setProjectState(Project.ProjectState.FINISHED);
+            ProjectRepository.updateProject(project);
+        }
+        projectsTable.getItems().removeAll(projectsTable.getSelectionModel().getSelectedItems());
+        initializeNumbersOnMainPage();
     }
 
     public void onLeaveVerifyClick() throws IOException {
@@ -614,9 +640,10 @@ public class ManagerPanelController implements Initializable, Observer {
     public void onEditTaskButtonClick() throws IOException {
         showEditTaskWindow();
     }
-    public void onDeleteTaskButtonClick() throws Exception {
+    public void onArchieveTaskButtonClick() throws Exception {
         for(Task task : taskTable.getSelectionModel().getSelectedItems()) {
-            TaskRepository.deleteById(task.getId());
+            task.setTaskState(Task.TaskState.FINISHED);
+            TaskRepository.updateTask(task);
         }
         taskTable.getItems().removeAll(taskTable.getSelectionModel().getSelectedItems());
         initializeNumbersOnMainPage();

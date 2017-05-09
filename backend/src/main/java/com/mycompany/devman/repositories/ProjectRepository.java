@@ -103,10 +103,10 @@ public class ProjectRepository {
         return projects;
     }
     
-    public static List<Project> findAll() {
+    public static List<Project> findProjectsInProgress() {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<Project> projects = session.createQuery("FROM Project").list();
+        List<Project> projects = session.createQuery("FROM Project p WHERE p.projectState='IN_PROGRESS'").list();
         transaction.commit();
         session.close();
         return projects;

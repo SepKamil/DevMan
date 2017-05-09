@@ -93,24 +93,20 @@ public class UserRepository {
     }
 
     public static User findByLoginAndPassword(String login, String password) throws Exception {
-        List users = null;
-        try {
             Session session = BackendSetup.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            users = session.createQuery("FROM User u WHERE u.login=:login AND u.password=:password")
+            List<User> users = session.createQuery("FROM User u WHERE u.login=:login AND u.password=:password")
                     .setParameter("login", login).setParameter("password", password).list();
             transaction.commit();
             session.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        User user = (User) users.get(0);
-        if(user.getUserState().equals(User.userState.INACTIVE)) throw new Exception("Użytkownik jest nieaktywny");
-        if (users.size() == 1) {
+            if(users.size() == 0) {
+                throw new Exception("Błędny login lub hasło");
+            }
+            User user = (User) users.get(0);
+            if(user.getUserState().equals(User.userState.INACTIVE)) {
+                throw new Exception("Użytkownik jest nieaktywny");
+            }
             return (User) users.get(0);
-        }
-
-        throw new Exception("Zły login lub hasło!");
     }
 
     public static User findByEmailAndPesel(String email, String pesel) throws Exception {

@@ -50,6 +50,7 @@ public class projectTest {
         project.setName("addProjekt");
         project.setStartDate(LocalDate.of(1969, 06, 9));
         project.setEndDate(LocalDate.of(2001, 06, 9));
+        project.setProjectState(Project.ProjectState.IN_PROGRESS);
         Session session = BackendSetup.getDatabaseSession();
         ProjectRepository.addProject(project);
         assertEquals(project, session.createQuery("FROM Project").list().get(0));
@@ -61,6 +62,7 @@ public class projectTest {
         project.setName("addProjekt");
         project.setStartDate(LocalDate.of(1969, 06, 9));
         project.setEndDate(LocalDate.of(2001, 06, 9));
+        project.setProjectState(Project.ProjectState.IN_PROGRESS);
         ProjectRepository.addProject(project);
         Project testProject = ProjectRepository.findById(project.getId());
         assertEquals(project, testProject);

@@ -30,8 +30,8 @@
                            <children>
                               <Label layoutX="10.0" layoutY="14.0" prefHeight="21.0" prefWidth="292.0" text="Nowi pracownicy oczekujący na akceptację:" />
                               <Button layoutX="10.0" layoutY="38.0" mnemonicParsing="false" onAction="#onEmployeeVerifyClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Zweryfikuj pracowników" textFill="WHITE" />
-                              <Label layoutX="11.0" layoutY="129.0" text="Oczekujące wnioski o urlop:" />
-                              <Button layoutX="10.0" layoutY="153.0" mnemonicParsing="false" onAction="#onLeaveVerifyClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Rozpatruj wnioski o urlop" textFill="WHITE" />
+                              <Label layoutX="19.0" layoutY="102.0" text="Oczekujące wnioski o urlop:" />
+                              <Button layoutX="19.0" layoutY="135.0" mnemonicParsing="false" onAction="#onLeaveVerifyClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Rozpatruj wnioski o urlop" textFill="WHITE" />
                               <Label layoutX="340.0" layoutY="54.0" text="Prowadzone projekty:" />
                               <Label layoutX="340.0" layoutY="33.0" />
                               <Label layoutX="340.0" layoutY="91.0" text="Liczba zespołów:" />
@@ -42,7 +42,7 @@
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="11.0" layoutY="78.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="3.0" layoutX="14.0" layoutY="195.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="300.0" />
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutX="340.0" layoutY="144.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="242.0" />
-                              <Label fx:id="pendingLeaveRequests" layoutX="237.0" layoutY="148.0" text="24" textFill="#1a376d">
+                              <Label fx:id="pendingLeaveRequests" layoutX="246.0" layoutY="133.0" text="24" textFill="#1a376d">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font></Label>
@@ -76,6 +76,8 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
+                              <Button layoutX="10.0" layoutY="212.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Pokaż archiwalne projekty" textFill="WHITE" />
+                              <Button layoutX="10.0" layoutY="256.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Pokaż archiwalne zadania" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -132,6 +134,7 @@
                               </TableView>
                               <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onNewProjectButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Nowy" textFill="WHITE" />
                               <Button layoutX="80.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditProjectButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
+                              <Button fx:id="onArchiveProjectButtonClick" layoutX="180.0" layoutY="292.0" mnemonicParsing="false" onAction="#onArchiveProjectButtonClick" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #1a376d;" text="Archiwizuj" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -153,7 +156,7 @@
                               </TableView>
                               <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onNewTaskButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Nowe" textFill="WHITE" />
                               <Button layoutX="80.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditTaskButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
-                              <Button layoutX="170.0" layoutY="292.0" mnemonicParsing="false" onAction="#onDeleteTaskButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
+                              <Button layoutX="170.0" layoutY="292.0" mnemonicParsing="false" onAction="#onArchieveTaskButtonClick" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #1a376d;" text="Archiwizuj" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>

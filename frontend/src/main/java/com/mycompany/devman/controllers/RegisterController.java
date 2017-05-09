@@ -9,12 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -40,10 +36,10 @@ public class RegisterController implements Initializable {
     TextField login;
     
     @FXML
-    TextField password;
+    PasswordField password;
     
     @FXML
-    TextField repeatPassword;
+    PasswordField repeatPassword;
     
     @FXML
     ChoiceBox manager;

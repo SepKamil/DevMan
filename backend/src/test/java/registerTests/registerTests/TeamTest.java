@@ -52,6 +52,7 @@ public class TeamTest {
         project.setName("addTeam");
         project.setStartDate(LocalDate.of(1969, 06, 9));
         project.setEndDate(LocalDate.of(2001, 06, 9));
+        project.setProjectState(Project.ProjectState.IN_PROGRESS);
         team.setProject(project);
         Session session = BackendSetup.getDatabaseSession();
         ProjectRepository.addProject(project);

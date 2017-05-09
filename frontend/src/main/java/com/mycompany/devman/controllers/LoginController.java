@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,7 +30,7 @@ public class LoginController implements Initializable {
     TextField login;
 
     @FXML
-    TextField password;
+    PasswordField password;
 
     /**
      * Creates a window used for a new developer to register into the system. IO
@@ -51,6 +52,11 @@ public class LoginController implements Initializable {
         registerWindow.show();
     }
 
+    private void close() {
+        Stage window = (Stage) login.getScene().getWindow();
+        window.close();
+    }
+
     /**
      * Creates a window used for logging into the application. IO Exception may
      * occur if files /fxml/ManagerPanel.fxml, /styles/managerpanel.css
@@ -60,6 +66,7 @@ public class LoginController implements Initializable {
         User user = null;
         try {
             user = UserRepository.findByLoginAndPassword(login.getText(), password.getText());
+            close();
         } catch (Exception ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Błąd!");

@@ -4,7 +4,7 @@ INSERT INTO `users` (`id`, `accountType`, `email`, `lastName`, `login`, `name`, 
 
 INSERT INTO `leaves` (`id`, `numberOfDays`, `startDate`, `status`, `employee_id`) VALUES(10, 3, '2017-04-05', 'ZAAKCEPTOWANY', 2),(11, 7, '2017-04-07', 'ODRZUCONY', 2),(13, 3, '2017-04-02', 'ZAAKCEPTOWANY', 2),(14, 6, '2017-04-09', 'ODRZUCONY', 2),(35, 5, '2017-04-14', 'OCZEKUJE', 2),(36, 10, '2017-05-18', 'OCZEKUJE', 2);
 
-INSERT INTO `projects` (`id`, `endDate`, `name`, `startDate`) VALUES(15, '2017-04-07', 'aaa', '2017-04-04'),(27, '2017-04-08', 'bbb', '2017-04-07'),(29, '2017-04-16', 'ccc', '2017-04-07'),(32, '2017-04-09', 'vvv', '2017-04-07');
+INSERT INTO `projects` (`id`, `endDate`, `name`, `startDate`, `projectState`) VALUES(15, '2017-04-07', 'aaa', '2017-04-04', 'IN_PROGRESS'),(27, '2017-04-08', 'bbb', '2017-04-07', 'FINISHED'),(29, '2017-04-16', 'ccc', '2017-04-07', 'IN_PROGRESS'),(32, '2017-04-09', 'vvv', '2017-04-07', 'FINISHED');
 
 INSERT INTO `teams` (`id`, `name`, `project`) VALUES(16, 'bbb', 15),(21, 'ccc', 15),(28, 'eee', 27),(31, 'qwerty', 15),(33, 'zxcvbnm', 15);
 

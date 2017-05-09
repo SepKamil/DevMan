@@ -52,7 +52,7 @@ public class AddOrEditTeamController extends Observable implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            ProjectRepository.findAll().forEach(projects.getItems()::add);
+            ProjectRepository.findProjectsInProgress().forEach(projects.getItems()::add);
         } catch (Exception e) {
             e.printStackTrace();
         }

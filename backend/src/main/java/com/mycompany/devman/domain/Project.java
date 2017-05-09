@@ -7,10 +7,7 @@ package com.mycompany.devman.domain;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -72,6 +69,20 @@ public class Project {
     
     @NotNull(message = "Data zakończenia nie może być nullem")
     private LocalDate endDate;
+
+    public enum ProjectState{IN_PROGRESS, FINISHED};
+
+    @Enumerated(EnumType.STRING)
+    @NotNull(message = "Stan Projektu nie może być nullem")
+    private ProjectState projectState;
+
+    public ProjectState getProjectState() {
+        return projectState;
+    }
+
+    public void setProjectState(ProjectState projectState) {
+        this.projectState = projectState;
+    }
 
     /**
      * @return the id
