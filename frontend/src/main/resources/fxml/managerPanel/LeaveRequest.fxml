@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-<!--        <URL value="@/styles/login.css" />-->
+<!--        <URL value="@/styles/main/login.css" />-->
     </stylesheets>
    <children>
       <TableView fx:id="leaveTable" layoutY="7.0" prefHeight="344.0" prefWidth="600.0">

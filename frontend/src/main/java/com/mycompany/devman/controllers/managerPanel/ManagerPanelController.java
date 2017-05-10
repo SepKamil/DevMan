@@ -96,7 +96,7 @@ public class ManagerPanelController implements Initializable, Observer {
         }
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         infoWindow.setTitle("DevMan - Informacje");
         infoWindow.setResizable(false);
@@ -308,7 +308,7 @@ public class ManagerPanelController implements Initializable, Observer {
         controller.addObserver(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         employeeVerifyWindow.setTitle("DevMan - Weryfikacja pracowników");
         employeeVerifyWindow.setResizable(false);
@@ -336,7 +336,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = (Parent)loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         leaveRequestVerifyWindow.setTitle("DevMan - Weryfikacja wniosków o urlop");
         leaveRequestVerifyWindow.setResizable(false);
@@ -367,7 +367,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = loader.load();
         controller.addObserver(this);
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         employeeAddWindow.setTitle("DevMan - Weryfikacja pracowników");
         employeeAddWindow.setResizable(false);
@@ -394,7 +394,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         teamAddWindow.setTitle("DevMan - Dodawanie zespołu");
         teamAddWindow.setResizable(false);
@@ -413,7 +413,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         teamAddWindow.setTitle("DevMan - Edycja zespołu");
         teamAddWindow.setResizable(false);
@@ -452,7 +452,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         taskAssignWindow.setTitle("DevMan - Przydział zadań");
         taskAssignWindow.setResizable(false);
@@ -473,7 +473,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = loader.load();
         
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         employeeAssign.setTitle("DevMan - Przydział pracowników");
         employeeAssign.setResizable(false);
@@ -509,7 +509,7 @@ public class ManagerPanelController implements Initializable, Observer {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         teamsAssign.setTitle("DevMan - Przydział drużyn");
         teamsAssign.setResizable(false);
@@ -542,7 +542,7 @@ public class ManagerPanelController implements Initializable, Observer {
         controller.addObserver(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         newProject.setTitle("DevMan - Dodaj projekt");
         newProject.setResizable(false);
@@ -571,7 +571,7 @@ public class ManagerPanelController implements Initializable, Observer {
         controller.addObserver(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         newProject.setTitle("DevMan - Edytuj projekt");
         newProject.setResizable(false);
@@ -599,7 +599,7 @@ public class ManagerPanelController implements Initializable, Observer {
         controller.addObserver(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         newTask.setTitle("DevMan - Dodawanie zadania");
         newTask.setResizable(false);
@@ -627,7 +627,7 @@ public class ManagerPanelController implements Initializable, Observer {
         controller.addObserver(this);
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         newTask.setTitle("DevMan - Edycja zadania");
         newTask.setResizable(false);

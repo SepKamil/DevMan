@@ -30,7 +30,7 @@ public class MainApp extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/login.css");
+        scene.getStylesheets().add("/styles/main/login.css");
         stage.setResizable(false);
         stage.setTitle("DevMan - Logowanie");
         stage.setScene(scene);

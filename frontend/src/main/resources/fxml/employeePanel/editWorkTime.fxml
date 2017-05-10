@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="148.0" prefWidth="500.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.devman.controllers.employeePanel.EditWorkTimeController">
     <stylesheets>
-<!--        <URL value="@/styles/login.css" />-->
+<!--        <URL value="@/styles/main/login.css" />-->
     </stylesheets>
    <children>
       <Label layoutX="61.0" layoutY="64.0" text="Czas pracy w godzinach:" />

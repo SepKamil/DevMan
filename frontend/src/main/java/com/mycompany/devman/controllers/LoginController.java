@@ -34,7 +34,7 @@ public class LoginController implements Initializable {
 
     /**
      * Creates a window used for a new developer to register into the system. IO
-     * Exception may occur if files /fxml/Register.fxml or /styles/register.css
+     * Exception may occur if files /fxml/Register.fxml or /styles/main/register.css
      * are missing
      */
     public void onRegisterButtonClick() throws IOException {
@@ -42,7 +42,7 @@ public class LoginController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         registerWindow.setTitle("DevMan - Rejestracja");
         registerWindow.setResizable(false);
@@ -59,8 +59,8 @@ public class LoginController implements Initializable {
 
     /**
      * Creates a window used for logging into the application. IO Exception may
-     * occur if files /fxml/ManagerPanel.fxml, /styles/managerpanel.css
-     * /fxml/EmployeePanel.fxml or /styles/employeepanel.css are missing
+     * occur if files /fxml/ManagerPanel.fxml, /styles/managerPanel/managerpanel.css
+     * /fxml/EmployeePanel.fxml or /styles/employeePanel/employeepanel.css are missing
      */
     public void onLoginButtonClick() throws IOException {
         User user = null;
@@ -93,7 +93,7 @@ public class LoginController implements Initializable {
         Parent root2 = (Parent)loader.load();
 
         Scene scene2 = new Scene(root2);
-        scene2.getStylesheets().add("/styles/employeepanel.css");
+        scene2.getStylesheets().add("/styles/employeePanel/employeepanel.css");
 
         employeeWindow.setTitle("DevMan - Panel Pracownika");
         employeeWindow.setResizable(false);
@@ -111,7 +111,7 @@ public class LoginController implements Initializable {
         Parent root = (Parent)loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/managerpanel.css");
+        scene.getStylesheets().add("/styles/managerPanel/managerpanel.css");
 
         managerWindow.setTitle("DevMan - Panel Menadżera");
         managerWindow.setResizable(false);
@@ -124,14 +124,14 @@ public class LoginController implements Initializable {
     /**
      * Creates a window used for recovering forgotten passwords. IO Exception
      * may occur if files /fxml/PasswordRecoveryStage1.fxml or
-     * /styles/passwordrecoverystage1.css are missing
+     * /styles/main/passwordrecoverystage1.css are missing
      */
     public void onRecoveryButtonClick() throws IOException {
         Stage recoveryWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PasswordRecoveryStage1.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/passwordrecoverystage1.css");
+        scene.getStylesheets().add("/styles/main/passwordrecoverystage1.css");
 
         recoveryWindow.setTitle("DevMan - Przypominanie hasła");
         recoveryWindow.setResizable(false);
