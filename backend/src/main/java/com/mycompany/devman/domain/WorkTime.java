@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 /**
  *
@@ -35,6 +36,17 @@ public class WorkTime {
     
     @NotNull
     private int workTime;
+
+    @NotNull
+    private LocalDate date;
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     /**
      * @return the user

@@ -327,35 +327,9 @@ public class EmployeePanelController implements Initializable {
         workTimeEditWindow.show();
     }
     
-    public void onNewTaskButtonClick() throws IOException {
-        Stage newTaskWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/TaskEditOrAdd.fxml"));
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
-
-        newTaskWindow.setTitle("DevMan - Dodawanie zadania");
-        newTaskWindow.setResizable(false);
-        newTaskWindow.setScene(scene);
-        newTaskWindow.setX(20);
-        newTaskWindow.setY(20);
-        newTaskWindow.show();
-    }
     
-    public void onEditTaskButtonClick() throws IOException {
-        Stage editTaskWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/TaskEditOrAdd.fxml"));
 
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
-
-        editTaskWindow.setTitle("DevMan - Edycja zadania");
-        editTaskWindow.setResizable(false);
-        editTaskWindow.setScene(scene);
-        editTaskWindow.setX(20);
-        editTaskWindow.setY(20);
-        editTaskWindow.show();
-    }
     
     public void onAddLeaveRequestButtonClick() throws IOException {
         Stage leaveRequest = new Stage();
