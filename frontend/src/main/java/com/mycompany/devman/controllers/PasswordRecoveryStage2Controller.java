@@ -88,14 +88,14 @@ public class PasswordRecoveryStage2Controller implements Initializable {
     /**
      *  Returns to the first stage of password recovery in case the user made a mistake
      *  IO Exception may occur if files /fxml/PasswordRecoveryStage1.fxml 
-     *  or /styles/passwordrecoverystage1.css are missing
+     *  or /styles/main/passwordrecoverystage1.css are missing
      */
     public void onBackButtonClick() throws IOException {
         Stage window = (Stage)finishButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PasswordRecoveryStage1.fxml"));
         
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/passwordrecoverystage1.css");
+        scene.getStylesheets().add("/styles/main/passwordrecoverystage1.css");
         
         window.setScene(scene);
     }

@@ -85,7 +85,7 @@ public class EmployeePanelController implements Initializable {
         }
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         infoWindow.setTitle("DevMan - Informacje");
         infoWindow.setResizable(false);
@@ -302,7 +302,7 @@ public class EmployeePanelController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/NewWorkTime.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         newWorkTimeWindow.setTitle("DevMan - Logowanie czasu pracy");
         newWorkTimeWindow.setResizable(false);
@@ -317,7 +317,7 @@ public class EmployeePanelController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/editWorkTime.fxml"));
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         workTimeEditWindow.setTitle("DevMan - Edycja czasu pracy");
         workTimeEditWindow.setResizable(false);
@@ -326,9 +326,9 @@ public class EmployeePanelController implements Initializable {
         workTimeEditWindow.setY(20);
         workTimeEditWindow.show();
     }
-    
 
-    
+
+
 
     
     public void onAddLeaveRequestButtonClick() throws IOException {
@@ -339,7 +339,7 @@ public class EmployeePanelController implements Initializable {
         Parent root = (Parent) loader.load();
 
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/register.css");
+        scene.getStylesheets().add("/styles/main/register.css");
 
         leaveRequest.setTitle("DevMan - Dodawanie wniosku o urlop");
         leaveRequest.setResizable(false);

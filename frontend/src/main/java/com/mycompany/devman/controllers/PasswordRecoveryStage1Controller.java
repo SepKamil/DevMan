@@ -48,7 +48,7 @@ public class PasswordRecoveryStage1Controller implements Initializable {
     /**
      *  Creates a window used for 2nd stage of password recovery.
      *  IO Exception may occur if files /fxml/PasswordRecoveryStage2.fxml 
-     *  or /styles/passwordrecoverystage2.css are missing
+     *  or /styles/main/passwordrecoverystage2.css are missing
      */
     public void onNextButtonClick() throws IOException {
         User user = null;
@@ -73,7 +73,7 @@ public class PasswordRecoveryStage1Controller implements Initializable {
         loader.setController(vontroller);
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("/styles/passwordrecoverystage2.css");
+        scene.getStylesheets().add("/styles/main/passwordrecoverystage2.css");
         
         window.setScene(scene);
     }

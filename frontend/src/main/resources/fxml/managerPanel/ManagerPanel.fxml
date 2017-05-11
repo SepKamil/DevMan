@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -15,9 +20,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-<!--        <URL value="@/styles/employeepanel.css" />-->
+<!--        <URL value="@/styles/employeePanel/employeepanel.css" />-->
     </stylesheets>
    <children>
       <Pane prefHeight="400.0" prefWidth="600.0">
@@ -31,7 +36,7 @@
                               <Label layoutX="10.0" layoutY="14.0" prefHeight="21.0" prefWidth="292.0" text="Nowi pracownicy oczekujący na akceptację:" />
                               <Button layoutX="10.0" layoutY="38.0" mnemonicParsing="false" onAction="#onEmployeeVerifyClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Zweryfikuj pracowników" textFill="WHITE" />
                               <Label layoutX="19.0" layoutY="102.0" text="Oczekujące wnioski o urlop:" />
-                              <Button layoutX="19.0" layoutY="135.0" mnemonicParsing="false" onAction="#onLeaveVerifyClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Rozpatruj wnioski o urlop" textFill="WHITE" />
+                              <Button layoutX="10.0" layoutY="135.0" mnemonicParsing="false" onAction="#onLeaveVerifyClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Rozpatruj wnioski o urlop" textFill="WHITE" />
                               <Label layoutX="340.0" layoutY="54.0" text="Prowadzone projekty:" />
                               <Label layoutX="340.0" layoutY="33.0" />
                               <Label layoutX="340.0" layoutY="91.0" text="Liczba zespołów:" />
@@ -95,8 +100,8 @@
                                   <TableColumn prefWidth="71.0" text="Zespół" />
                                 </columns>
                               </TableView>
-                              <Button layoutX="23.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditEmployeeClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
-                              <Button layoutX="123.0" layoutY="292.0" mnemonicParsing="false" onAction="#onDeleteEmployeeButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
+                              <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditEmployeeClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
+                              <Button layoutX="100.0" layoutY="292.0" mnemonicParsing="false" onAction="#onDeleteEmployeeButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Usuń" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
@@ -134,7 +139,7 @@
                               </TableView>
                               <Button layoutX="10.0" layoutY="292.0" mnemonicParsing="false" onAction="#onNewProjectButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Nowy" textFill="WHITE" />
                               <Button layoutX="80.0" layoutY="292.0" mnemonicParsing="false" onAction="#onEditProjectButtonClick" prefWidth="80.0" style="-fx-background-color: #1a376d;" text="Edytuj" textFill="WHITE" />
-                              <Button fx:id="onArchiveProjectButtonClick" layoutX="180.0" layoutY="292.0" mnemonicParsing="false" onAction="#onArchiveProjectButtonClick" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #1a376d;" text="Archiwizuj" textFill="WHITE" />
+                              <Button fx:id="onArchiveProjectButtonClick" layoutX="170.0" layoutY="292.0" mnemonicParsing="false" onAction="#onArchiveProjectButtonClick" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #1a376d;" text="Archiwizuj" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
