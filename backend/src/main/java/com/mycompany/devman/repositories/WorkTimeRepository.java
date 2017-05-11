@@ -2,12 +2,14 @@ package com.mycompany.devman.repositories;
 
 import com.mycompany.devman.BackendSetup;
 import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.User;
 import com.mycompany.devman.domain.WorkTime;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +29,9 @@ public class WorkTimeRepository {
     }
 
     private static void validateEntity(WorkTime workTime) throws Exception {
+        if(workTime.getDate().isAfter(LocalDate.now())) {
+            throw new Exception("Nie można zalogować zadania z przyszłości!");
+        }
         Validator validator = BackendSetup.getEntityValidator();
         Set<ConstraintViolation<WorkTime>> leaves = validator.validate(workTime);
         StringBuilder message = new StringBuilder();
@@ -47,5 +52,23 @@ public class WorkTimeRepository {
         transaction.commit();
         session.close();
         return list;
+    }
+
+    public static List<WorkTime> findByUser(User user) {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.user=:user").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return list;
+    }
+
+    public static void updateWorkTime(WorkTime workTime) throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        validateEntity(workTime);
+        session.update(workTime);
+        transaction.commit();
+        session.close();
     }
 }

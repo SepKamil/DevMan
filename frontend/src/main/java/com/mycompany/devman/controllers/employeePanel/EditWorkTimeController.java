@@ -7,9 +7,14 @@ package com.mycompany.devman.controllers.employeePanel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.mycompany.devman.domain.WorkTime;
+import com.mycompany.devman.repositories.WorkTimeRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 /**
@@ -20,14 +25,45 @@ import javafx.stage.Stage;
 public class EditWorkTimeController implements Initializable {
 
     @FXML
-    Button cancel;
-    
+    private Button cancel;
+
+    private WorkTime workTime;
+
+    @FXML
+    private Spinner<Integer> time;
+
+    private EmployeePanelController controller;
+
+    public EditWorkTimeController(WorkTime workTime, EmployeePanelController controller) {
+        this.workTime = workTime;
+        this.controller = controller;
+    }
+
+    private void setUpSpinner() {
+        SpinnerValueFactory factory = new SpinnerValueFactory() {
+            @Override
+            public void decrement(int i) {
+                if((int)this.getValue() > 1)
+                    this.setValue((int)this.getValue() - 1);
+            }
+
+            @Override
+            public void increment(int i) {
+                if((int) this.getValue() < 14) {
+                    this.setValue((int)this.getValue() + 1);
+                }
+            }
+        };
+        time.setValueFactory(factory);
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        setUpSpinner();
+        time.getValueFactory().setValue(workTime.getWorkTime());
     }    
     
     private void close() {
@@ -39,7 +75,10 @@ public class EditWorkTimeController implements Initializable {
         close();
     }
     
-    public void onOkButtonClick() {
+    public void onOkButtonClick() throws Exception {
+        workTime.setWorkTime(time.getValueFactory().getValue());
+        WorkTimeRepository.updateWorkTime(workTime);
+        controller.editWorkTime(workTime);
         close();
     }
 }

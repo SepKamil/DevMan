@@ -102,7 +102,7 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView prefHeight="264.0" prefWidth="600.0">
+                              <TableView fx:id="workTimeTable" prefHeight="264.0" prefWidth="600.0">
                                 <columns>
                                   <TableColumn prefWidth="75.0" text="Data" />
                                   <TableColumn prefWidth="75.0" text="Zadanie" />
@@ -174,11 +174,7 @@
                 <Menu mnemonicParsing="false" text="Plik">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Zamknij" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edycja">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Zaznacz wszystko" />
+                    <MenuItem mnemonicParsing="false" text="Wyloguj" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Pomoc">

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.mycompany.devman.domain.Task;
+import com.mycompany.devman.domain.User;
 import com.mycompany.devman.domain.WorkTime;
 import com.mycompany.devman.repositories.WorkTimeRepository;
 import javafx.fxml.FXML;
@@ -28,26 +29,24 @@ public class NewWorkTimeController implements Initializable {
     private Button cancel;
 
     @FXML
-    private DatePicker datePicker;
+    private DatePicker date;
 
     @FXML
-    private Spinner time;
+    private Spinner<Integer> time;
 
     private Task task;
 
-    private WorkTime workTime;
-    
+    private User user;
+
+    private EmployeePanelController employeePanelController;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(workTime == null) {
-            datePicker.setValue(LocalDate.now());
-        }
-        else {
-            datePicker.setValue(workTime.getDate());
-        }
+        date.setValue(LocalDate.now());
+        setUpSpinner();
     }
 
     private void setUpSpinner() {
@@ -69,13 +68,10 @@ public class NewWorkTimeController implements Initializable {
         time.getValueFactory().setValue(1);
     }
 
-    public NewWorkTimeController(Task task) {
+    public NewWorkTimeController(Task task, User user, EmployeePanelController employeePanelController) {
         this.task = task;
-    }
-
-    public NewWorkTimeController(Task task, WorkTime workTime) {
-        this.task = task;
-        this.workTime = workTime;
+        this.user = user;
+        this.employeePanelController = employeePanelController;
     }
 
     private void close() {
@@ -84,18 +80,13 @@ public class NewWorkTimeController implements Initializable {
     }
     
     public void onOkButtonClick() {
-        boolean newWorkTime = false;
-        if(workTime == null) {
-            workTime = new WorkTime();
-            newWorkTime = true;
-        }
+        WorkTime workTime = new WorkTime();
         workTime.setTask(task);
-        workTime.setWorkTime((Integer)time.getValue());
-        workTime.setDate(datePicker.getValue());
+        workTime.setWorkTime(time.getValue());
+        workTime.setDate(date.getValue());
+        workTime.setUser(user);
         try {
-            if (newWorkTime) {
-                WorkTimeRepository.addNewWorkTime(workTime);
-            }
+            WorkTimeRepository.addNewWorkTime(workTime);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Błąd!");
@@ -104,10 +95,11 @@ public class NewWorkTimeController implements Initializable {
             alert.showAndWait();
             return;
         }
+        employeePanelController.addNewWorkTime(workTime);
+        close();
     }
     
     public void onCancelButtonClick() {
         close();
     }
-    
 }

@@ -1,18 +1,14 @@
 package com.mycompany.devman.controllers.employeePanel;
 
-import com.mycompany.devman.repositories.LeaveRepository;
-import com.mycompany.devman.repositories.ProjectRepository;
-import com.mycompany.devman.repositories.TaskRepository;
-import com.mycompany.devman.repositories.TeamRepository;
-import com.mycompany.devman.repositories.UserRepository;
-import com.mycompany.devman.domain.Leave;
-import com.mycompany.devman.domain.Project;
-import com.mycompany.devman.domain.Task;
-import com.mycompany.devman.domain.Team;
-import com.mycompany.devman.domain.User;
+import com.mycompany.devman.MainApp;
+import com.mycompany.devman.domain.*;
+import com.mycompany.devman.repositories.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -23,13 +19,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -66,6 +59,9 @@ public class EmployeePanelController implements Initializable {
     
     @FXML
     private TableView<Task> tasksTable;
+
+    @FXML
+    private TableView<WorkTime> workTimeTable;
     
     public EmployeePanelController(User user) {
         this.currentUser = user;
@@ -114,16 +110,33 @@ public class EmployeePanelController implements Initializable {
 
 
         });
+        menuBar.getMenus().filtered(menu ->
+                menu.getText().equals("Plik")).get(0)
+                .getItems().filtered(item ->
+                item.getText().equals("Wyloguj"))
+                .get(0).addEventHandler(EventType.ROOT, t -> {
+            close();
+            try {
+                new MainApp().showLoginWindow(new Stage(StageStyle.DECORATED));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         try {
             setUpLeavesTable();
             setUpUsersTable();
             setUpTasksTable();
             setUpProjectFiltering();
             setUpTeamFiltering();
+            setUpWorkTimeTable();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void addNewWorkTime(WorkTime workTime) {
+        workTimeTable.getItems().add(workTime);
     }
 
     private void setUpTeamFiltering() throws Exception {
@@ -135,6 +148,20 @@ public class EmployeePanelController implements Initializable {
 
         team2Box.setItems(teamBox.getItems());
         team2Box.setSelectionModel(teamBox.getSelectionModel());
+    }
+
+    public void editWorkTime(WorkTime workTime) {
+        workTimeTable.getItems().replaceAll(new UnaryOperator<WorkTime>() {
+            @Override
+            public WorkTime apply(WorkTime w) {
+                if(workTime.getId().equals(w.getId())) {
+                    return w;
+                }
+                else {
+                    return workTime;
+                }
+            }
+        });
     }
 
     private void setUpProjectFiltering() throws Exception {
@@ -195,6 +222,26 @@ public class EmployeePanelController implements Initializable {
         tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
         tasksTable.getColumns().clear();
         tasksTable.getColumns().addAll(nameColumn, startDate, endDate, predictedTime);
+    }
+
+    private void setUpWorkTimeTable() throws Exception {
+        TableColumn dateColumn = new TableColumn("Data");
+        dateColumn.setMinWidth(150);
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+        TableColumn task = new TableColumn("Zadanie");
+        task.setMinWidth(150);
+        task.setCellValueFactory(
+                new PropertyValueFactory<>("task"));
+
+        TableColumn time = new TableColumn("Czas");
+        time.setMinWidth(200);
+        time.setCellValueFactory(
+                new PropertyValueFactory<>("workTime"));
+
+        workTimeTable.getItems().addAll(WorkTimeRepository.findByUser(currentUser));
+        workTimeTable.getColumns().clear();
+        workTimeTable.getColumns().addAll(dateColumn, task, time);
     }
 
     private void setUpUsersTable() throws Exception {
@@ -298,8 +345,20 @@ public class EmployeePanelController implements Initializable {
     }
     
     public void onNewWorkTimeButtonClick() throws IOException {
+        if(tasksTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd logowania czasu!");
+            alert.setContentText("Nie wybrano zadania!");
+            alert.showAndWait();
+            return;
+        }
         Stage newWorkTimeWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/NewWorkTime.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/NewWorkTime.fxml"));
+        NewWorkTimeController controller = new NewWorkTimeController(tasksTable
+                .getSelectionModel().getSelectedItem(), currentUser, this);
+        loader.setController(controller);
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/main/register.css");
@@ -313,9 +372,21 @@ public class EmployeePanelController implements Initializable {
     }
     
     public void onWorkTimeEditButtonClick() throws IOException {
+        if(workTimeTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd korygowania czasu!");
+            alert.setContentText("Nie zaznaczono czasu do skorygowania!");
+            alert.showAndWait();
+            return;
+        }
         Stage workTimeEditWindow = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/employeePanel/editWorkTime.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/editWorkTime.fxml"));
 
+        EditWorkTimeController controller = new EditWorkTimeController(workTimeTable.getSelectionModel().getSelectedItem(), this);
+        loader.setController(controller);
+
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/main/register.css");
 

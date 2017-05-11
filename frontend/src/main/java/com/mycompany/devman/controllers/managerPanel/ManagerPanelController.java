@@ -1,5 +1,6 @@
 package com.mycompany.devman.controllers.managerPanel;
 
+import com.mycompany.devman.MainApp;
 import com.mycompany.devman.repositories.*;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Task;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -116,6 +118,18 @@ public class ManagerPanelController implements Initializable, Observer {
                 .getItems().filtered(item ->
                     item.getText().equals("Zamknij"))
                     .get(0).addEventHandler(EventType.ROOT, t -> close());
+        menuBar.getMenus().filtered(menu ->
+                menu.getText().equals("Plik")).get(0)
+                .getItems().filtered(item ->
+                item.getText().equals("Wyloguj"))
+                .get(0).addEventHandler(EventType.ROOT, t -> {
+                    close();
+            try {
+                new MainApp().showLoginWindow(new Stage(StageStyle.DECORATED));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         menuBar.getMenus().filtered(menu ->
                 menu.getText().equals("Pomoc")).get(0)
                 .getItems().filtered(item ->

@@ -26,7 +26,7 @@ public class MainApp extends Application {
         showLoginWindow(stage);
     }
 
-    private void showLoginWindow(Stage stage) throws java.io.IOException {
+    public void showLoginWindow(Stage stage) throws java.io.IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
         Scene scene = new Scene(root);
