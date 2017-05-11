@@ -7,9 +7,9 @@
 }
 
 .root {
-  -fx-background-image:  url("../../images/stage.jpeg");
+ /* -fx-background-image:  url("../../images/stage.jpeg");
   -fx-background-size: 400 600;
-  -fx-background-repeat: no-repeat;
+  -fx-background-repeat: no-repeat; */
 }
 
 .Button {
