@@ -32,7 +32,7 @@ import org.hibernate.Transaction;
 public class UserRepository {
 
     public static String resetPassword(User user) throws AddressException, MessagingException {
-        StringBuilder newPassword = generateNewPassword();
+        StringBuilder newPassword = generateNewPassword(user);
 
         sendNewPasswordByEmail(user, newPassword);
 
@@ -53,16 +53,20 @@ public class UserRepository {
         Transport.send(message);
     }
 
-    private static StringBuilder generateNewPassword() {
+    private static StringBuilder generateNewPassword(User user) {
         Random generator = new Random();
         StringBuilder newPassword = new StringBuilder();
-        int znak;
-        while (newPassword.length() < 12) {
-            do {
-                znak = generator.nextInt(Character.MAX_VALUE);
-            } while (!Character.isDigit(znak));
-            newPassword.append((char) znak);
-        }
+        int shuffle = generator.nextInt(10);
+        int peselchar = generator.nextInt(10) + 1;
+        int emailchar = generator.nextInt(4) + 1;
+        int passwordchar = generator.nextInt(5) + 1;
+        newPassword.append(user.getPesel().charAt(peselchar) + shuffle);
+        newPassword.append(user.getEmail().charAt(emailchar) + shuffle);
+        newPassword.append(user.getPassword().charAt(passwordchar) + shuffle);
+        newPassword.append(generator.nextInt(100));
+        newPassword.append(generator.nextInt(90));
+        newPassword.append(generator.nextInt(80));
+
         return newPassword;
     }
 
