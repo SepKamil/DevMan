@@ -169,7 +169,7 @@ public class TaskRepository {
     public static List<Task> findTasksByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<Task> tasks = session.createQuery("FROM Task t WHERE t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user AND t.taskState='IN_PROGRESS')").setParameter("user", user).list();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS' AND t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
         transaction.commit();
         session.close();
         return tasks;

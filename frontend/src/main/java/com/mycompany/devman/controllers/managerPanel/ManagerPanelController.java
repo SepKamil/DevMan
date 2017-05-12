@@ -432,6 +432,31 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.show();
     }
 
+    public void onWorkTimeButtonClick() throws IOException {
+        if(taskTable.getSelectionModel().getSelectedItem() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd!");
+            alert.setContentText("Nie wybrano zadania");
+            alert.showAndWait();
+            return;
+        }
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/workTime.fxml"));
+        WorkTimeController controller = new WorkTimeController(taskTable.getSelectionModel().getSelectedItem());
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        employeeVerifyWindow.setTitle("DevMan - Czas pracy");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
+    }
+
     public void onArchiveProjectButtonClick() throws Exception {
         for(Project project : projectsTable.getSelectionModel().getSelectedItems()) {
             project.setProjectState(Project.ProjectState.FINISHED);

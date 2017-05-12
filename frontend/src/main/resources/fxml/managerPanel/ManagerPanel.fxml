@@ -168,6 +168,7 @@
                               <Label layoutX="274.0" layoutY="19.0" text="Zespół:" />
                               <ChoiceBox fx:id="team2Box" layoutX="332.0" layoutY="14.0" prefWidth="150.0" />
                               <Button layoutX="520.0" layoutY="14.0" mnemonicParsing="false" onAction="#onTaskFilterButtonClick" prefWidth="60.0" style="-fx-background-color: #1a376d;" text="Filtruj" textFill="WHITE" />
+                              <Button layoutX="274.0" layoutY="292.0" mnemonicParsing="false" onAction="#onWorkTimeButtonClick" prefHeight="26.0" prefWidth="90.0" style="-fx-background-color: #1a376d;" text="Czas pracy" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
