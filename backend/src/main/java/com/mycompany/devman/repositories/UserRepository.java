@@ -191,7 +191,7 @@ public class UserRepository {
         return users;
     }
 
-    public static List<User> findUsersByManager(User manager) {
+    public static List<User> findUsersByManager(User manager) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("SELECT u FROM User u WHERE u.manager=:manager").setParameter("manager", manager).list();
@@ -209,7 +209,7 @@ public class UserRepository {
         return users;
     }
 
-    public static List<User> findInactiveUsers() {
+    public static List<User> findInactiveUsers() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List users = session.createQuery("FROM User u WHERE u.userState='INACTIVE'").list();

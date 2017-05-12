@@ -69,7 +69,7 @@ public class AddOrEditProjectController extends Observable implements Initializa
         window.close();
     }
     
-    public void onOkButtonClick() {
+    public void onOkButtonClick() throws Exception {
         boolean newProject = false;
         if(project == null) {
             project = new Project();

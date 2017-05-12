@@ -86,7 +86,7 @@ public class ManagerPanelController implements Initializable, Observer {
         this.currentUser = user;
     }
 
-    private void initializeNumbersOnMainPage() {
+    private void initializeNumbersOnMainPage() throws Exception {
         pendingEmployees.setText(Integer
                 .valueOf(UserRepository.findInactiveUsers().size()).toString());
         pendingLeaveRequests.setText(Integer
@@ -267,7 +267,7 @@ public class ManagerPanelController implements Initializable, Observer {
         team2Box.setSelectionModel(teamBox.getSelectionModel());
     }
 
-    private void setUpEmployeeTable() {
+    private void setUpEmployeeTable() throws Exception {
         employeeTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn id = new TableColumn("ID");
         id.setMinWidth(150);
@@ -386,17 +386,17 @@ public class ManagerPanelController implements Initializable, Observer {
         });
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws Exception {
         taskTable.getItems().add(task);
         initializeNumbersOnMainPage();
     }
     
-    public void addTeam(Team team) {
+    public void addTeam(Team team) throws Exception {
         teamsTable.getItems().add(team);
         initializeNumbersOnMainPage();
     }
     
-    public void addProject(Project project) {
+    public void addProject(Project project) throws Exception {
         projectsTable.getItems().add(project);
         initializeNumbersOnMainPage();
     }
@@ -790,7 +790,11 @@ public class ManagerPanelController implements Initializable, Observer {
 
     @Override
     public void update(java.util.Observable observable, Object o) {
-        initializeNumbersOnMainPage();
+        try {
+            initializeNumbersOnMainPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateProject(Project p) {

@@ -148,7 +148,7 @@ public class TaskRepository {
         return tasks;
     }
 
-    public static List<Task> findTasksInProgress() {
+    public static List<Task> findTasksInProgress() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS'").list();
@@ -157,7 +157,7 @@ public class TaskRepository {
         return tasks;
     }
 
-    public static List<Task> findCompletedTasks() {
+    public static List<Task> findCompletedTasks() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='FINISHED'").list();

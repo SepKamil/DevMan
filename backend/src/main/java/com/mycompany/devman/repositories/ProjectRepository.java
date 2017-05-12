@@ -103,7 +103,7 @@ public class ProjectRepository {
         return projects;
     }
     
-    public static List<Project> findProjectsInProgress() {
+    public static List<Project> findProjectsInProgress() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project p WHERE p.projectState='IN_PROGRESS'").list();
@@ -121,7 +121,7 @@ public class ProjectRepository {
         return projects;
     }
 
-    public static List<Project> findAllProjects() {
+    public static List<Project> findAllProjects() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project").list();

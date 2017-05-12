@@ -45,7 +45,7 @@ public class WorkTimeRepository {
         }
     }
 
-    public static List<WorkTime> findWorkTimeByTask(Task task) {
+    public static List<WorkTime> findWorkTimeByTask(Task task) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.task=:task").setParameter("task", task).list();
@@ -54,7 +54,7 @@ public class WorkTimeRepository {
         return list;
     }
 
-    public static List<WorkTime> findByUser(User user) {
+    public static List<WorkTime> findByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.user=:user").setParameter("user", user).list();

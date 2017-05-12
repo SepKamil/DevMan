@@ -64,7 +64,7 @@ public class LeaveRepository {
         session.close();
         return leaves;
     }
-    public static List<Leave> findPendingLeavesByManager(User manager) {
+    public static List<Leave> findPendingLeavesByManager(User manager) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Leave> leaves = session.createQuery("FROM Leave AS l WHERE l.employee.manager=:manager AND l.status = 'OCZEKUJE'").setParameter("manager", manager).list();

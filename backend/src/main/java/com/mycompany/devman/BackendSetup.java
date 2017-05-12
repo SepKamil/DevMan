@@ -51,9 +51,9 @@ public class BackendSetup {
       session.setDebug(true);
     }
 
-    public static Session getDatabaseSession() {
+    public static Session getDatabaseSession() throws Exception {
         if(sessionFactory == null)
-            setupDatabaseConnection();
+            throw new Exception("Database connection is not set!");
         return sessionFactory.openSession();
     }
     
@@ -69,8 +69,7 @@ public class BackendSetup {
         BackendSetup.validatorFactory = validatorFactory;
     }
 
-    private static void setupDatabaseConnection() {
-        System.out.println("test");
+    public static void setupDatabaseConnection(DatabaseSetup databaseSetup) {
         sessionFactory = new Configuration().addAnnotatedClass(User.class)
                     .addAnnotatedClass(Leave.class)
                     .addAnnotatedClass(Message.class)
@@ -78,6 +77,11 @@ public class BackendSetup {
                     .addAnnotatedClass(Task.class)
                     .addAnnotatedClass(Team.class)
                     .addAnnotatedClass(WorkTime.class)
+                    .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect")
+                    .setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver")
+                    .setProperty("hibernate.connection.url", databaseSetup.getUrl())
+                    .setProperty("hibernate.connection.username", databaseSetup.getLogin())
+                    .setProperty("hibernate.connection.password", databaseSetup.getPassword())
                     .buildSessionFactory();
         validatorFactory = Validation.buildDefaultValidatorFactory();
     }
