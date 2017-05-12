@@ -23,6 +23,7 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         try {
             String system = System.getProperty("os.name");
+            System.out.println("System: "+system);
             Map<String, String> env = System.getenv();
             env.forEach((s, s2) -> System.out.println("Key: "+s+" value: "+s2));
             File file = new File(env.get("HOME")+"/.devman/config.ini");
