@@ -12,6 +12,8 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -65,6 +67,18 @@ public class ManagerPanelController implements Initializable, Observer {
 
     @FXML
     private Label completedTasks;
+
+    @FXML
+    private ChoiceBox<Object> projectBox;
+
+    @FXML
+    private ChoiceBox teamBox;
+
+    @FXML
+    private ChoiceBox<Object> project2Box;
+
+    @FXML
+    private ChoiceBox team2Box;
     
     private User currentUser;
 
@@ -161,10 +175,96 @@ public class ManagerPanelController implements Initializable, Observer {
             setUpEmployeeTable();
             setUpTeamTable();
             setUpTaskTable();
+            setUpTeamFiltering();
+            setUpProjectFiltering();
             initializeNumbersOnMainPage();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void onTeamFilterClick() throws Exception {
+        Object o = teamBox.getSelectionModel().getSelectedItem();
+        if(o instanceof Team) {
+            employeeTable.getItems().clear();
+            employeeTable.getItems().addAll(UserRepository.findUsersByTeam((Team)o));
+        }
+        else if(o instanceof String && o.equals("Wszystkie")) {
+            Object p = projectBox.getSelectionModel().getSelectedItem();
+            if(p instanceof Project) {
+                employeeTable.getItems().clear();
+                employeeTable.getItems().addAll(UserRepository.findUsersByProject((Project)p));
+            }
+            else if(p instanceof String && p.equals("Wszystkie")) {
+                employeeTable.getItems().clear();
+                employeeTable.getItems().addAll(UserRepository.findEmployees());
+            }
+        }
+    }
+
+    public void onTaskFilterButtonClick() throws Exception {
+        Object o = teamBox.getSelectionModel().getSelectedItem();
+        if(o instanceof Team) {
+            taskTable.getItems().clear();
+            taskTable.getItems().addAll(TaskRepository.findTasksByTeam((Team)o));
+        }
+        else if(o instanceof String && o.equals("Wszystkie")) {
+            Object p = projectBox.getSelectionModel().getSelectedItem();
+            if(p instanceof Project) {
+                taskTable.getItems().clear();
+                taskTable.getItems().addAll(TaskRepository.findTasksByProject((Project)p));
+            }
+            else if(p instanceof String && p.equals("Wszystkie")) {
+                taskTable.getItems().clear();
+                taskTable.getItems().addAll(TaskRepository.findTasksInProgress());
+            }
+        }
+    }
+
+    private void setUpProjectFiltering() throws Exception {
+        projectBox.getItems().add("Wszystkie");
+        projectBox.getItems().addAll(ProjectRepository.findProjectsInProgress());
+        projectBox.getSelectionModel().selectFirst();
+
+        projectBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> ov, Number t, Number t1) {
+                Object o = projectBox.getItems().get((Integer)t1);
+                if(o instanceof String && o.equals("Wszystkie")) {
+                    teamBox.getItems().clear();
+                    teamBox.getItems().add("Wszystkie");
+                    try {
+                        teamBox.getItems().addAll(TeamRepository.findAllTeams());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    teamBox.getSelectionModel().selectFirst();
+                }
+                else if(o instanceof Project) {
+                    teamBox.getItems().clear();
+                    teamBox.getItems().add("Wszystkie");
+                    try {
+                        teamBox.getItems().addAll(TeamRepository.findTeamsByProjrct((Project)o));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    teamBox.getSelectionModel().selectFirst();
+                }
+            }
+        });
+        project2Box.setItems(projectBox.getItems());
+        project2Box.setSelectionModel(projectBox.getSelectionModel());
+    }
+
+    private void setUpTeamFiltering() throws Exception {
+        teamBox.getItems().clear();
+        teamBox.getItems().add("Wszystkie");
+        teamBox.getItems().addAll(TeamRepository.findAllTeams());
+        teamBox.getSelectionModel().selectFirst();
+
+
+        team2Box.setItems(teamBox.getItems());
+        team2Box.setSelectionModel(teamBox.getSelectionModel());
     }
 
     private void setUpEmployeeTable() {

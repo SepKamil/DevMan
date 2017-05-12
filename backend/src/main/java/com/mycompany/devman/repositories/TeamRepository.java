@@ -102,4 +102,13 @@ public class TeamRepository {
         session.close();
         return teams;
     }
+
+    public static List<Team> findTeamsByProjrct(Project project) {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Team> teams = session.createQuery("FROM Team t WHERE t.project=:project").setParameter("project", project).list();
+        transaction.commit();
+        session.close();
+        return teams;
+    }
 }

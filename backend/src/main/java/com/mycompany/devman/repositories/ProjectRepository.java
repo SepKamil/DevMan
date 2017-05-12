@@ -115,7 +115,16 @@ public class ProjectRepository {
     public static List<Project> findProjectsByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        List<Project> projects = session.createQuery("SELECT DISTINCT team.project FROM User u JOIN u.teams team WHERE u=:user").setParameter("user", user).list();
+        List<Project> projects = session.createQuery("SELECT DISTINCT team.project FROM User u JOIN u.teams team WHERE u=:user AND team.project.projectState='IN_PROGRESS'").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return projects;
+    }
+
+    public static List<Project> findAllProjects() {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Project> projects = session.createQuery("FROM Project").list();
         transaction.commit();
         session.close();
         return projects;
