@@ -10,6 +10,14 @@ public class DatabaseSetup {
     private String login;
     private String password;
 
+    public String getHost() {
+        return host;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
     public String getName() {
         return name;
     }

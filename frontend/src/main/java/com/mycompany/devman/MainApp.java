@@ -1,5 +1,11 @@
 package com.mycompany.devman;
 
+import com.mycompany.devman.controllers.DatabaseWindowController;
+import com.mycompany.devman.controllers.MailWindowController;
+import com.mycompany.devman.controllers.ManagerRegisterController;
+import com.mycompany.devman.domain.MailConfig;
+import com.mycompany.devman.repositories.MailConfigRepository;
+import com.mycompany.devman.repositories.UserRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,28 +29,48 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         try {
             String system = System.getProperty("os.name");
-            System.out.println("System: "+system);
             Map<String, String> env = System.getenv();
-            env.forEach((s, s2) -> System.out.println("Key: "+s+" value: "+s2));
-            File file = new File(env.get("HOME")+"/.devman/config.ini");
-            if(!file.exists()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Błąd!");
-                alert.setHeaderText("Brak pliku konfiguracyjnego!");
-                alert.setContentText("plik ~/.devman/config.ini nie istnieje!");
-                alert.showAndWait();
-                return;
+            File file;
+            if(system.contains("linux") || system.contains("Linux")) {
+                file = new File(env.get("HOME") + "/.devman/config.ini");
+                System.out.println("Detected Linux OS!");
+            }
+            else if(system.contains("Win") || system.contains("win")) {
+                file = new File(env.get("PUBLIC") + "\\AppData\\Roaming\\devman\\config.ini");
+                System.out.println("Detected Windows OS!");
             }
             else {
-                Ini config = new Ini(file);
-                DatabaseSetup setup = new DatabaseSetup();
-                setup.setHost(config.get("Database", "database.host"));
-                setup.setName(config.get("Database", "database.name"));
-                setup.setPort(config.get("Database", "database.port"));
-                setup.setLogin(config.get("Database", "database.username"));
-                setup.setPassword(config.get("Database", "database.password"));
-                BackendSetup.setupDatabaseConnection(setup);
+                System.out.println("OS not detected!");
+                return;
             }
+            if(!file.exists()) {
+                Stage recoveryWindow = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/database.fxml"));
+
+                loader.setController(new DatabaseWindowController());
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                scene.getStylesheets().add("/styles/main/passwordrecoverystage1.css");
+
+                recoveryWindow.setTitle("DevMan - Konfiguracja");
+                recoveryWindow.setResizable(false);
+                recoveryWindow.setScene(scene);
+                recoveryWindow.setX(20);
+                recoveryWindow.setY(20);
+                recoveryWindow.showAndWait();
+            }
+            if(!file.exists()) {
+                return;
+            }
+
+            Ini config = new Ini(file);
+            DatabaseSetup setup = new DatabaseSetup();
+            setup.setHost(config.get("Database", "database.host"));
+            setup.setName(config.get("Database", "database.name"));
+            setup.setPort(config.get("Database", "database.port"));
+            setup.setLogin(config.get("Database", "database.username"));
+            setup.setPassword(config.get("Database", "database.password"));
+            BackendSetup.setupDatabaseConnection(setup);
             BackendSetup.getDatabaseSession();
         }catch(Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -53,6 +79,58 @@ public class MainApp extends Application {
             alert.setContentText("Sprawdź, czy konfiguracja bazy danych w pliku hibernate.properties jest prawidłowa!");
             e.printStackTrace();
             alert.showAndWait();
+            return;
+        }
+        MailConfig mailConfig = null;
+        try {
+            mailConfig = MailConfigRepository.getMailCOnfig();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Błąd konfiguracji SMTP!");
+            alert.setContentText(e.getMessage());
+            e.printStackTrace();
+            alert.showAndWait();
+            return;
+        }
+        if(mailConfig == null) {
+            Stage recoveryWindow = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/mail.fxml"));
+
+            loader.setController(new MailWindowController());
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/main/passwordrecoverystage1.css");
+
+            recoveryWindow.setTitle("DevMan - Konfiguracja");
+            recoveryWindow.setResizable(false);
+            recoveryWindow.setScene(scene);
+            recoveryWindow.setX(20);
+            recoveryWindow.setY(20);
+            recoveryWindow.showAndWait();
+        }
+        mailConfig = MailConfigRepository.getMailCOnfig();
+        Boolean isMailConfigured = !mailConfig.getMailConfigSkipped();
+        if(isMailConfigured) {
+            BackendSetup.setupMailSession(mailConfig);
+        }
+        if(UserRepository.findManagers().isEmpty()) {
+            Stage recoveryWindow = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerRegister.fxml"));
+
+            loader.setController(new ManagerRegisterController());
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("/styles/main/passwordrecoverystage1.css");
+
+            recoveryWindow.setTitle("DevMan - Konfiguracja");
+            recoveryWindow.setResizable(false);
+            recoveryWindow.setScene(scene);
+            recoveryWindow.setX(20);
+            recoveryWindow.setY(20);
+            recoveryWindow.showAndWait();
+        }
+        if(UserRepository.findManagers().isEmpty()) {
             return;
         }
         showLoginWindow(stage);

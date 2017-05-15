@@ -31,7 +31,7 @@ import org.hibernate.Transaction;
  */
 public class UserRepository {
 
-    public static String resetPassword(User user) throws AddressException, MessagingException {
+    public static String resetPassword(User user) throws Exception {
         StringBuilder newPassword = generateNewPassword(user);
 
         sendNewPasswordByEmail(user, newPassword);
@@ -39,7 +39,7 @@ public class UserRepository {
         return newPassword.toString();
     }
 
-    private static void sendNewPasswordByEmail(User user, StringBuilder newPassword) throws MessagingException {
+    private static void sendNewPasswordByEmail(User user, StringBuilder newPassword) throws Exception {
         Message message = new MimeMessage(BackendSetup.getMailSession());
         message.setFrom(new InternetAddress("devmanmailer@gmail.com"));
         message.setRecipients(Message.RecipientType.TO,
@@ -74,7 +74,6 @@ public class UserRepository {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         validateEntity(user);
-        user.setUserState(User.userState.INACTIVE);
         Long id = (Long) session.save(user);
         user.setId(id);
         transaction.commit();
