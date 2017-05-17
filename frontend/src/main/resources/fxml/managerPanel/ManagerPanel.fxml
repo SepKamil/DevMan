@@ -77,7 +77,7 @@
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="10.0" layoutY="212.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Pokaż archiwalne projekty" textFill="WHITE" />
+                              <Button layoutX="10.0" layoutY="212.0" mnemonicParsing="false" onAction="#onArchivedProjectsButtonClick" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Pokaż archiwalne projekty" textFill="WHITE" />
                               <Button layoutX="10.0" layoutY="256.0" mnemonicParsing="false" prefWidth="200.0" style="-fx-background-color: #1a376d;" text="Pokaż archiwalne zadania" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>

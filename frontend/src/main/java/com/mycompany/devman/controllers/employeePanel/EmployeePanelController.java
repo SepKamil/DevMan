@@ -85,11 +85,11 @@ public class EmployeePanelController implements Initializable {
     private void setUpNumbers() throws Exception {
         pendingHours.setText(WorkTimeRepository.calculateReamingWorkHoursToday(currentUser).toString());
         pendingDays.setText(LeaveRepository.getReamingLeaveDays(currentUser).toString());
-        pendingTasks.setText(String.valueOf(TaskRepository.findTasksInProgressByUser(currentUser).size()));
-        numberOfProjects.setText(String.valueOf(ProjectRepository.findProjectsByUser(currentUser).size()));
+        pendingTasks.setText(String.valueOf(TaskRepository.findTasksInProgressByUser(currentUser).stream().filter(task -> !LocalDate.now().isAfter(task.getEndDate())).count()));
+        numberOfProjects.setText(String.valueOf(ProjectRepository.findProjectsInProgressByUser(currentUser).size()));
         nextLeave.setText(LeaveRepository
                 .getNextLeaveDate(currentUser).map(LocalDate::toString).orElse("brak"));
-        completedTasks.setText(String.valueOf(TaskRepository.findCompletedTasksByUser(currentUser).size()));
+        completedTasks.setText(String.valueOf(TaskRepository.findCompletedTasksByUser(currentUser).stream().filter(task -> LocalDate.now().isAfter(task.getEndDate())).count()));
     }
     
     public EmployeePanelController(User user) {
@@ -197,7 +197,7 @@ public class EmployeePanelController implements Initializable {
 
     private void setUpProjectFiltering() throws Exception {
         projectBox.getItems().add("Wszystkie");
-        projectBox.getItems().addAll(ProjectRepository.findProjectsByUser(currentUser));
+        projectBox.getItems().addAll(ProjectRepository.findProjectsInProgressByUser(currentUser));
         projectBox.getSelectionModel().selectFirst();
 
         projectBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {

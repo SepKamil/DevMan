@@ -8,6 +8,7 @@ import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -92,14 +93,22 @@ public class ManagerPanelController implements Initializable, Observer {
         pendingLeaveRequests.setText(Integer
                 .valueOf(LeaveRepository.findPendingLeavesByManager(currentUser)
                         .size()).toString());
-        numberOfProjects.setText(Integer
-                .valueOf(ProjectRepository.findProjectsInProgress().size()).toString());
+        numberOfProjects.setText(Long
+                .valueOf(ProjectRepository.findProjectsInProgress()
+                        .stream().filter(project -> !LocalDate.now()
+                                .isBefore(project.getStartDate()) && !LocalDate.now()
+                                .isAfter(project.getEndDate())).count()).toString());
         numberOfTeams.setText(Integer
                 .valueOf(TeamRepository.findAllTeams().size()).toString());
-        tasksInProgress.setText(Integer
-                .valueOf(TaskRepository.findTasksInProgress().size()).toString());
-        completedTasks.setText(Integer
-                .valueOf(TaskRepository.findCompletedTasks().size()).toString());
+        tasksInProgress.setText(Long
+                .valueOf(TaskRepository.findTasksInProgress()
+                        .stream().filter(task -> !LocalDate.now()
+                                .isBefore(task.getStartDate()) && !LocalDate.now()
+                                .isAfter(task.getEndDate())).count()).toString());
+        completedTasks.setText(Integer.valueOf(Integer.sum(TaskRepository.findCompletedTasks()
+                .size(), Long.valueOf(TaskRepository.findTasksInProgress()
+                .stream().filter(task -> LocalDate.now()
+                        .isAfter(task.getEndDate())).count()).intValue())).toString());
     }
 
     private void showInfoWindow() {
@@ -450,6 +459,23 @@ public class ManagerPanelController implements Initializable, Observer {
         Scene scene = new Scene(root);
 
         employeeVerifyWindow.setTitle("DevMan - Czas pracy");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
+    }
+
+    public void onArchivedProjectsButtonClick() throws IOException {
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedProjects.fxml"));
+        ArchivedProjectsController controller = new ArchivedProjectsController(currentUser);
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        employeeVerifyWindow.setTitle("DevMan - Archiwalne projekty");
         employeeVerifyWindow.setResizable(false);
         employeeVerifyWindow.setScene(scene);
         employeeVerifyWindow.setX(20);

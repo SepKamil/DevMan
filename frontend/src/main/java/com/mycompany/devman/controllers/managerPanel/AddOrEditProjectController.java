@@ -91,6 +91,7 @@ public class AddOrEditProjectController extends Observable implements Initializa
             alert.setHeaderText("Błąd dodawania projektu!");
             alert.setContentText(ex.getMessage());
             alert.showAndWait();
+            return;
         }
         if(newProject) {
             controller.addProject(project);
