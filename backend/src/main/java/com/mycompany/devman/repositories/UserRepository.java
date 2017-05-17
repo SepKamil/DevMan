@@ -6,10 +6,12 @@
 package com.mycompany.devman.repositories;
 
 import com.mycompany.devman.BackendSetup;
+import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -73,6 +75,10 @@ public class UserRepository {
     public static User addUserToDatabase(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
+        if(user.getAccountType().equals(AccountType.EMPLOYEE)) {
+            user.setHoursPerDay(8);
+            user.setLeaveDaysPerYear(21);
+        }
         validateEntity(user);
         Long id = (Long) session.save(user);
         user.setId(id);

@@ -165,11 +165,22 @@ public class TaskRepository {
         session.close();
         return tasks;
     }
+
+
     
-    public static List<Task> findTasksByUser(User user) throws Exception {
+    public static List<Task> findTasksInProgressByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS' AND t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+
+    public static List<Task> findCompletedTasksByUser(User user) throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='FINISHED' AND t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
         transaction.commit();
         session.close();
         return tasks;

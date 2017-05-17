@@ -54,6 +54,23 @@ public class WorkTimeRepository {
         return list;
     }
 
+    public static Integer calculateReamingWorkHoursToday(User user) throws Exception {
+        int totalHours = user.getHoursPerDay();
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.date=:date").setParameter("date", LocalDate.now()).list();
+        transaction.commit();
+        session.close();
+        int usedHours = list.stream().mapToInt(WorkTime::getWorkTime).sum();
+        int returnValue = totalHours - usedHours;
+        if(returnValue < 0) {
+            return 0;
+        }
+        else {
+            return returnValue;
+        }
+    }
+
     public static List<WorkTime> findByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();

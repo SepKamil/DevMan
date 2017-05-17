@@ -79,7 +79,7 @@ public class NewWorkTimeController implements Initializable {
         window.close();
     }
     
-    public void onOkButtonClick() {
+    public void onOkButtonClick() throws Exception {
         WorkTime workTime = new WorkTime();
         workTime.setTask(task);
         workTime.setWorkTime(time.getValue());

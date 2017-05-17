@@ -6,6 +6,7 @@ import com.mycompany.devman.repositories.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -62,12 +63,40 @@ public class EmployeePanelController implements Initializable {
 
     @FXML
     private TableView<WorkTime> workTimeTable;
+
+    @FXML
+    private Label pendingHours;
+
+    @FXML
+    private Label pendingDays;
+
+    @FXML
+    private Label completedTasks;
+
+    @FXML
+    private Label pendingTasks;
+
+    @FXML
+    private Label numberOfProjects;
+
+    @FXML
+    private Label nextLeave;
+
+    private void setUpNumbers() throws Exception {
+        pendingHours.setText(WorkTimeRepository.calculateReamingWorkHoursToday(currentUser).toString());
+        pendingDays.setText(LeaveRepository.getReamingLeaveDays(currentUser).toString());
+        pendingTasks.setText(String.valueOf(TaskRepository.findTasksInProgressByUser(currentUser).size()));
+        numberOfProjects.setText(String.valueOf(ProjectRepository.findProjectsByUser(currentUser).size()));
+        nextLeave.setText(LeaveRepository
+                .getNextLeaveDate(currentUser).map(LocalDate::toString).orElse("brak"));
+        completedTasks.setText(String.valueOf(TaskRepository.findCompletedTasksByUser(currentUser).size()));
+    }
     
     public EmployeePanelController(User user) {
         this.currentUser = user;
     }
     
-    public void addNewLeaveRequest(Leave leave) {
+    public void addNewLeaveRequest(Leave leave) throws Exception {
         leaveTable.getItems().add(leave);
     }
 
@@ -129,14 +158,15 @@ public class EmployeePanelController implements Initializable {
             setUpProjectFiltering();
             setUpTeamFiltering();
             setUpWorkTimeTable();
+            setUpNumbers();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public void addNewWorkTime(WorkTime workTime) {
+    public void addNewWorkTime(WorkTime workTime) throws Exception {
         workTimeTable.getItems().add(workTime);
+        setUpNumbers();
     }
 
     private void setUpTeamFiltering() throws Exception {
@@ -150,7 +180,7 @@ public class EmployeePanelController implements Initializable {
         team2Box.setSelectionModel(teamBox.getSelectionModel());
     }
 
-    public void editWorkTime(WorkTime workTime) {
+    public void editWorkTime(WorkTime workTime) throws Exception {
         workTimeTable.getItems().replaceAll(new UnaryOperator<WorkTime>() {
             @Override
             public WorkTime apply(WorkTime w) {
@@ -162,6 +192,7 @@ public class EmployeePanelController implements Initializable {
                 }
             }
         });
+        setUpNumbers();
     }
 
     private void setUpProjectFiltering() throws Exception {
@@ -219,7 +250,7 @@ public class EmployeePanelController implements Initializable {
         predictedTime.setCellValueFactory(
                 new PropertyValueFactory<>("predictedTime"));
 
-        tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
+        tasksTable.getItems().addAll(TaskRepository.findTasksInProgressByUser(currentUser));
         tasksTable.getColumns().clear();
         tasksTable.getColumns().addAll(nameColumn, startDate, endDate, predictedTime);
     }
@@ -322,7 +353,7 @@ public class EmployeePanelController implements Initializable {
             }
             else if(p instanceof String && p.equals("Wszystkie")) {
                 tasksTable.getItems().clear();
-                tasksTable.getItems().addAll(TaskRepository.findTasksByUser(currentUser));
+                tasksTable.getItems().addAll(TaskRepository.findTasksInProgressByUser(currentUser));
             }
         }
     }
@@ -398,10 +429,6 @@ public class EmployeePanelController implements Initializable {
         workTimeEditWindow.show();
     }
 
-
-
-
-    
     public void onAddLeaveRequestButtonClick() throws IOException {
         Stage leaveRequest = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/AddLeaveRequest.fxml"));
