@@ -62,8 +62,8 @@
                                  </font>
                               </Label>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" height="2.0" layoutY="170.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
-                              <Label layoutX="15.0" layoutY="140.0" text="Ilość projektów w jakich uczestniczysz:" />
-                              <Label fx:id="numberOfProjects" layoutX="291.0" layoutY="125.0" prefHeight="46.0" prefWidth="35.0" text="18" textFill="#1a376d">
+                              <Label layoutX="15.0" layoutY="140.0" prefHeight="16.0" prefWidth="278.0" text="Ilość projektów w jakich uczestniczyłeś:" />
+                              <Label fx:id="numberOfProjects" layoutX="316.0" layoutY="125.0" prefHeight="46.0" prefWidth="35.0" text="18" textFill="#1a376d">
                                  <font>
                                     <Font name="System Bold" size="24.0" />
                                  </font>

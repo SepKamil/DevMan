@@ -41,7 +41,7 @@ public class Task {
     private Integer predictedTime;
 
 
-    public enum TaskState{IN_PROGRESS,FINISHED;}
+    public enum TaskState{IN_PROGRESS,FINISHED}
 
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Stan zadania nie może być nullem")

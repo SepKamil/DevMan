@@ -441,6 +441,24 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.show();
     }
 
+    public void onArchiveTasksButtonClick() throws IOException {
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedTasks.fxml"));
+        ArchivedTasksController controller = new ArchivedTasksController();
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/main/register.css");
+
+        employeeVerifyWindow.setTitle("DevMan - Archiwalne zadania");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
+    }
+
     public void onWorkTimeButtonClick() throws IOException {
         if(taskTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -469,7 +487,7 @@ public class ManagerPanelController implements Initializable, Observer {
     public void onArchivedProjectsButtonClick() throws IOException {
         Stage employeeVerifyWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedProjects.fxml"));
-        ArchivedProjectsController controller = new ArchivedProjectsController(currentUser);
+        ArchivedProjectsController controller = new ArchivedProjectsController();
         loader.setController(controller);
         Parent root = loader.load();
 

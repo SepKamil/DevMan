@@ -20,12 +20,6 @@ public class ArchivedProjectsController implements Initializable {
     @FXML
     private TableView<Project> projectsTable;
 
-    private User user;
-
-    public ArchivedProjectsController(User user) {
-        this.user = user;
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TableColumn idCol = new TableColumn("ID");
