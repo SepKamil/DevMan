@@ -6,8 +6,6 @@
 package com.mycompany.devman.domain;
 
 import java.util.List;
-import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,7 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import static javax.swing.text.StyleConstants.Size;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
@@ -77,6 +74,27 @@ public class User {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Stan użytkownika nie może być nieokreślony")
     private userState userState;
+
+    private Integer hoursPerDay;
+
+    private Integer leaveDaysPerYear;
+
+    public Integer getHoursPerDay() {
+        return hoursPerDay;
+    }
+
+    public void setHoursPerDay(Integer hoursPerDay) {
+        this.hoursPerDay = hoursPerDay;
+    }
+
+    public Integer getLeaveDaysPerYear() {
+        return leaveDaysPerYear;
+    }
+
+    public void setLeaveDaysPerYear(Integer leaveDaysPerYear) {
+        this.leaveDaysPerYear = leaveDaysPerYear;
+    }
+
     /**
      * @return the id
      */
