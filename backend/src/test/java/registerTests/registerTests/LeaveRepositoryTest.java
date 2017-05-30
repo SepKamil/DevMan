@@ -1,7 +1,8 @@
-package com.mycompany.devman.repositories;
+package registerTests.registerTests;
 
 import com.mycompany.devman.BackendSetup;
 import com.mycompany.devman.domain.*;
+import com.mycompany.devman.repositories.LeaveRepository;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.Before;

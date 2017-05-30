@@ -1,26 +1,25 @@
-package com.mycompany.devman.repositories;
+package registerTests.registerTests;
 
 import com.mycompany.devman.BackendSetup;
 import com.mycompany.devman.domain.*;
-import org.h2.engine.Session;
+import com.mycompany.devman.repositories.TaskRepository;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.model.relational.Database;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.criteria.internal.expression.ParameterExpressionImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
+
 import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by bloczek on 17.05.2017.
+ * Created by bloczek on 30.05.2017.
  */
-public class ProjectRepositoryTest {
+public class TaskRepositoryTest {
     @Before
     public void setup() {
         SessionFactory sessionFactory = new Configuration().addAnnotatedClass(User.class)
@@ -41,69 +40,102 @@ public class ProjectRepositoryTest {
     }
 
     @Test (expected = Exception.class)
-    public void addProject() throws Exception {
+    public void addTask() throws Exception {
         org.hibernate.Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        Project project = new Project();
-        project.setName("Jan");
-        project.setId(789L);
-        project.setProjectState(Project.ProjectState.FINISHED);
-        session.save(project);
+        Task task = new Task();
+        task.setId(45L);
+        task.setName("zadanie");
+        session.save(task);
         transaction.commit();
+
+
     }
 
     @Test (expected = Exception.class)
-    public void updateProject() throws Exception {
+    public void updateTask() throws Exception {
         org.hibernate.Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        Project project = new Project();
-        project.setName("Jan");
-        project.setId(789L);
-        project.setProjectState(Project.ProjectState.FINISHED);
-        session.update(project);
-        transaction.commit();
+        Task task = new Task();
+        TaskRepository.updateTask(task);
     }
 
     @Test (expected = Exception.class)
     public void findById() throws Exception {
         org.hibernate.Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        ProjectRepository.findById(52L);
-
-
+        TaskRepository.findById(45L);
 
     }
 
+
     @Test (expected = Exception.class)
-    public void deleteById() throws Exception {
+    public void findAllTasks() throws Exception {
         org.hibernate.Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        ProjectRepository.deleteById(34L);
+        findAllTasks();
+
     }
 
     @Test (expected = Exception.class)
-    public void findByName() throws Exception {
+    public void findTasksByTeam() throws Exception {
         org.hibernate.Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        ProjectRepository.findByName("Jan Kowalski");
+        findCompletedTasksByTeam();
+
     }
 
     @Test (expected = Exception.class)
-    public void findProjectsInProgress() throws Exception {
-        ProjectRepository.findProjectsInProgress();
-    }
-
-    @Test (expected = Exception.class)
-    public void findProjectsByUser() throws Exception {
-        User user = new User();
-        ProjectRepository.findProjectsInProgressByUser(user);
-    }
-
-    @Test (expected = Exception.class)
-    public void findAllProjects() throws Exception {
+    public void findTasksByProject() throws Exception {
         org.hibernate.Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
-        findAllProjects();
+        findTasksByProject();
+    }
+
+    @Test (expected = Exception.class)
+    public void findTasksInProgress() throws Exception {
+        org.hibernate.Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        findTasksInProgress();
+    }
+
+    @Test(expected = Exception.class)
+    public void findCompletedTasks() throws Exception {
+        org.hibernate.Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        findCompletedTasks();
+    }
+
+    @Test (expected = Exception.class)
+    public void findTasksInProgressByUser() throws Exception {
+        org.hibernate.Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        findTasksInProgressByUser();
+    }
+
+    @Test (expected = Exception.class)
+    public void findCompletedTasksByUser() throws Exception {
+        org.hibernate.Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        TaskRepository.findCompletedTasksByUser(new User());
+    }
+
+    @Test (expected = Exception.class)
+    public void findCompletedTasksByTeam() throws Exception {
+        org.hibernate.Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        Team team = new Team ();
+        TaskRepository.findCompletedTasksByTeam(team);
+
+
+    }
+
+    @Test (expected = Exception.class)
+    public void findCompletedTasksByProject() throws Exception {
+        org.hibernate.Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        findTasksByProject();
+
     }
 
 }

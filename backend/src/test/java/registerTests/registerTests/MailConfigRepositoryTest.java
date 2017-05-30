@@ -1,7 +1,8 @@
-package com.mycompany.devman.repositories;
+package registerTests.registerTests;
 
 import com.mycompany.devman.BackendSetup;
 import com.mycompany.devman.domain.*;
+import com.mycompany.devman.repositories.MailConfigRepository;
 import com.sun.activation.registries.MailcapFile;
 import com.sun.activation.registries.MailcapParseException;
 import com.sun.activation.registries.MailcapTokenizer;
