@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -445,6 +446,11 @@ public class EmployeePanelController implements Initializable {
         leaveRequest.setX(20);
         leaveRequest.setY(20);
         leaveRequest.show();
+    }
+    
+    public void fileChooser() {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Zapisz PDF");
     }
     
 }
