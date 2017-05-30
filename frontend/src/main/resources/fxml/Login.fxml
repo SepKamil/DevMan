@@ -25,7 +25,7 @@
             <Label layoutX="157.0" layoutY="184.0" text="Login:" textAlignment="CENTER" textFill="#1a376d" />
             <Label layoutX="156.0" layoutY="225.0" text="Hasło:" textAlignment="CENTER" textFill="#1a376d" />
             <Button layoutX="207.0" layoutY="271.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="21.0" prefWidth="186.0" style="-fx-background-color: #1a376d;" text="Zaloguj" textAlignment="CENTER" textFill="WHITE" />
-            <Button layoutX="10.0" layoutY="361.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #1a376d;" text="Rejestracja" textFill="WHITE"styleClass="buttonRegister" />
+            <Button layoutX="10.0" layoutY="361.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="31.0" prefWidth="100.0" style="-fx-background-color: #1a376d;" text="Rejestracja" textFill="WHITE" />
             <Button layoutX="430.0" layoutY="361.0" mnemonicParsing="false" onAction="#onRecoveryButtonClick" prefHeight="31.0" prefWidth="160.0" style="-fx-background-color: #1a376d;" text="Przypominanie hasła" textAlignment="CENTER" textFill="WHITE" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1a376d" layoutX="64.0" layoutY="167.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="139.0" />
             <PasswordField fx:id="password" layoutX="207.0" layoutY="220.0" />
