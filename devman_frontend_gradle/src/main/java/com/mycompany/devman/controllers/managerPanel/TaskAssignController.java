@@ -73,7 +73,11 @@ public class TaskAssignController extends Observable implements Initializable {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Assigns the tasks to teams and notifies observers.
+     * Prints stacktrace if the database cannot be updated
+     */
     public void onOkButtonClick() {
         updateSelectedTasks();
         updateNonSelectedTasks();
@@ -110,6 +114,9 @@ public class TaskAssignController extends Observable implements Initializable {
         }
     }
 
+    /**
+     * Closes the window without saving changes
+     */
     public void onCancelButtonClick() {
         close();
     }

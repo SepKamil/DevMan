@@ -78,11 +78,18 @@ public class AddLeaveRequestController implements Initializable {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Closes the window without saving changes
+     */
     public void onCancelButtonClick() {
         close();
     }
-    
+
+    /**
+     * Logs the Leave Request for a Manager to Approve or Reject.
+     * Fails if the database cannot be updated
+     */
     public void onOkButtonClick() {
         Leave leave = null;
         try {

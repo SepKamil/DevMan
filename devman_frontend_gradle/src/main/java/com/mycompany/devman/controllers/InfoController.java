@@ -35,7 +35,10 @@ public class InfoController implements Initializable {
         Stage window = (Stage) ok.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Closes the info window
+     */
     public void okClicked() {
         close();
     }

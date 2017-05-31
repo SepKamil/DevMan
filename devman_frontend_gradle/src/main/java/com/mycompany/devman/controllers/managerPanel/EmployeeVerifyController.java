@@ -54,6 +54,10 @@ public class EmployeeVerifyController extends Observable implements Initializabl
         employeeTable.getColumns().addAll(name, lastName, email);
     }
 
+    /**
+     * Deletes a newly registered user from the database
+     * @throws Exception if database cannot be updated
+     */
     public void onDeleteButtonClick() throws Exception {
         for(User user : employeeTable.getSelectionModel().getSelectedItems()) {
             UserRepository.deleteUser(user);
@@ -63,6 +67,10 @@ public class EmployeeVerifyController extends Observable implements Initializabl
         notifyObservers();
     }
 
+    /**
+     * Approves a newly registered user, allowing them to log into the application
+     * @throws Exception if database cannot be updated
+     */
     public void onAcceptButtonClick() throws Exception {
         for(User user : employeeTable.getSelectionModel().getSelectedItems()) {
             user.setUserState(User.userState.ACTIVE);

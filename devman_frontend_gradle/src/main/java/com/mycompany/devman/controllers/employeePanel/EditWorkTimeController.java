@@ -70,11 +70,18 @@ public class EditWorkTimeController implements Initializable {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Closes the window without saving changes
+     */
     public void onCancelButtonClick() {
         close();
     }
-    
+
+    /**
+     * Edits Work Time for the user
+     * @throws Exception if database cannot be updated
+     */
     public void onOkButtonClick() throws Exception {
         workTime.setWorkTime(time.getValueFactory().getValue());
         WorkTimeRepository.updateWorkTime(workTime);

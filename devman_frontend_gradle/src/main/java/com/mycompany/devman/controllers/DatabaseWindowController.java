@@ -47,6 +47,12 @@ public class DatabaseWindowController implements Initializable {
         window.close();
     }
 
+    /**
+     * Upon pressing the Connect button the data entered in the configuration
+     * textboxes is added to the database configuration file after it passes
+     * the connection test - if the test fails, changes are undone.
+     * If the ini file cannot be created for any reason, the configuration is undone as well.
+     */
     public void onConnectButtonClick() {
         setup.setHost(host.getText());
         setup.setPort(port.getText());
@@ -111,6 +117,11 @@ public class DatabaseWindowController implements Initializable {
         window.close();
     }
 
+    /**
+     * Sets the initial text in the database port textbox
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         port.setText("3306");

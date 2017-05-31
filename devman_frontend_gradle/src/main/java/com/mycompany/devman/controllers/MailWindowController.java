@@ -46,6 +46,10 @@ public class MailWindowController implements Initializable {
 
     }
 
+    /**
+     * Skips the SMTP configuration
+     * @throws Exception
+     */
     public void onSkipButtonClick() throws Exception {
         MailConfig mailConfig = new MailConfig();
         mailConfig.setMailConfigSkipped(true);
@@ -54,6 +58,9 @@ public class MailWindowController implements Initializable {
         window.close();
     }
 
+    /**
+     * Saves the SMPT configuration. If the test fails, configuration is undone.
+     */
     public void onSaveButtonClick() {
         MailConfig mailConfig = new MailConfig();
         mailConfig.setSmtpHost(host.getText());

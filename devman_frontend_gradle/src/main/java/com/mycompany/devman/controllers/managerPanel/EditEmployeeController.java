@@ -57,11 +57,19 @@ public class EditEmployeeController extends Observable implements Initializable 
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Closes the window without saving changes
+     */
     public void onCancelButtonClick() {
         close();
     }
-    
+
+    /**
+     * Edits an employee and saves the changes to the database.
+     * If saving fails, an Exception is thrown
+     * @throws Exception if changes cannot be saved
+     */
     public void onOkButtonClick() throws Exception {
         user.setName(name.getText());
         user.setLastName(lastName.getText());

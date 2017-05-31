@@ -93,7 +93,11 @@ public class NewOrEditTaskController extends Observable implements Initializable
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Adds/Edits a task.
+     * @throws Exception when database cannot be updated
+     */
     public void onOkButtonClick() throws Exception {
         boolean newTask = false;
         if(task == null) {
@@ -129,7 +133,10 @@ public class NewOrEditTaskController extends Observable implements Initializable
         notifyObservers();
         close();
     }
-    
+
+    /**
+     * Closes the window without saving changes
+     */
     public void onCancelButtonClick() {
         close();
     }
