@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class Raport {
 
-    public static void generatePdf(File file) {
+    public static void generatePdf(File file) throws Exception {
 
         Document document = new Document(); // Tworzymy dokument
         

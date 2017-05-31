@@ -90,7 +90,7 @@ public class ManagerPanelController implements Initializable, Observer {
         this.currentUser = user;
     }
 
-    private void initializeNumbersOnMainPage() {
+    private void initializeNumbersOnMainPage() throws Exception {
         pendingEmployees.setText(Integer
                 .valueOf(UserRepository.findInactiveUsers().size()).toString());
         pendingLeaveRequests.setText(Integer
@@ -104,6 +104,41 @@ public class ManagerPanelController implements Initializable, Observer {
                 .valueOf(TaskRepository.findTasksInProgress().size()).toString());
         completedTasks.setText(Integer
                 .valueOf(TaskRepository.findCompletedTasks().size()).toString());
+    }
+
+    public void onArchiveTasksButtonClick() throws IOException {
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedTasks.fxml"));
+        ArchivedTasksController controller = new ArchivedTasksController();
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/main/register.css");
+
+        employeeVerifyWindow.setTitle("DevMan - Archiwalne zadania");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
+    }
+
+    public void onArchiveProjectsButtonClick() throws IOException {
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedProjects.fxml"));
+        ArchivedProjectsController controller = new ArchivedProjectsController();
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        employeeVerifyWindow.setTitle("DevMan - Archiwalne projekty");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
     }
 
     private void showInfoWindow() {
@@ -390,17 +425,17 @@ public class ManagerPanelController implements Initializable, Observer {
         });
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws Exception {
         taskTable.getItems().add(task);
         initializeNumbersOnMainPage();
     }
     
-    public void addTeam(Team team) {
+    public void addTeam(Team team) throws Exception {
         teamsTable.getItems().add(team);
         initializeNumbersOnMainPage();
     }
     
-    public void addProject(Project project) {
+    public void addProject(Project project) throws Exception {
         projectsTable.getItems().add(project);
         initializeNumbersOnMainPage();
     }
@@ -794,7 +829,11 @@ public class ManagerPanelController implements Initializable, Observer {
 
     @Override
     public void update(java.util.Observable observable, Object o) {
-        initializeNumbersOnMainPage();
+        try {
+            initializeNumbersOnMainPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateProject(Project p) {
@@ -825,7 +864,7 @@ public class ManagerPanelController implements Initializable, Observer {
         });
     }
     
-    public void generateMonthRaport() {
+    public void generateMonthRaport() throws Exception {
         FileChooser chooser = new FileChooser();
         ExtensionFilter pdf = new ExtensionFilter("Pliki pdf", ".pdf");
         chooser.getExtensionFilters().add(pdf); // dodanie powyższego filtra na listę filtrów

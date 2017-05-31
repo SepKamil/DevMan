@@ -94,7 +94,7 @@ public class NewOrEditTaskController extends Observable implements Initializable
         window.close();
     }
     
-    public void onOkButtonClick() {
+    public void onOkButtonClick() throws Exception {
         boolean newTask = false;
         if(task == null) {
             task = new Task();
