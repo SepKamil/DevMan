@@ -13,6 +13,8 @@ import com.mycompany.devman.domain.User;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -49,7 +51,12 @@ public class TeamRepository {
     }
 
     public static List<Team> findAllTeams() {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(TeamRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Team> teams = session.createQuery("FROM Team").list();
         transaction.commit();
@@ -104,7 +111,12 @@ public class TeamRepository {
     }
 
     public static List<Team> findTeamsByProjrct(Project project) {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(TeamRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Team> teams = session.createQuery("FROM Team t WHERE t.project=:project").setParameter("project", project).list();
         transaction.commit();

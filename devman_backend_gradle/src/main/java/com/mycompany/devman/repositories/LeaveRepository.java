@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import org.hibernate.Session;
@@ -65,7 +67,12 @@ public class LeaveRepository {
         return leaves;
     }
     public static List<Leave> findPendingLeavesByManager(User manager) {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(LeaveRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Leave> leaves = session.createQuery("FROM Leave AS l WHERE l.employee.manager=:manager AND l.status = 'OCZEKUJE'").setParameter("manager", manager).list();
         transaction.commit();

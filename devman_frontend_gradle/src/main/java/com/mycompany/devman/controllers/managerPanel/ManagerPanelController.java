@@ -3,9 +3,11 @@ package com.mycompany.devman.controllers.managerPanel;
 import com.mycompany.devman.MainApp;
 import com.mycompany.devman.repositories.*;
 import com.mycompany.devman.domain.Project;
+import com.mycompany.devman.domain.Raport;
 import com.mycompany.devman.domain.Task;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Observer;
@@ -22,6 +24,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -819,5 +823,14 @@ public class ManagerPanelController implements Initializable, Observer {
                 }
             }
         });
+    }
+    
+    public void generateMonthRaport() {
+        FileChooser chooser = new FileChooser();
+        ExtensionFilter pdf = new ExtensionFilter("Pliki pdf", ".pdf");
+        chooser.getExtensionFilters().add(pdf); // dodanie powyższego filtra na listę filtrów
+        File file = chooser.showSaveDialog(new Stage()); // obiekt file będzie reprezentował nam wygenerowany pdf
+        Raport.generatePdf(file);
+        // później będzie można zrobić np file.getName żeby otrzymać nazwę pliku 
     }
 }

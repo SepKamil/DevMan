@@ -12,6 +12,8 @@ import javax.validation.Validator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by bloczek on 29.03.2017.
@@ -21,6 +23,7 @@ public class ProjectRepository {
     public static Project addProject(Project project) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
+        project.setProjectState(Project.ProjectState.IN_PROGRESS);
         validateEntity(project);
         session.save(project);
         transaction.commit();
@@ -104,7 +107,12 @@ public class ProjectRepository {
     }
     
     public static List<Project> findProjectsInProgress() {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(ProjectRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project p WHERE p.projectState='IN_PROGRESS'").list();
         transaction.commit();
@@ -122,7 +130,12 @@ public class ProjectRepository {
     }
 
     public static List<Project> findAllProjects() {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(ProjectRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project").list();
         transaction.commit();

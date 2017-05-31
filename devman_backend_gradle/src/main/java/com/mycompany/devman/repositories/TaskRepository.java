@@ -14,6 +14,8 @@ import javax.validation.Validator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by bloczek on 29.03.2017.
@@ -149,7 +151,12 @@ public class TaskRepository {
     }
 
     public static List<Task> findTasksInProgress() {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(TaskRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS'").list();
         transaction.commit();
@@ -158,7 +165,12 @@ public class TaskRepository {
     }
 
     public static List<Task> findCompletedTasks() {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(TaskRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='FINISHED'").list();
         transaction.commit();

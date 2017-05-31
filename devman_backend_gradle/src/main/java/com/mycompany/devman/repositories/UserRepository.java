@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Transport;
@@ -40,7 +42,12 @@ public class UserRepository {
     }
 
     private static void sendNewPasswordByEmail(User user, StringBuilder newPassword) throws MessagingException {
-        Message message = new MimeMessage(BackendSetup.getMailSession());
+        Message message = null;
+        try {
+            message = new MimeMessage(BackendSetup.getMailSession());
+        } catch (Exception ex) {
+            Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         message.setFrom(new InternetAddress("devmanmailer@gmail.com"));
         message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse(user.getEmail()));
@@ -192,7 +199,12 @@ public class UserRepository {
     }
 
     public static List<User> findUsersByManager(User manager) {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("SELECT u FROM User u WHERE u.manager=:manager").setParameter("manager", manager).list();
         transaction.commit();
@@ -210,7 +222,12 @@ public class UserRepository {
     }
 
     public static List<User> findInactiveUsers() {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(UserRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List users = session.createQuery("FROM User u WHERE u.userState='INACTIVE'").list();
         transaction.commit();

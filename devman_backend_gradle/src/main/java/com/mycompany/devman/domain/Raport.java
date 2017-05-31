@@ -12,8 +12,11 @@ import com.lowagie.text.Rectangle;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Font;
 import com.lowagie.text.pdf.PdfWriter;
+import com.mycompany.devman.repositories.ProjectRepository;
+import java.io.File;
 
 import java.io.FileOutputStream;
+import java.util.List;
 
 /**
  *
@@ -21,7 +24,7 @@ import java.io.FileOutputStream;
  */
 public class Raport {
 
-    public static void main(String[] args) {
+    public static void generatePdf(File file) {
 
         Document document = new Document(); // Tworzymy dokument
         
@@ -35,8 +38,16 @@ public class Raport {
             new Font(Font.HELVETICA, 14, Font.NORMAL)
         };
         
+        List<Project> projects = ProjectRepository.findAllProjects();
+        for(Project project : projects) {
+            System.out.println("Nazwa: "+project.getName());
+            System.out.println("Data rozpoczecia: "+project.getStartDate());
+            System.out.println("Data zakonczenia: "+project.getEndDate());
+        }
+        //paragrafy w pętli
+        
         try { //Blok Try jest po to ponieważ nie zawsze możemy mieć miejsce tam gdzie chcemy zapisać pdf
-            PdfWriter.getInstance(document, new FileOutputStream("raport.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(file));
             
             document.open(); //Otwarcie dokumentu - teraz możemy do niego wsadzać co kolwiek chcemy
             Paragraph paragraph = new Paragraph();

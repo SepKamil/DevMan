@@ -1,166 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="registerTests.registerTests.registerTests" tests="2" skipped="1" failures="0" errors="0" timestamp="2017-05-31T12:44:24" hostname="laptop" time="0.13">
+<testsuite name="registerTests.registerTests.registerTests" tests="2" skipped="1" failures="0" errors="0" timestamp="2017-05-31T12:03:53" hostname="DESKTOP-T462JM9" time="0.109">
   <properties/>
   <testcase name="loginTest" classname="registerTests.registerTests.registerTests" time="0.0">
     <skipped/>
   </testcase>
-  <testcase name="registerWithPeselTooShortTest" classname="registerTests.registerTests.registerTests" time="0.13"/>
-  <system-out><![CDATA[Hibernate: 
-    
-    create table leaves (
-       id bigint not null,
-        numberOfDays integer not null check (numberOfDays>=1 AND numberOfDays<=14),
-        startDate date not null,
-        status varchar(255) not null,
-        employee_id bigint not null,
-        primary key (id)
-    )
-Hibernate: 
-    
-    create table messages (
-       id bigint not null,
-        text varchar(255) not null,
-        title varchar(255) not null,
-        reciver_id bigint not null,
-        sender_id bigint not null,
-        primary key (id)
-    )
-Hibernate: 
-    
-    create table projects (
-       id bigint not null,
-        endDate date not null,
-        name varchar(255) not null,
-        projectState varchar(255) not null,
-        startDate date not null,
-        primary key (id)
-    )
-Hibernate: 
-    
-    create table tasks (
-       id bigint not null,
-        endDate date not null,
-        name varchar(255) not null,
-        predictedTime integer not null,
-        startDate date not null,
-        taskState varchar(255) not null,
-        team_id bigint,
-        primary key (id)
-    )
-Hibernate: 
-    
-    create table teams (
-       id bigint not null,
-        name varchar(255) not null,
-        project bigint,
-        primary key (id)
-    )
-Hibernate: 
-    
-    create table users (
-       id bigint not null,
-        accountType varchar(255) not null,
-        email varchar(255) not null,
-        lastName varchar(255) not null,
-        login varchar(255) not null,
-        name varchar(255) not null,
-        password varchar(255) not null,
-        pesel varchar(11) not null,
-        userState varchar(255) not null,
-        manager_id bigint,
-        primary key (id)
-    )
-Hibernate: 
-    
-    create table users_teams (
-       User_id bigint not null,
-        teams_id bigint not null
-    )
-Hibernate: 
-    
-    create table WorkTime (
-       id bigint not null,
-        date date not null,
-        workTime integer not null,
-        task_id bigint not null,
-        user_id bigint not null,
-        primary key (id)
-    )
-Hibernate: create sequence hibernate_sequence start with 1 increment by 1
-Hibernate: 
-    
-    alter table leaves 
-       add constraint FKfixkbk6u4selcsan3cpl13h6a 
-       foreign key (employee_id) 
-       references users
-Hibernate: 
-    
-    alter table messages 
-       add constraint FK7q41xuml83uwoi17c1xv5kk2w 
-       foreign key (reciver_id) 
-       references users
-Hibernate: 
-    
-    alter table messages 
-       add constraint FK4ui4nnwntodh6wjvck53dbk9m 
-       foreign key (sender_id) 
-       references users
-Hibernate: 
-    
-    alter table tasks 
-       add constraint FK7ohls81a92yq2hlgcml3h1atu 
-       foreign key (team_id) 
-       references teams
-Hibernate: 
-    
-    alter table teams 
-       add constraint FKf00xctd478po1o4mn0028rmbu 
-       foreign key (project) 
-       references projects
-Hibernate: 
-    
-    alter table users 
-       add constraint FK5p1ci5btqfwvtaqx5n2wxi182 
-       foreign key (manager_id) 
-       references users
-Hibernate: 
-    
-    alter table users_teams 
-       add constraint FK3ch2pm4coy2bjcx5a18uxvo4m 
-       foreign key (teams_id) 
-       references teams
-Hibernate: 
-    
-    alter table users_teams 
-       add constraint FKtrh1792ruvj56vuxlfbvbevlh 
-       foreign key (User_id) 
-       references users
-Hibernate: 
-    
-    alter table WorkTime 
-       add constraint FKdcf7oqu8h0oa9fb91i9yxwy1f 
-       foreign key (task_id) 
-       references tasks
-Hibernate: 
-    
-    alter table WorkTime 
-       add constraint FKgigwyi65yd4k721vjxgirqya1 
-       foreign key (user_id) 
-       references users
-]]></system-out>
-  <system-err><![CDATA[maj 31, 2017 2:44:24 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+  <testcase name="registerWithPeselTooShortTest" classname="registerTests.registerTests.registerTests" time="0.109"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[maj 31, 2017 2:03:53 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-maj 31, 2017 2:44:24 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+maj 31, 2017 2:03:53 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:]
-maj 31, 2017 2:44:24 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
-INFO: HHH10001001: Connection properties: {user=admin, password=****}
-maj 31, 2017 2:44:24 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+maj 31, 2017 2:03:53 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001001: Connection properties: {}
+maj 31, 2017 2:03:53 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-maj 31, 2017 2:44:24 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
+maj 31, 2017 2:03:53 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-maj 31, 2017 2:44:24 PM org.hibernate.dialect.Dialect <init>
+maj 31, 2017 2:03:53 PM org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-maj 31, 2017 2:44:25 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@47ff7354] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+maj 31, 2017 2:03:53 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7d98ecbc] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 ]]></system-err>
 </testsuite>

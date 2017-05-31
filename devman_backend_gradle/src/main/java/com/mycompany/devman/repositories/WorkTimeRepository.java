@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by jakub on 09.05.17.
@@ -46,7 +48,12 @@ public class WorkTimeRepository {
     }
 
     public static List<WorkTime> findWorkTimeByTask(Task task) {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(WorkTimeRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.task=:task").setParameter("task", task).list();
         transaction.commit();
@@ -55,7 +62,12 @@ public class WorkTimeRepository {
     }
 
     public static List<WorkTime> findByUser(User user) {
-        Session session = BackendSetup.getDatabaseSession();
+        Session session = null;
+        try {
+            session = BackendSetup.getDatabaseSession();
+        } catch (Exception ex) {
+            Logger.getLogger(WorkTimeRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Transaction transaction = session.beginTransaction();
         List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.user=:user").setParameter("user", user).list();
         transaction.commit();
