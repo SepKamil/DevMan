@@ -6,10 +6,12 @@
 package com.mycompany.devman.repositories;
 
 import com.mycompany.devman.BackendSetup;
+import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.Project;
 import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -31,7 +33,7 @@ import org.hibernate.Transaction;
  */
 public class UserRepository {
 
-    public static String resetPassword(User user) throws AddressException, MessagingException {
+    public static String resetPassword(User user) throws Exception {
         StringBuilder newPassword = generateNewPassword(user);
 
         sendNewPasswordByEmail(user, newPassword);
@@ -39,7 +41,7 @@ public class UserRepository {
         return newPassword.toString();
     }
 
-    private static void sendNewPasswordByEmail(User user, StringBuilder newPassword) throws MessagingException {
+    private static void sendNewPasswordByEmail(User user, StringBuilder newPassword) throws Exception {
         Message message = new MimeMessage(BackendSetup.getMailSession());
         message.setFrom(new InternetAddress("devmanmailer@gmail.com"));
         message.setRecipients(Message.RecipientType.TO,
@@ -73,8 +75,11 @@ public class UserRepository {
     public static User addUserToDatabase(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
+        if(user.getAccountType().equals(AccountType.EMPLOYEE)) {
+            user.setHoursPerDay(8);
+            user.setLeaveDaysPerYear(21);
+        }
         validateEntity(user);
-        user.setUserState(User.userState.INACTIVE);
         Long id = (Long) session.save(user);
         user.setId(id);
         transaction.commit();
@@ -191,7 +196,7 @@ public class UserRepository {
         return users;
     }
 
-    public static List<User> findUsersByManager(User manager) {
+    public static List<User> findUsersByManager(User manager) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<User> users = session.createQuery("SELECT u FROM User u WHERE u.manager=:manager").setParameter("manager", manager).list();
@@ -209,7 +214,7 @@ public class UserRepository {
         return users;
     }
 
-    public static List<User> findInactiveUsers() {
+    public static List<User> findInactiveUsers() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List users = session.createQuery("FROM User u WHERE u.userState='INACTIVE'").list();

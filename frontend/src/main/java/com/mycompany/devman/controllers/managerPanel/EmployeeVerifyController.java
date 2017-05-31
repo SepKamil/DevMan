@@ -28,10 +28,14 @@ public class EmployeeVerifyController extends Observable implements Initializabl
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setUpEmployeeTable();
+        try {
+            setUpEmployeeTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setUpEmployeeTable(){
+    private void setUpEmployeeTable() throws Exception {
         employeeTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn name = new TableColumn("Imię");
         name.setMinWidth(150);

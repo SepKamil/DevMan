@@ -43,7 +43,11 @@ public class WorkTimeController implements Initializable {
         time.setCellValueFactory(
                 new PropertyValueFactory<>("workTime"));
 
-        workTimeTable.getItems().addAll(WorkTimeRepository.findWorkTimeByTask(task));
+        try {
+            workTimeTable.getItems().addAll(WorkTimeRepository.findWorkTimeByTask(task));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         workTimeTable.getColumns().clear();
         workTimeTable.getColumns().addAll(user, date, time);
     }

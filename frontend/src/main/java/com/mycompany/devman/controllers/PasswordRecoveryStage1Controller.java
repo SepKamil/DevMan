@@ -62,7 +62,7 @@ public class PasswordRecoveryStage1Controller implements Initializable {
         String newPassword;
         try {
             newPassword = UserRepository.resetPassword(user);
-        } catch (MessagingException ex) {
+        } catch (Exception ex) {
             showErrorMessage(ex);
             return;
         }

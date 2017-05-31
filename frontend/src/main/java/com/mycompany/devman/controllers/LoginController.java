@@ -1,5 +1,6 @@
 package com.mycompany.devman.controllers;
 
+import com.mycompany.devman.repositories.MailConfigRepository;
 import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.controllers.employeePanel.EmployeePanelController;
 import com.mycompany.devman.controllers.managerPanel.ManagerPanelController;
@@ -127,6 +128,23 @@ public class LoginController implements Initializable {
      * /styles/main/passwordrecoverystage1.css are missing
      */
     public void onRecoveryButtonClick() throws IOException {
+        try {
+            if(MailConfigRepository.getMailCOnfig().getMailConfigSkipped()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Błąd!");
+                alert.setHeaderText("Funkcja niedostępna!");
+                alert.setContentText("Funkcjonalność resetowania hasła została wyłączona, ponieważ administrator nie skonfigurował danych serwera SMTP!");
+                alert.showAndWait();
+                return;
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Błąd!");
+            alert.setHeaderText("Funkcja niedostępna!");
+            alert.setContentText("Wystąpił problem z konfiguracją serwera SMTP!");
+            alert.showAndWait();
+            return;
+        }
         Stage recoveryWindow = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/PasswordRecoveryStage1.fxml"));
 

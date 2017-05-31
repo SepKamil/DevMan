@@ -21,6 +21,7 @@ public class ProjectRepository {
     public static Project addProject(Project project) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
+        project.setProjectState(Project.ProjectState.IN_PROGRESS);
         validateEntity(project);
         session.save(project);
         transaction.commit();
@@ -103,7 +104,7 @@ public class ProjectRepository {
         return projects;
     }
     
-    public static List<Project> findProjectsInProgress() {
+    public static List<Project> findProjectsInProgress() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project p WHERE p.projectState='IN_PROGRESS'").list();
@@ -111,8 +112,17 @@ public class ProjectRepository {
         session.close();
         return projects;
     }
+
+    public static List<Project> findCompletedProjects() throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Project> projects = session.createQuery("FROM Project p WHERE p.projectState='FINISHED'").list();
+        transaction.commit();
+        session.close();
+        return projects;
+    }
     
-    public static List<Project> findProjectsByUser(User user) throws Exception {
+    public static List<Project> findProjectsInProgressByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("SELECT DISTINCT team.project FROM User u JOIN u.teams team WHERE u=:user AND team.project.projectState='IN_PROGRESS'").setParameter("user", user).list();
@@ -121,7 +131,9 @@ public class ProjectRepository {
         return projects;
     }
 
-    public static List<Project> findAllProjects() {
+
+
+    public static List<Project> findAllProjects() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Project> projects = session.createQuery("FROM Project").list();

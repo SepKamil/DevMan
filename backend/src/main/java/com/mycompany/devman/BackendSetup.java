@@ -18,9 +18,9 @@ public class BackendSetup {
     private static ValidatorFactory validatorFactory;
     private static javax.mail.Session session;
     
-    public static javax.mail.Session getMailSession() {
+    public static javax.mail.Session getMailSession() throws Exception {
         if(session == null) {
-            setupMailSession();
+            throw new Exception("Mail connection is not configured!");
         }
         return session;
     }
@@ -30,16 +30,16 @@ public class BackendSetup {
             sessionFactory.close();
     }
 
-    private static void setupMailSession() {
+    public static void setupMailSession(MailConfig mailConfig) {
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", mailConfig.getSmtpAuthorization() ? "true" : "false");
+        props.put("mail.smtp.starttls.enable", mailConfig.getSmtpSecured() ? "true": "false");
         props.put("mail.smtp.localhost", "localhost");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.host", mailConfig.getSmtpHost());
+        props.put("mail.smtp.port", mailConfig.getSmtpPort());
 
-        String userName = "devmanmailer@gmail.com";
-        String password = "devman2017";
+        String userName = mailConfig.getSmtpLogin();
+        String password = mailConfig.getSmtpPassword();
 
         session = javax.mail.Session.getInstance(props,
         new javax.mail.Authenticator() {
@@ -48,12 +48,12 @@ public class BackendSetup {
                 return new PasswordAuthentication(userName, password);
         }
       });
-      session.setDebug(true);
+        session.setDebug(true);
     }
 
-    public static Session getDatabaseSession() {
+    public static Session getDatabaseSession() throws Exception {
         if(sessionFactory == null)
-            setupDatabaseConnection();
+            throw new Exception("Database connection is not set!");
         return sessionFactory.openSession();
     }
     
@@ -69,8 +69,7 @@ public class BackendSetup {
         BackendSetup.validatorFactory = validatorFactory;
     }
 
-    private static void setupDatabaseConnection() {
-        System.out.println("test");
+    public static void setupDatabaseConnection(DatabaseSetup databaseSetup) {
         sessionFactory = new Configuration().addAnnotatedClass(User.class)
                     .addAnnotatedClass(Leave.class)
                     .addAnnotatedClass(Message.class)
@@ -78,6 +77,13 @@ public class BackendSetup {
                     .addAnnotatedClass(Task.class)
                     .addAnnotatedClass(Team.class)
                     .addAnnotatedClass(WorkTime.class)
+                    .addAnnotatedClass(MailConfig.class)
+                    .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect")
+                    .setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver")
+                    .setProperty("hibernate.connection.url", databaseSetup.getUrl())
+                    .setProperty("hibernate.connection.username", databaseSetup.getLogin())
+                    .setProperty("hibernate.connection.password", databaseSetup.getPassword())
+                    .setProperty("hibernate.hbm2ddl.auto", "update")
                     .buildSessionFactory();
         validatorFactory = Validation.buildDefaultValidatorFactory();
     }

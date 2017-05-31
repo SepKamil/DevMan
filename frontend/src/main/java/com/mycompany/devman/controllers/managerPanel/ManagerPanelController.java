@@ -8,6 +8,7 @@ import com.mycompany.devman.domain.Team;
 import com.mycompany.devman.domain.User;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -86,20 +87,28 @@ public class ManagerPanelController implements Initializable, Observer {
         this.currentUser = user;
     }
 
-    private void initializeNumbersOnMainPage() {
+    private void initializeNumbersOnMainPage() throws Exception {
         pendingEmployees.setText(Integer
                 .valueOf(UserRepository.findInactiveUsers().size()).toString());
         pendingLeaveRequests.setText(Integer
                 .valueOf(LeaveRepository.findPendingLeavesByManager(currentUser)
                         .size()).toString());
-        numberOfProjects.setText(Integer
-                .valueOf(ProjectRepository.findProjectsInProgress().size()).toString());
+        numberOfProjects.setText(Long
+                .valueOf(ProjectRepository.findProjectsInProgress()
+                        .stream().filter(project -> !LocalDate.now()
+                                .isBefore(project.getStartDate()) && !LocalDate.now()
+                                .isAfter(project.getEndDate())).count()).toString());
         numberOfTeams.setText(Integer
                 .valueOf(TeamRepository.findAllTeams().size()).toString());
-        tasksInProgress.setText(Integer
-                .valueOf(TaskRepository.findTasksInProgress().size()).toString());
-        completedTasks.setText(Integer
-                .valueOf(TaskRepository.findCompletedTasks().size()).toString());
+        tasksInProgress.setText(Long
+                .valueOf(TaskRepository.findTasksInProgress()
+                        .stream().filter(task -> !LocalDate.now()
+                                .isBefore(task.getStartDate()) && !LocalDate.now()
+                                .isAfter(task.getEndDate())).count()).toString());
+        completedTasks.setText(Integer.valueOf(Integer.sum(TaskRepository.findCompletedTasks()
+                .size(), Long.valueOf(TaskRepository.findTasksInProgress()
+                .stream().filter(task -> LocalDate.now()
+                        .isAfter(task.getEndDate())).count()).intValue())).toString());
     }
 
     private void showInfoWindow() {
@@ -267,7 +276,7 @@ public class ManagerPanelController implements Initializable, Observer {
         team2Box.setSelectionModel(teamBox.getSelectionModel());
     }
 
-    private void setUpEmployeeTable() {
+    private void setUpEmployeeTable() throws Exception {
         employeeTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         TableColumn id = new TableColumn("ID");
         id.setMinWidth(150);
@@ -386,17 +395,17 @@ public class ManagerPanelController implements Initializable, Observer {
         });
     }
 
-    public void addTask(Task task) {
+    public void addTask(Task task) throws Exception {
         taskTable.getItems().add(task);
         initializeNumbersOnMainPage();
     }
     
-    public void addTeam(Team team) {
+    public void addTeam(Team team) throws Exception {
         teamsTable.getItems().add(team);
         initializeNumbersOnMainPage();
     }
     
-    public void addProject(Project project) {
+    public void addProject(Project project) throws Exception {
         projectsTable.getItems().add(project);
         initializeNumbersOnMainPage();
     }
@@ -432,6 +441,24 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.show();
     }
 
+    public void onArchiveTasksButtonClick() throws IOException {
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedTasks.fxml"));
+        ArchivedTasksController controller = new ArchivedTasksController();
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/styles/main/register.css");
+
+        employeeVerifyWindow.setTitle("DevMan - Archiwalne zadania");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
+    }
+
     public void onWorkTimeButtonClick() throws IOException {
         if(taskTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -450,6 +477,23 @@ public class ManagerPanelController implements Initializable, Observer {
         Scene scene = new Scene(root);
 
         employeeVerifyWindow.setTitle("DevMan - Czas pracy");
+        employeeVerifyWindow.setResizable(false);
+        employeeVerifyWindow.setScene(scene);
+        employeeVerifyWindow.setX(20);
+        employeeVerifyWindow.setY(20);
+        employeeVerifyWindow.show();
+    }
+
+    public void onArchivedProjectsButtonClick() throws IOException {
+        Stage employeeVerifyWindow = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedProjects.fxml"));
+        ArchivedProjectsController controller = new ArchivedProjectsController();
+        loader.setController(controller);
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+
+        employeeVerifyWindow.setTitle("DevMan - Archiwalne projekty");
         employeeVerifyWindow.setResizable(false);
         employeeVerifyWindow.setScene(scene);
         employeeVerifyWindow.setX(20);
@@ -790,7 +834,11 @@ public class ManagerPanelController implements Initializable, Observer {
 
     @Override
     public void update(java.util.Observable observable, Object o) {
-        initializeNumbersOnMainPage();
+        try {
+            initializeNumbersOnMainPage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateProject(Project p) {

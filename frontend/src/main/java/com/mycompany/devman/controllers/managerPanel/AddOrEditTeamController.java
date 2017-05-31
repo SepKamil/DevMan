@@ -74,7 +74,7 @@ public class AddOrEditTeamController extends Observable implements Initializable
         close();
     }
     
-    public void onAddButtonClick() {
+    public void onAddButtonClick() throws Exception {
         boolean newTeam = false;
         if(team == null) {
             team = new Team();

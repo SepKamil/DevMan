@@ -48,7 +48,7 @@ public class TeamRepository {
         }
     }
 
-    public static List<Team> findAllTeams() {
+    public static List<Team> findAllTeams() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Team> teams = session.createQuery("FROM Team").list();
@@ -103,7 +103,7 @@ public class TeamRepository {
         return teams;
     }
 
-    public static List<Team> findTeamsByProjrct(Project project) {
+    public static List<Team> findTeamsByProjrct(Project project) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Team> teams = session.createQuery("FROM Team t WHERE t.project=:project").setParameter("project", project).list();

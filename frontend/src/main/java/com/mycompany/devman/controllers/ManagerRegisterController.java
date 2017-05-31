@@ -1,24 +1,23 @@
 package com.mycompany.devman.controllers;
 
-import com.mycompany.devman.repositories.UserRepository;
 import com.mycompany.devman.domain.AccountType;
 import com.mycompany.devman.domain.User;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.mycompany.devman.repositories.UserRepository;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 /**
  * FXML Controller class
  *
  * @author kuba3
  */
-public class RegisterController implements Initializable {
+public class ManagerRegisterController implements Initializable {
     
     @FXML
     Button registerButton;
@@ -40,9 +39,6 @@ public class RegisterController implements Initializable {
     
     @FXML
     PasswordField repeatPassword;
-    
-    @FXML
-    ChoiceBox manager;
     
     @FXML
     TextField pesel;
@@ -72,16 +68,8 @@ public class RegisterController implements Initializable {
             alert.showAndWait();
             return;
         }
-        
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Informacja");
-        alert.setHeaderText("Rejestracja udana!");
-        alert.setContentText("Twoje konto będzie aktywne, gdy zatwierdzi je menadżer.");
-        alert.showAndWait().ifPresent(rs -> {
-            if (rs == ButtonType.OK) {
-                close();
-            }
-        });
+        Stage stage = (Stage)registerButton.getScene().getWindow();
+        stage.close();
     }
 
     private User makeNewUser() {
@@ -91,10 +79,9 @@ public class RegisterController implements Initializable {
         user.setName(name.getText());
         user.setLastName(lastName.getText());
         user.setEmail(email.getText());
-        user.setManager((User) manager.getSelectionModel().getSelectedItem());
         user.setPesel(pesel.getText());
-        user.setAccountType(AccountType.EMPLOYEE);
-        user.setUserState(User.userState.INACTIVE);
+        user.setAccountType(AccountType.MANAGER);
+        user.setUserState(User.userState.ACTIVE);
         return user;
     }
 
@@ -110,12 +97,7 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            UserRepository.findManagers().forEach(manager.getItems()::add);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        manager.getSelectionModel().selectFirst();
+
     }
     
 }

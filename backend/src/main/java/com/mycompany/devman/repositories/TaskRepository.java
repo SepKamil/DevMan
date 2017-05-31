@@ -148,7 +148,7 @@ public class TaskRepository {
         return tasks;
     }
 
-    public static List<Task> findTasksInProgress() {
+    public static List<Task> findTasksInProgress() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS'").list();
@@ -157,7 +157,7 @@ public class TaskRepository {
         return tasks;
     }
 
-    public static List<Task> findCompletedTasks() {
+    public static List<Task> findCompletedTasks() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='FINISHED'").list();
@@ -165,11 +165,40 @@ public class TaskRepository {
         session.close();
         return tasks;
     }
+
+
     
-    public static List<Task> findTasksByUser(User user) throws Exception {
+    public static List<Task> findTasksInProgressByUser(User user) throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='IN_PROGRESS' AND t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+
+    public static List<Task> findCompletedTasksByUser(User user) throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.taskState='FINISHED' AND t.team in (SELECT t FROM User u JOIN u.teams t WHERE u=:user)").setParameter("user", user).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+
+    public static List<Task> findCompletedTasksByTeam(Team team) throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.team=:team AND t.taskState='FINISHED'").setParameter("team", team).list();
+        transaction.commit();
+        session.close();
+        return tasks;
+    }
+
+    public static List<Task> findCompletedTasksByProject(Project project) throws Exception {
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<Task> tasks = session.createQuery("FROM Task t WHERE t.team.project=:project AND t.taskState='FINISHED'").setParameter("project", project).list();
         transaction.commit();
         session.close();
         return tasks;
