@@ -864,12 +864,28 @@ public class ManagerPanelController implements Initializable, Observer {
         });
     }
     
-    public void generateMonthRaport() throws Exception {
+    public void generateMonthTimeRaport() throws Exception {
         FileChooser chooser = new FileChooser();
         ExtensionFilter pdf = new ExtensionFilter("Pliki pdf", ".pdf");
         chooser.getExtensionFilters().add(pdf); // dodanie powyższego filtra na listę filtrów
         File file = chooser.showSaveDialog(new Stage()); // obiekt file będzie reprezentował nam wygenerowany pdf
-        Raport.generatePdf(file);
+        Raport.generateMonthTimePdf(file);
         // później będzie można zrobić np file.getName żeby otrzymać nazwę pliku 
+    }
+    
+    public void generateSettlementRaport() throws Exception {
+           FileChooser chooser = new FileChooser();
+        ExtensionFilter pdf = new ExtensionFilter("Pliki pdf", ".pdf");
+        chooser.getExtensionFilters().add(pdf);
+        File file = chooser.showSaveDialog(new Stage());
+        Raport.generateSettlementPdf(file);
+    }
+    
+        public void generateTeamEfficiencyRaport() throws Exception {
+           FileChooser chooser = new FileChooser();
+        ExtensionFilter pdf = new ExtensionFilter("Pliki pdf", ".pdf");
+        chooser.getExtensionFilters().add(pdf);
+        File file = chooser.showSaveDialog(new Stage());
+        Raport.generateTeamEfficiencyPdf(file); 
     }
 }
