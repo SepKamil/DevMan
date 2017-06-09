@@ -140,8 +140,6 @@ public class ProjectRepository {
         return projects;
     }
 
-
-
     public static List<Project> findAllProjects() throws Exception {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();

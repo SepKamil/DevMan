@@ -181,13 +181,14 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="260.0" layoutY="53.0" text="Typ raportu:" />
-                              <RadioButton layoutX="174.0" layoutY="94.0" mnemonicParsing="false" text="Word (doc)" />
-                              <RadioButton layoutX="360.0" layoutY="94.0" mnemonicParsing="false" text="PDF" />
-                              <Label layoutX="249.0" layoutY="140.0" text="Rodzaj raportu:" />
-                              <Button layoutX="174.0" layoutY="171.0" mnemonicParsing="false" onAction="#generateMonthTimeRaport" prefWidth="240.0" style="-fx-background-color: #1a376d;" text="Miesięczny raport o czasie pracy" textFill="WHITE" />
-                              <Button layoutX="174.0" layoutY="212.0" mnemonicParsing="false" onAction="#generateSettlementRaport" prefWidth="240.0" style="-fx-background-color: #1a376d;" text="Raport rozliczeniowy projektu" textFill="WHITE" />
-                              <Button layoutX="174.0" layoutY="253.0" mnemonicParsing="false" onAction="#generateTeamEfficiencyRaport" prefWidth="240.0" style="-fx-background-color: #1a376d;" text="Raport efektywności zespołu" textFill="WHITE" />
+                              <Label layoutX="153.0" layoutY="74.0" text="GENERATOR RAPORTU PDF" textFill="#1a376d">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font></Label>
+                              <Label layoutX="249.0" layoutY="121.0" text="Rodzaj raportu:" />
+                              <Button layoutX="174.0" layoutY="152.0" mnemonicParsing="false" onAction="#generateMonthTimeRaport" prefWidth="240.0" style="-fx-background-color: #1a376d;" text="Miesięczny raport o czasie pracy" textFill="WHITE" />
+                              <Button layoutX="174.0" layoutY="193.0" mnemonicParsing="false" onAction="#generateSettlementRaport" prefWidth="240.0" style="-fx-background-color: #1a376d;" text="Raport rozliczeniowy projektu" textFill="WHITE" />
+                              <Button layoutX="174.0" layoutY="234.0" mnemonicParsing="false" onAction="#generateTeamEfficiencyRaport" prefWidth="240.0" style="-fx-background-color: #1a376d;" text="Raport efektywności zespołu" textFill="WHITE" />
                            </children></AnchorPane>
                   </content>
                 </Tab>
