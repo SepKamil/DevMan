@@ -106,6 +106,10 @@ public class ManagerPanelController implements Initializable, Observer {
                 .valueOf(TaskRepository.findCompletedTasks().size()).toString());
     }
 
+    /**
+     * Opens the Archived Tasks window
+     * @throws IOException if database is inaccessible
+     */
     public void onArchiveTasksButtonClick() throws IOException {
         Stage employeeVerifyWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedTasks.fxml"));
@@ -123,7 +127,10 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.setY(20);
         employeeVerifyWindow.show();
     }
-
+    /**
+     * Opens the Archived Projects window
+     * @throws IOException if database is inaccessible
+     */
     public void onArchiveProjectsButtonClick() throws IOException {
         Stage employeeVerifyWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ArchivedProjects.fxml"));
@@ -222,6 +229,10 @@ public class ManagerPanelController implements Initializable, Observer {
         }
     }
 
+    /**
+     * Shows only the employees assigned to the selected team
+     * @throws Exception if the database is inaccessible
+     */
     public void onTeamFilterClick() throws Exception {
         Object o = teamBox.getSelectionModel().getSelectedItem();
         if(o instanceof Team) {
@@ -241,6 +252,10 @@ public class ManagerPanelController implements Initializable, Observer {
         }
     }
 
+    /**
+     * Shows only the tasks assigned to the selected team
+     * @throws Exception if the database is inaccessible
+     */
     public void onTaskFilterButtonClick() throws Exception {
         Object o = teamBox.getSelectionModel().getSelectedItem();
         if(o instanceof Team) {
@@ -445,14 +460,23 @@ public class ManagerPanelController implements Initializable, Observer {
         window.close();
     }
 
+    /**
+     * Opens the Tasks Tab
+     */
     public void onTasksInProgressClick() {
         tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Zadania")).get(0));
     }
 
+    /**
+     * Opens the Projects Tab
+     */
     public void onProjectsInProgressClick() {
         tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Projekty")).get(0));
     }
 
+    /**
+     * Opens the Employee Verification window
+     */
     public void onEmployeeVerifyClick() throws IOException {
         Stage employeeVerifyWindow = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/EmployeeVerify.fxml"));
@@ -470,6 +494,7 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.setY(20);
         employeeVerifyWindow.show();
     }
+
 
     public void onWorkTimeButtonClick() throws IOException {
         if(taskTable.getSelectionModel().getSelectedItem() == null) {
@@ -496,6 +521,10 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeVerifyWindow.show();
     }
 
+    /**
+     * Archives the selected project
+     * @throws Exception if the database is inaccesible
+     */
     public void onArchiveProjectButtonClick() throws Exception {
         for(Project project : projectsTable.getSelectionModel().getSelectedItems()) {
             project.setProjectState(Project.ProjectState.FINISHED);
@@ -555,10 +584,18 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeAddWindow.show();
     }
 
+    /**
+     * Opens the Employee edition window
+     * @throws IOException if the database is inaccessible
+     */
     public void onEditEmployeeClick() throws IOException {
         showAddOrEditEmployeeWindow();
     }
-    
+
+    /**
+     * Opens the window for adding teams
+     * @throws IOException if the database is inaccessible
+     */
     public void onAddTeamClick() throws IOException {
         showAddTeamWindow();
     }
@@ -601,10 +638,17 @@ public class ManagerPanelController implements Initializable, Observer {
         teamAddWindow.show();
     }
 
+    /**
+     * Opens the Team edition window
+     * @throws IOException if the database is inaccessible
+     */
     public void onEditTeamClick() throws IOException {
         showEditTeamWindow(teamsTable.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * returns the team for editing
+     */
     public void editTeam(Team t) {
         teamsTable.getItems().replaceAll(new UnaryOperator<Team>() {
             @Override
@@ -618,7 +662,11 @@ public class ManagerPanelController implements Initializable, Observer {
             }
         });
     }
-    
+
+    /**
+     * Opens the Task assignment window
+     * @throws IOException if the database is inaccessible
+     */
     public void onTaskAssignButtonClick() throws IOException {
         if (!checkIfTeamSelected()) return;
         Stage taskAssignWindow = new Stage();
@@ -639,7 +687,11 @@ public class ManagerPanelController implements Initializable, Observer {
         taskAssignWindow.setY(20);
         taskAssignWindow.show();
     }
-    
+
+    /**
+     * Opens the Employee assign window
+     * @throws IOException if the database is inaccessible
+     */
     public void onEmployeeAssignClick() throws IOException {
         if (!checkIfTeamSelected()) return;
         Stage employeeAssign = new Stage();
@@ -661,6 +713,10 @@ public class ManagerPanelController implements Initializable, Observer {
         employeeAssign.show();
     }
 
+    /**
+     * Removes an employee from the database
+     * @throws IOException if the database is inaccessible
+     */
     public void onDeleteEmployeeButtonClick() throws Exception {
         for(User employee : employeeTable.getSelectionModel().getSelectedItems()) {
             UserRepository.deleteUser(employee);
@@ -680,6 +736,10 @@ public class ManagerPanelController implements Initializable, Observer {
         return true;
     }
 
+    /**
+     * Opens the Team assign window
+     * @throws IOException if the database is inaccessible
+     */
     public void onTeamsAssignClick() throws IOException {
         Stage teamsAssign = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/TeamsAssign.fxml"));
@@ -697,6 +757,10 @@ public class ManagerPanelController implements Initializable, Observer {
         teamsAssign.show();
     }
 
+    /**
+     * Removes a Team from the database
+     * @throws IOException if the database is inaccessible
+     */
     public void onDeleteTeamButtonClick() throws Exception {
         for(Team team : teamsTable.getSelectionModel().getSelectedItems()) {
             TeamRepository.deleteTeam(team);
@@ -704,7 +768,11 @@ public class ManagerPanelController implements Initializable, Observer {
         teamsTable.getItems().removeAll(teamsTable.getSelectionModel().getSelectedItems());
         initializeNumbersOnMainPage();
     }
-    
+
+    /**
+     * Opens the Project addition window
+     * @throws IOException if the database is inaccessible
+     */
     public void onNewProjectButtonClick() throws IOException {
         showAddProjectWindow();
     }
@@ -759,10 +827,18 @@ public class ManagerPanelController implements Initializable, Observer {
         newProject.show();
     }
 
+    /**
+     * Opens the Project edition window
+     * @throws IOException if the database is inaccessible
+     */
     public void onEditProjectButtonClick() throws IOException {
         showEditProjectWindow();
     }
-    
+
+    /**
+     * Opens the Task addition window
+     * @throws IOException if the database is inaccessible
+     */
     public void onNewTaskButtonClick() throws IOException {
         showAddTaskWindow();
     }
@@ -815,9 +891,18 @@ public class ManagerPanelController implements Initializable, Observer {
         newTask.show();
     }
 
+    /**
+     * Opens the Task edition window
+     * @throws IOException if the database is inaccessible
+     */
     public void onEditTaskButtonClick() throws IOException {
         showEditTaskWindow();
     }
+
+    /**
+     * Archives the selected task
+     * @throws IOException if the database is inaccessible
+     */
     public void onArchieveTaskButtonClick() throws Exception {
         for(Task task : taskTable.getSelectionModel().getSelectedItems()) {
             task.setTaskState(Task.TaskState.FINISHED);
