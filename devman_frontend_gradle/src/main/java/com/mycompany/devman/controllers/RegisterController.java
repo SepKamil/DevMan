@@ -94,6 +94,7 @@ public class RegisterController implements Initializable {
         user.setManager((User) manager.getSelectionModel().getSelectedItem());
         user.setPesel(pesel.getText());
         user.setAccountType(AccountType.EMPLOYEE);
+        user.setUserState(User.userState.INACTIVE);
         return user;
     }
 
