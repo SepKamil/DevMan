@@ -209,7 +209,40 @@ public class User {
         this.pesel = pesel;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!login.equals(user.login)) return false;
+        if (!password.equals(user.password)) return false;
+        if (accountType != user.accountType) return false;
+        if (!name.equals(user.name)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        if (!email.equals(user.email)) return false;
+        if (!pesel.equals(user.pesel)) return false;
+        return userState == user.userState;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 1;
+        result = 31 * result + login.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + accountType.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + email.hashCode();
+        result = 31 * result + pesel.hashCode();
+        result = 31 * result + userState.hashCode();
+        return result;
+    }
+
     /**
+
      * @return the manager
      */
     public User getManager() {

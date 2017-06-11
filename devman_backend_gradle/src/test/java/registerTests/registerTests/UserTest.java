@@ -42,7 +42,7 @@ public class UserTest {
         BackendSetup.setSessionFactory(sessionFactory);
         BackendSetup.setValidatorFactory(validatorFactory);
     }
-    @Ignore
+
     @Test
     public void addTest() throws Exception {
         User user = new User();
@@ -53,11 +53,12 @@ public class UserTest {
         user.setPassword("password1");
         user.setPesel("23232312345");
         user.setLogin("test");
+        user.setUserState(User.userState.ACTIVE);
         Session session = BackendSetup.getDatabaseSession();
         UserRepository.addUserToDatabase(user);
-        assertEquals(user, session.createQuery("FROM User").list().get(0));
+        assertEquals(user, UserRepository.findByLoginAndPassword("test", "password1"));
     }
-    @Ignore
+
     @Test
     public void findUserById() throws Exception {
         User user = new User();
@@ -68,6 +69,7 @@ public class UserTest {
         user.setLastName("kowalski");
         user.setPassword("password1");
         user.setPesel("23232312345");
+        user.setUserState(User.userState.ACTIVE);
         UserRepository.addUserToDatabase(user);
         assertEquals(user,UserRepository.findByLoginAndPassword("login","password1"));
     }

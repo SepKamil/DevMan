@@ -58,7 +58,6 @@ public class registerTests {
     }
 
     @Test
-    @Ignore
     public void loginTest() throws Exception {
         User manager = new User();
         manager.setLogin("admin");
@@ -68,6 +67,7 @@ public class registerTests {
         manager.setPesel("11111111111");
         manager.setEmail("admin@devman.pl");
         manager.setAccountType(AccountType.MANAGER);
+        manager.setUserState(User.userState.ACTIVE);
 
         manager = UserRepository.addUserToDatabase(manager);
 
@@ -80,6 +80,7 @@ public class registerTests {
         user.setEmail("kuba3351@gmail.com");
         user.setAccountType(AccountType.EMPLOYEE);
         user.setManager(manager);
+        user.setUserState(User.userState.ACTIVE);
         user = UserRepository.addUserToDatabase(user);
         assertEquals(UserRepository.findByLoginAndPassword("kuba3351", "devman2017").getLogin(), user.getLogin());
         assertEquals(UserRepository.findByLoginAndPassword("kuba3351", "devman2017").getPassword(), user.getPassword());

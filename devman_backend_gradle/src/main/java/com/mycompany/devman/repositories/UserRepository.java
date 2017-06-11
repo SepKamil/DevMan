@@ -81,7 +81,6 @@ public class UserRepository {
         Session session = BackendSetup.getDatabaseSession();
         Transaction transaction = session.beginTransaction();
         validateEntity(user);
-        user.setUserState(User.userState.INACTIVE);
         Long id = (Long) session.save(user);
         user.setId(id);
         transaction.commit();

@@ -34,6 +34,7 @@ public class projectTest {
                 .addAnnotatedClass(Task.class)
                 .addAnnotatedClass(Team.class)
                 .addAnnotatedClass(WorkTime.class)
+                .addAnnotatedClass(Project.class)
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
                 .setProperty("hibernate.connection.driver_class", "org.h2.Driver")
                 .setProperty("hibernate.connection.url", "jdbc:h2:mem:")
@@ -72,7 +73,7 @@ public class projectTest {
     public void findProjectByIdIfNotExist() throws Exception {
         Project testProject = ProjectRepository.findById(new Long(0));
     }
-    @Ignore
+
     @Test(expected = Exception.class)
     public void deleteProjectIfNotExist() throws Exception {
         ProjectRepository.deleteById(new Long(0));
@@ -82,9 +83,6 @@ public class projectTest {
     public void addProjectIfIncorrect() throws Exception {
        Project project= new Project();
        ProjectRepository.addProject(project);
-
-
-
    }
 
 
