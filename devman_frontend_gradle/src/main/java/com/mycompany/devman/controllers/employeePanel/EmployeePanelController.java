@@ -89,8 +89,9 @@ public class EmployeePanelController implements Initializable {
     /**
      * Adds new leave request to the table
      */
-    public void addNewLeaveRequest(Leave leave) {
+    public void addNewLeaveRequest(Leave leave) throws Exception {
         leaveTable.getItems().add(leave);
+        setUpNumbers();
     }
 
     private void showInfoWindow() {
@@ -161,8 +162,9 @@ public class EmployeePanelController implements Initializable {
     /**
      * Adds new work time to the table
      */
-    public void addNewWorkTime(WorkTime workTime) {
+    public void addNewWorkTime(WorkTime workTime) throws Exception {
         workTimeTable.getItems().add(workTime);
+        setUpNumbers();
     }
 
     private void setUpTeamFiltering() throws Exception {
@@ -179,7 +181,7 @@ public class EmployeePanelController implements Initializable {
     /**
      * Edits existing work time
      */
-    public void editWorkTime(WorkTime workTime) {
+    public void editWorkTime(WorkTime workTime) throws Exception {
         workTimeTable.getItems().replaceAll(new UnaryOperator<WorkTime>() {
             @Override
             public WorkTime apply(WorkTime w) {
@@ -191,6 +193,7 @@ public class EmployeePanelController implements Initializable {
                 }
             }
         });
+        setUpNumbers();
     }
 
     private void setUpProjectFiltering() throws Exception {
