@@ -55,7 +55,7 @@ public class Raport {
 
                 List<WorkTime> works = WorkTimeRepository.findByUser(user);
                 int userWorkTimeMonth = 0;
-                
+
                 for (WorkTime work : works) {
                     if (today.getMonth().equals(work.getDate().getMonth())) {
                         userWorkTimeMonth += work.getWorkTime();
@@ -145,4 +145,45 @@ public class Raport {
             e.printStackTrace();
         }
     }
+
+    public static void generateUserMonthTimePdf(File file) throws Exception {
+
+        Document document = new Document();
+        Rectangle rect = new Rectangle(PageSize.A4); //Tworzenie elementu - rozmiaru dokumentu, który będzie kwadratem o rozmiarze 210mm x 297mm - format a4
+        document.setPageSize(rect);
+
+        List<User> user = UserRepository.findEmployees();
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(file));
+            document.open();
+            Paragraph paragraph = new Paragraph();
+            paragraph.add("Miesięczny raport o czasie pracy. \n");
+            paragraph.add("\n");
+
+//            paragraph.add("Imię: " + user.get(0) + "\n");
+//            paragraph.add("Nazwisko: " + user.get + "\n");
+
+            LocalDate today = LocalDate.now();
+            today.getMonth();
+            List<WorkTime> works = WorkTimeRepository.findByUser((User) user);
+            int userWorkTimeMonth = 0;
+
+            for (WorkTime work : works) {
+                if (today.getMonth().equals(work.getDate().getMonth())) {
+                    userWorkTimeMonth += work.getWorkTime();
+                }
+            }
+
+            paragraph.add("Czas pracy w danym miesiącu: " + userWorkTimeMonth + "\n");
+            paragraph.add("\n");
+
+            document.add(paragraph);
+            document.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
