@@ -62,7 +62,7 @@ public class EmployeeVerifyController extends Observable implements Initializabl
         for(User user : employeeTable.getSelectionModel().getSelectedItems()) {
             UserRepository.deleteUser(user);
         }
-        employeeTable.getItems().removeAll(employeeTable.getItems());
+        employeeTable.getItems().removeAll(employeeTable.getSelectionModel().getSelectedItems());
         setChanged();
         notifyObservers();
     }
@@ -76,7 +76,7 @@ public class EmployeeVerifyController extends Observable implements Initializabl
             user.setUserState(User.userState.ACTIVE);
             UserRepository.updateUser(user);
         }
-        employeeTable.getItems().removeAll(employeeTable.getItems());
+        employeeTable.getItems().removeAll(employeeTable.getSelectionModel().getSelectedItems());
         setChanged();
         notifyObservers();
     }
