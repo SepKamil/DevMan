@@ -30,6 +30,23 @@ public class WorkTimeRepository {
         return workTime;
     }
 
+    public static Integer calculateReamingWorkHoursToday(User user) throws Exception {
+        int totalHours = user.getHoursPerDay();
+        Session session = BackendSetup.getDatabaseSession();
+        Transaction transaction = session.beginTransaction();
+        List<WorkTime> list = session.createQuery("FROM WorkTime w WHERE w.date=:date").setParameter("date", LocalDate.now()).list();
+        transaction.commit();
+        session.close();
+        int usedHours = list.stream().mapToInt(WorkTime::getWorkTime).sum();
+        int returnValue = totalHours - usedHours;
+        if(returnValue < 0) {
+            return 0;
+        }
+        else {
+            return returnValue;
+        }
+    }
+
     private static void validateEntity(WorkTime workTime) throws Exception {
         if(workTime.getDate().isAfter(LocalDate.now())) {
             throw new Exception("Nie można zalogować zadania z przyszłości!");

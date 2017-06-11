@@ -6,6 +6,7 @@ import com.mycompany.devman.repositories.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
@@ -62,6 +63,24 @@ public class EmployeePanelController implements Initializable {
 
     @FXML
     private TableView<WorkTime> workTimeTable;
+
+    @FXML
+    private Label pendingHours;
+
+    @FXML
+    private Label pendingDays;
+
+    @FXML
+    private Label completedTasks;
+
+    @FXML
+    private Label pendingTasks;
+
+    @FXML
+    private Label numberOfProjects;
+
+    @FXML
+    private Label nextLeave;
     
     public EmployeePanelController(User user) {
         this.currentUser = user;
@@ -132,6 +151,7 @@ public class EmployeePanelController implements Initializable {
             setUpProjectFiltering();
             setUpTeamFiltering();
             setUpWorkTimeTable();
+            setUpNumbers();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,6 +226,16 @@ public class EmployeePanelController implements Initializable {
         });
         project2Box.setItems(projectBox.getItems());
         project2Box.setSelectionModel(projectBox.getSelectionModel());
+    }
+
+    private void setUpNumbers() throws Exception {
+        pendingHours.setText(WorkTimeRepository.calculateReamingWorkHoursToday(currentUser).toString());
+        pendingDays.setText(LeaveRepository.getReamingLeaveDays(currentUser).toString());
+        pendingTasks.setText(String.valueOf(TaskRepository.findTasksInProgressByUser(currentUser).stream().filter(task -> !LocalDate.now().isAfter(task.getEndDate())).count()));
+        numberOfProjects.setText(String.valueOf(ProjectRepository.findProjectsInProgressByUser(currentUser).size()));
+        nextLeave.setText(LeaveRepository
+                .getNextLeaveDate(currentUser).map(LocalDate::toString).orElse("brak"));
+        completedTasks.setText(String.valueOf(TaskRepository.findCompletedTasksByUser(currentUser).stream().filter(task -> LocalDate.now().isAfter(task.getEndDate())).count()));
     }
 
     private void setUpTasksTable() throws Exception {

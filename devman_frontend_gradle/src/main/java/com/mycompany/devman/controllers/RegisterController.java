@@ -95,6 +95,8 @@ public class RegisterController implements Initializable {
         user.setPesel(pesel.getText());
         user.setAccountType(AccountType.EMPLOYEE);
         user.setUserState(User.userState.INACTIVE);
+        user.setLeaveDaysPerYear(21);
+        user.setHoursPerDay(8);
         return user;
     }
 

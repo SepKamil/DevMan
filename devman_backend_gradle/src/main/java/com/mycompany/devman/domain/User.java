@@ -72,6 +72,26 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Team> teams;
 
+    private Integer hoursPerDay;
+
+    private Integer leaveDaysPerYear;
+
+    public Integer getHoursPerDay() {
+        return hoursPerDay;
+    }
+
+    public void setHoursPerDay(Integer hoursPerDay) {
+        this.hoursPerDay = hoursPerDay;
+    }
+
+    public Integer getLeaveDaysPerYear() {
+        return leaveDaysPerYear;
+    }
+
+    public void setLeaveDaysPerYear(Integer leaveDaysPerYear) {
+        this.leaveDaysPerYear = leaveDaysPerYear;
+    }
+
     public enum userState{ACTIVE,INACTIVE;};
 
     @Enumerated(EnumType.STRING)
