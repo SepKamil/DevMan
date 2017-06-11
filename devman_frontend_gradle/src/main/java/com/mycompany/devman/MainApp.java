@@ -37,6 +37,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
+            stage.setOnCloseRequest(windowEvent -> System.exit(0));
             String system = System.getProperty("os.name");
             Map<String, String> env = System.getenv();
             File file;

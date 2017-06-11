@@ -110,7 +110,11 @@ public class AddLeaveRequestController implements Initializable {
         Leave finalLeave = leave;
         alert.showAndWait().ifPresent(rs -> {
         if (rs == ButtonType.OK) {
-            controller.addNewLeaveRequest(finalLeave);
+            try {
+                controller.addNewLeaveRequest(finalLeave);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             close();
         }
       });

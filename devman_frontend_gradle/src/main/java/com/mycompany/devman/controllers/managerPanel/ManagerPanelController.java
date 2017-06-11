@@ -215,7 +215,6 @@ public class ManagerPanelController implements Initializable, Observer {
 
                 });
 
-
         try {
             setUpProjectTable();
             setUpEmployeeTable();

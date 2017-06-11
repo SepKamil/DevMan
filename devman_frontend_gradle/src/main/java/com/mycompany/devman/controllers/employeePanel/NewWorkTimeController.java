@@ -82,7 +82,7 @@ public class NewWorkTimeController implements Initializable {
     /**
      * Logs Work Time. Method fails if database cannot be updated
      */
-    public void onOkButtonClick() {
+    public void onOkButtonClick() throws Exception {
         WorkTime workTime = new WorkTime();
         workTime.setTask(task);
         workTime.setWorkTime(time.getValue());

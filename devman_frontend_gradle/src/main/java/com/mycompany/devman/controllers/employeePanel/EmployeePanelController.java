@@ -156,7 +156,6 @@ public class EmployeePanelController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -488,5 +487,4 @@ public class EmployeePanelController implements Initializable {
         leaveRequest.setY(20);
         leaveRequest.show();
     }
-    
 }

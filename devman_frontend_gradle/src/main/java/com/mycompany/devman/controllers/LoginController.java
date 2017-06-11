@@ -87,6 +87,7 @@ public class LoginController implements Initializable {
 
     private void showEmployeePanel(User user) throws IOException {
         Stage employeeWindow = new Stage();
+        employeeWindow.setOnCloseRequest(windowEvent -> System.exit(0));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/EmployeePanel.fxml"));
         EmployeePanelController controller = new EmployeePanelController(user);
         loader.setController(controller);
@@ -105,6 +106,7 @@ public class LoginController implements Initializable {
 
     private void showManagerPanel(User user) throws IOException {
         Stage managerWindow = new Stage();
+        managerWindow.setOnCloseRequest(windowEvent -> System.exit(0));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/managerPanel/ManagerPanel.fxml"));
         ManagerPanelController controller = new ManagerPanelController(user);
         loader.setController(controller);

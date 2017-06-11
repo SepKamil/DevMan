@@ -44,7 +44,7 @@ public class LeaveRepository {
     }
 
     public static Optional<LocalDate> getNextLeaveDate(User user) throws Exception {
-        return findLeavesByUser(user).stream().map(Leave::getStartDate).sorted().findFirst();
+        return findLeavesByUser(user).stream().filter(leave -> leave.getStatus().equals(LeaveRequestStatus.ZAAKCEPTOWANY)).map(leave -> leave.getStartDate().plusDays(1)).sorted().findFirst();
     }
 
     public static List<Leave> findAcceptedLeavesByUser(User user) throws Exception {
