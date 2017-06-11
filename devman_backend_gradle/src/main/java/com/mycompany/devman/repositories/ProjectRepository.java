@@ -75,11 +75,10 @@ public class ProjectRepository {
     }
 
     public static void deleteById(Long id) throws Exception {
-
         try {
             Session session = BackendSetup.getDatabaseSession();
             Transaction transaction = session.beginTransaction();
-            Query query = session.createQuery("Delete from projects where id=:id").setParameter("id",id);
+            Query query = session.createQuery("Delete from Project where id=:id").setParameter("id",id);
             query.executeUpdate();
             transaction.commit();
             session.close();

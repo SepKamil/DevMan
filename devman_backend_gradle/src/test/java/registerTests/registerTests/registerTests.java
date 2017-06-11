@@ -47,6 +47,7 @@ public class registerTests {
                     .addAnnotatedClass(Task.class)
                     .addAnnotatedClass(Team.class)
                     .addAnnotatedClass(WorkTime.class)
+
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
                 .setProperty("hibernate.connection.driver_class", "org.h2.Driver")
                 .setProperty("hibernate.connection.url", "jdbc:h2:mem:")
