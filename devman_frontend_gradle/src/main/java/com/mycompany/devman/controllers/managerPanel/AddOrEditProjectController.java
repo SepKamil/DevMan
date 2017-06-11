@@ -68,7 +68,12 @@ public class AddOrEditProjectController extends Observable implements Initializa
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Adds/edits a project and saves the changes to the database.
+     * If saving fails, an alert window pops up, but doesn't close the window.
+     * @throws Exception
+     */
     public void onOkButtonClick() throws Exception {
         boolean newProject = false;
         if(project == null) {
@@ -102,7 +107,10 @@ public class AddOrEditProjectController extends Observable implements Initializa
         notifyObservers();
         close();
     }
-    
+
+    /**
+     * closes the project addition/edition window
+     */
     public void onCancelButtonClick() {
         close();
     }

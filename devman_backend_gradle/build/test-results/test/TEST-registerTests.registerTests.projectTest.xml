@@ -1,83 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="registerTests.registerTests.projectTest" tests="5" skipped="1" failures="0" errors="0" timestamp="2017-05-31T12:03:50" hostname="DESKTOP-T462JM9" time="2.291">
+<testsuite name="registerTests.registerTests.projectTest" tests="5" skipped="1" failures="0" errors="0" timestamp="2017-06-09T17:23:25" hostname="DESKTOP-T462JM9" time="2.739">
   <properties/>
-  <testcase name="addProjectIfIncorrect" classname="registerTests.registerTests.projectTest" time="1.76"/>
-  <testcase name="addTest" classname="registerTests.registerTests.projectTest" time="0.312"/>
-  <testcase name="findProjectById" classname="registerTests.registerTests.projectTest" time="0.125"/>
+  <testcase name="addProjectIfIncorrect" classname="registerTests.registerTests.projectTest" time="2.03"/>
+  <testcase name="addTest" classname="registerTests.registerTests.projectTest" time="0.361"/>
+  <testcase name="findProjectById" classname="registerTests.registerTests.projectTest" time="0.207"/>
   <testcase name="deleteProjectIfNotExist" classname="registerTests.registerTests.projectTest" time="0.0">
     <skipped/>
   </testcase>
-  <testcase name="findProjectByIdIfNotExist" classname="registerTests.registerTests.projectTest" time="0.094"/>
+  <testcase name="findProjectByIdIfNotExist" classname="registerTests.registerTests.projectTest" time="0.139"/>
   <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[maj 31, 2017 2:03:50 PM org.hibernate.Version logVersion
+  <system-err><![CDATA[cze 09, 2017 7:23:25 PM org.hibernate.Version logVersion
 INFO: HHH000412: Hibernate Core {5.2.10.Final}
-maj 31, 2017 2:03:50 PM org.hibernate.cfg.Environment <clinit>
+cze 09, 2017 7:23:25 PM org.hibernate.cfg.Environment <clinit>
 INFO: HHH000206: hibernate.properties not found
-maj 31, 2017 2:03:50 PM org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
+cze 09, 2017 7:23:25 PM org.hibernate.annotations.common.reflection.java.JavaReflectionManager <clinit>
 INFO: HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
-maj 31, 2017 2:03:51 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+cze 09, 2017 7:23:25 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-maj 31, 2017 2:03:51 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:25 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:]
-maj 31, 2017 2:03:51 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:25 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001001: Connection properties: {}
-maj 31, 2017 2:03:51 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:25 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-maj 31, 2017 2:03:51 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
+cze 09, 2017 7:23:25 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-maj 31, 2017 2:03:51 PM org.hibernate.dialect.Dialect <init>
+cze 09, 2017 7:23:25 PM org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-maj 31, 2017 2:03:51 PM org.hibernate.validator.internal.util.Version <clinit>
+cze 09, 2017 7:23:26 PM org.hibernate.validator.internal.util.Version <clinit>
 INFO: HV000001: Hibernate Validator 5.4.1.Final
-maj 31, 2017 2:03:52 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1a57da64] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+cze 09, 2017 7:23:27 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4f822f8f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:]
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001001: Connection properties: {}
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-maj 31, 2017 2:03:52 PM org.hibernate.dialect.Dialect <init>
+cze 09, 2017 7:23:27 PM org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-maj 31, 2017 2:03:52 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@59de35d6] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-maj 31, 2017 2:03:52 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
+cze 09, 2017 7:23:27 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@61809894] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+cze 09, 2017 7:23:27 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
 INFO: HHH000397: Using ASTQueryTranslatorFactory
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:]
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001001: Connection properties: {}
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-maj 31, 2017 2:03:52 PM org.hibernate.dialect.Dialect <init>
+cze 09, 2017 7:23:27 PM org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-maj 31, 2017 2:03:52 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6ef5c67f] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-maj 31, 2017 2:03:52 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
+cze 09, 2017 7:23:27 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@723c0fc2] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+cze 09, 2017 7:23:27 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
 INFO: HHH000397: Using ASTQueryTranslatorFactory
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
 WARN: HHH10001002: Using Hibernate built-in connection pool (not for production use!)
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001005: using driver [org.h2.Driver] at URL [jdbc:h2:mem:]
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001001: Connection properties: {}
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
 INFO: HHH10001003: Autocommit mode: false
-maj 31, 2017 2:03:52 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
+cze 09, 2017 7:23:27 PM org.hibernate.engine.jdbc.connections.internal.PooledConnections <init>
 INFO: HHH000115: Hibernate connection pool size: 20 (min=1)
-maj 31, 2017 2:03:52 PM org.hibernate.dialect.Dialect <init>
+cze 09, 2017 7:23:27 PM org.hibernate.dialect.Dialect <init>
 INFO: HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-maj 31, 2017 2:03:53 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
-INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@149ee260] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
-maj 31, 2017 2:03:53 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
+cze 09, 2017 7:23:27 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@1c316968] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+cze 09, 2017 7:23:27 PM org.hibernate.hql.internal.QueryTranslatorFactoryInitiator initiateService
 INFO: HHH000397: Using ASTQueryTranslatorFactory
 ]]></system-err>
 </testsuite>

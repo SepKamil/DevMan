@@ -62,6 +62,10 @@ public class LeaveRequestController extends Observable implements Initializable 
         leaveTable.getColumns().addAll(employee, startDate, numberOfDays);
     }
 
+    /**
+     * Approves of a leave request for an employee
+     * @throws Exception if the database can't be updated
+     */
     public void onAcceptButtonClick() throws Exception {
         System.out.println("Akceptowanie:"+leaveTable.getSelectionModel().getSelectedItems().size());
         List<Leave> selected = leaveTable.getSelectionModel().getSelectedItems();
@@ -72,7 +76,11 @@ public class LeaveRequestController extends Observable implements Initializable 
         setChanged();
         notifyObservers();
     }
-    
+
+    /**
+     * Rejects a leave request for an employee
+     * @throws Exception if the database cannot be updated
+     */
     public void onRejectButtonClick() throws Exception {
         System.out.println("Odrzucanie:"+leaveTable.getSelectionModel().getSelectedItems().size());
         List<Leave> selected = leaveTable.getSelectionModel().getSelectedItems();

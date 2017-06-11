@@ -26,6 +26,9 @@ public class WorkTimeController implements Initializable {
         this.task = task;
     }
 
+    /**
+     * Initializes the controller class
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TableColumn user = new TableColumn<>("Użytkownik");

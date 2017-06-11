@@ -73,7 +73,10 @@ public class EmployeeAssignController extends Observable implements Initializabl
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Assigns Employees into teams, saves the changes and notifies observers
+     */
     public void onOkButtonClick() {
         updateSelectedEmployees();
         updateNonSelectedEmployees();

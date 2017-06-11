@@ -25,6 +25,15 @@ import java.util.function.BiConsumer;
 
 
 public class MainApp extends Application {
+    /**
+     *
+     * @param stage
+     * @throws Exception
+     *
+     * Initializes the whole application, checking for OS, database connection
+     * and initial configuration - if the program was not configured yet it shows
+     * a window in which the user can config the program
+     */
     @Override
     public void start(Stage stage) throws Exception {
         try {
@@ -40,7 +49,7 @@ public class MainApp extends Application {
                 System.out.println("Detected Windows OS!");
             }
             else {
-                System.out.println("OS not detected!");
+                System.out.println("OS not recognized!");
                 return;
             }
             if(!file.exists()) {
@@ -136,6 +145,13 @@ public class MainApp extends Application {
         showLoginWindow(stage);
     }
 
+    /**
+     *
+     * @param stage
+     * @throws java.io.IOException
+     *
+     * The method opens the Login Window
+     */
     public void showLoginWindow(Stage stage) throws java.io.IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 

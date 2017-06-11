@@ -78,7 +78,10 @@ public class NewWorkTimeController implements Initializable {
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Logs Work Time. Method fails if database cannot be updated
+     */
     public void onOkButtonClick() {
         WorkTime workTime = new WorkTime();
         workTime.setTask(task);
@@ -98,7 +101,10 @@ public class NewWorkTimeController implements Initializable {
         employeePanelController.addNewWorkTime(workTime);
         close();
     }
-    
+
+    /**
+     * Closes the window without saving changes
+     */
     public void onCancelButtonClick() {
         close();
     }

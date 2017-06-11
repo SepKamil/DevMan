@@ -69,11 +69,19 @@ public class AddOrEditTeamController extends Observable implements Initializable
         Stage window = (Stage) cancel.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Closes the window without saving changes.
+     */
     public void onCancelButtonClick() {
         close();
     }
-    
+
+    /**
+     * Adds/edits a team and saves the changes to the database.
+     * If saving fails, an alert window pops up, but doesn't close the window.
+     * @throws Exception
+     */
     public void onAddButtonClick() throws Exception {
         boolean newTeam = false;
         if(team == null) {

@@ -66,7 +66,10 @@ public class EmployeePanelController implements Initializable {
     public EmployeePanelController(User user) {
         this.currentUser = user;
     }
-    
+
+    /**
+     * Adds new leave request to the table
+     */
     public void addNewLeaveRequest(Leave leave) {
         leaveTable.getItems().add(leave);
     }
@@ -135,6 +138,9 @@ public class EmployeePanelController implements Initializable {
 
     }
 
+    /**
+     * Adds new work time to the table
+     */
     public void addNewWorkTime(WorkTime workTime) {
         workTimeTable.getItems().add(workTime);
     }
@@ -150,6 +156,9 @@ public class EmployeePanelController implements Initializable {
         team2Box.setSelectionModel(teamBox.getSelectionModel());
     }
 
+    /**
+     * Edits existing work time
+     */
     public void editWorkTime(WorkTime workTime) {
         workTimeTable.getItems().replaceAll(new UnaryOperator<WorkTime>() {
             @Override
@@ -288,7 +297,11 @@ public class EmployeePanelController implements Initializable {
         Stage window = (Stage) menuBar.getScene().getWindow();
         window.close();
     }
-    
+
+    /**
+     * Shows only the employees belonging to the selected team - or all of them at once, depending on the setting
+     * @throws Exception if database is inaccessible
+     */
     public void onTeamFilterClick() throws Exception {
         Object o = teamBox.getSelectionModel().getSelectedItem();
         if(o instanceof Team) {
@@ -307,7 +320,11 @@ public class EmployeePanelController implements Initializable {
             }
         }
     }
-    
+
+    /**
+     * Shows only the tasks of the selected team
+     * @throws Exception if the database is inaccessible
+     */
     public void onTaskFilterButtonClick() throws Exception {
         Object o = teamBox.getSelectionModel().getSelectedItem();
         if(o instanceof Team) {
@@ -326,24 +343,37 @@ public class EmployeePanelController implements Initializable {
             }
         }
     }
-    
+
+    /**
+     * Opens the Task Tab
+     */
     public void onTaskManagementButtonClick() {
         tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Zadania")).get(0));
     }
-   
-    
+
+    /**
+     * Opens the Team Tab
+     */
     public void onTeamInfoButtonClick() {
         tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Zespół")).get(0));
     }
-    
+    /**
+     * Opens the Time Tab
+     */
     public void onWorkTimeButtonClick() {
         tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Czas pracy")).get(0));
     }
-    
+    /**
+     * Opens the Leave Tab
+     */
     public void onLeaveRequestsButtonClick() {
         tabPanel.getSelectionModel().select(tabPanel.getTabs().filtered(tab -> tab.getText().equals("Urlopy")).get(0));
     }
-    
+
+    /**
+     * Adds new work time to the log
+     * @throws IOException if the database is inaccessible
+     */
     public void onNewWorkTimeButtonClick() throws IOException {
         if(tasksTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -370,7 +400,10 @@ public class EmployeePanelController implements Initializable {
         newWorkTimeWindow.setY(20);
         newWorkTimeWindow.show();
     }
-    
+    /**
+     * Edits an existing work time in the log
+     * @throws IOException if the database is inaccessible
+     */
     public void onWorkTimeEditButtonClick() throws IOException {
         if(workTimeTable.getSelectionModel().getSelectedItem() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -401,7 +434,10 @@ public class EmployeePanelController implements Initializable {
 
 
 
-    
+    /**
+     * Adds new leave request to the database
+     * @throws IOException if the database is inaccessible
+     */
     public void onAddLeaveRequestButtonClick() throws IOException {
         Stage leaveRequest = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employeePanel/AddLeaveRequest.fxml"));
