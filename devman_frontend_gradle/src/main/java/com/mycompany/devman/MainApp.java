@@ -43,10 +43,18 @@ public class MainApp extends Application {
             File file;
             if(system.contains("linux") || system.contains("Linux")) {
                 file = new File(env.get("HOME") + "/.devman/config.ini");
+                File directory = new File(env.get("HOME") + "/.devman");
+                if(!directory.isDirectory()) {
+                    directory.mkdir();
+                }
                 System.out.println("Detected Linux OS!");
             }
             else if(system.contains("Win") || system.contains("win")) {
                 file = new File(env.get("PUBLIC") + "\\AppData\\Roaming\\devman\\config.ini");
+                File directory = new File(env.get("PUBLIC") + "\\AppData\\Roaming\\devman");
+                if(!directory.isDirectory()) {
+                    directory.mkdir();
+                }
                 System.out.println("Detected Windows OS!");
             }
             else {
