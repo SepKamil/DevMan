@@ -11,6 +11,8 @@ import com.mycompany.devman.domain.User;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -110,7 +112,11 @@ public class AddLeaveRequestController implements Initializable {
         Leave finalLeave = leave;
         alert.showAndWait().ifPresent(rs -> {
         if (rs == ButtonType.OK) {
-            controller.addNewLeaveRequest(finalLeave);
+            try {
+                controller.addNewLeaveRequest(finalLeave);
+            } catch (Exception ex) {
+                Logger.getLogger(AddLeaveRequestController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             close();
         }
       });

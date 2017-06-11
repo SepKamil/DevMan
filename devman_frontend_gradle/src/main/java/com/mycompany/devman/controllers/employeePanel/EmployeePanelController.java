@@ -3,6 +3,7 @@ package com.mycompany.devman.controllers.employeePanel;
 import com.mycompany.devman.MainApp;
 import com.mycompany.devman.domain.*;
 import com.mycompany.devman.repositories.*;
+import java.io.File;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -487,6 +489,20 @@ public class EmployeePanelController implements Initializable {
         leaveRequest.setX(20);
         leaveRequest.setY(20);
         leaveRequest.show();
+    }
+    
+        public File fileChooser() {
+        FileChooser chooser = new FileChooser();
+        FileChooser.ExtensionFilter pdf = new FileChooser.ExtensionFilter("Pliki pdf", ".pdf");
+        chooser.getExtensionFilters().add(pdf);
+        File file = chooser.showSaveDialog(new Stage());
+        return file;
+    }
+ 
+    
+        public void generateMonthTimeRaport() throws Exception {
+        File file = fileChooser();
+        Raport.generateUserMonthTimePdf(file);
     }
     
 }
